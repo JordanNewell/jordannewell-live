@@ -1,0 +1,73 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SchemaOrg from "../components/SchemaOrg.astro";
+import { SITE } from "../lib/site";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  schema?: object[];
+  path?: string;
+  ogImage?: string;
+  favicon?: string;
+  bare?: boolean;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  schema = [],
+  path = Astro.url.pathname,
+  ogImage,
+  favicon = "/favicon.svg",
+  bare = false,
+} = Astro.props;
+
+const ogTitle = title === SITE.title ? title : `${title} — ${SITE.title}`;
+const resolvedOgImage = ogImage
+  ? (ogImage.startsWith("http") ? ogImage : `${SITE.url}${ogImage}`)
+  : `${SITE.url}/og-card.png`;
+const resolvedFavicon = favicon.startsWith("http") ? favicon : `${SITE.url}${favicon}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{ogTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/coming-soon/favicon-32.png?v=6" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/images/coming-soon/favicon-512.png?v=6" />
+    <link rel="apple-touch-icon" href="/images/coming-soon/favicon-512.png?v=6" />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:image" content={resolvedOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={resolvedOgImage} />
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" />
+    <meta name="copyright" content="© 2026 Jordan Newell. CC BY-NC 4.0." />
+    <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
+    <link rel="alternate" type="application/json" title={SITE.title} href="/feed.json" />
+    <SchemaOrg schema={schema} />
+    <!-- Cloudflare Web Analytics -->
+    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "012b8a7bc7594c91aff6f05cab5951fd"}'></script>
+  </head>
+  <body>
+    <div class="dot-grid"></div>
+    <div class="relative z-1">
+      {!bare && <Header path={path} />}
+      <main class="max-w-prose mx-auto px-5 py-12">
+        <slot />
+      </main>
+      {!bare && <Footer />}
+    </div>
+    <script src="/js/main.js" defer></script>
+  </body>
+</html>

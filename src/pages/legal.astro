@@ -1,0 +1,607 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const year = new Date().getFullYear();
+const FONT_URL = "https://jordannewell.github.io/newell-typeface/";
+// Same 12 floating keys as the splash — JORDAN left gutter, NEWELL right.
+const LEFT = ["J", "O", "R", "D", "A", "N"];
+const RIGHT = ["N", "E", "W", "E", "L", "L"];
+const keys = [
+  { top: "13vh", left: "20vw", rot: -7,  variant: "green" },
+  { top: "21vh", left: "24vw", rot:  3,  variant: "white" },
+  { top: "28vh", left: "18vw", rot: -3,  variant: "green" },
+  { top: "72vh", left: "19vw", rot:  4,  variant: "white" },
+  { top: "80vh", left: "24vw", rot: -5,  variant: "green" },
+  { top: "88vh", left: "18vw", rot:  2,  variant: "white" },
+  { top: "14vh", right: "21vw", rot:  5,  variant: "white" },
+  { top: "22vh", right: "25vw", rot: -4,  variant: "green" },
+  { top: "29vh", right: "19vw", rot:  6,  variant: "white" },
+  { top: "73vh", right: "20vw", rot: -6,  variant: "green" },
+  { top: "81vh", right: "25vw", rot:  3,  variant: "white" },
+  { top: "89vh", right: "19vw", rot: -2,  variant: "green" },
+];
+const LETTERS = [...LEFT, ...RIGHT];
+---
+
+<BaseLayout
+  title="license · jordan newell"
+  description="Licensing for code, content, and brand elements on jordannewell.com."
+  path="/legal"
+  ogImage="/images/coming-soon/og-card.png"
+  bare={true}
+>
+  {/* Floating scattered keycaps — same set as splash. */}
+  {keys.map((k, i) => (
+    <a
+      class={`cs-key cs-key-${k.variant}`}
+      href={FONT_URL}
+      target="_blank"
+      rel="noopener"
+      aria-label="Newell typeface — GitHub repo"
+      title="Newell typeface — GitHub repo"
+      style={`--k-top:${k.top ?? "auto"};--k-right:${k.right ?? "auto"};--k-left:${k.left ?? "auto"};--k-rot:${k.rot}deg;`}
+    >
+      <span class="cs-key-cap">{LETTERS[i]}</span>
+    </a>
+  ))}
+
+  {/* PFP bottom-right, same hover treatment as splash. */}
+  <a href="/" class="cs-pfp" aria-label="Jordan Newell">
+    <img src="/images/jordan-portrait.png?v=2" alt="Jordan Newell" width="120" height="180" loading="lazy" decoding="async" />
+  </a>
+
+  <main class="license-main">
+    <section class="license-terminal" aria-label="License">
+      <header class="license-bar">
+        <div class="license-socials">
+          <a href="https://github.com/jordannewell" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0016 8c0-4.42-3.58-8-8-8z" />
+            </svg>
+          </a>
+        </div>
+        <div class="license-center">
+          <a class="license-home" href="/" aria-label="Home" title="Home">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M8 1L1 7v8h4v-5h6v5h4V7L8 1z" />
+            </svg>
+          </a>
+          <div class="license-pulse" aria-hidden="true">
+            <span class="license-pulse-dot"></span>
+            <span class="license-pulse-text">legal</span>
+          </div>
+        </div>
+        <div class="license-x">
+          <a href="https://x.com/newellops" target="_blank" rel="noopener" aria-label="X (@newellops)" title="X (@newellops)">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M12.6.75H15.3L9.54 7.34 16 16h-5.36l-4.27-5.59L4.16 16H1.5l6.16-7.04L0 .75h5.5l3.86 5.11L12.6.75Zm-.94 13.71h1.49L4.26 2.23H2.65l9.01 12.23Z"/>
+            </svg>
+          </a>
+        </div>
+      </header>
+
+      <div class="license-body">
+        <div class="license-line">
+          <span class="license-prompt">$</span>
+          <span class="license-cmd">cat LICENSE --summary</span>
+        </div>
+        <p class="license-muted">
+          © {year} Jordan Newell. All rights not expressly granted below are reserved.
+        </p>
+
+        <div class="license-line license-section-label">
+          <span class="license-prompt">#</span>
+          <span>source code — MIT</span>
+        </div>
+        <p>
+          All code in this repository — Astro components, TypeScript modules, shell scripts,
+          build config, deploy tooling — ships under the <strong class="license-strong">MIT License</strong>.
+          Fork it, learn from it, ship your own version with attribution.
+        </p>
+        <blockquote class="license-quote">
+          Permission is hereby granted, free of charge, to any person obtaining a copy of this
+          software and associated documentation files (the "Software"), to deal in the Software
+          without restriction, including without limitation the rights to use, copy, modify,
+          merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
+          permit persons to whom the Software is furnished to do so.
+          <br /><br />
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+        </blockquote>
+
+        <div class="license-line license-section-label">
+          <span class="license-prompt">#</span>
+          <span>content — CC BY-NC 4.0</span>
+        </div>
+        <p>
+          Written content — blog posts, project descriptions, the about page, contributions — is
+          licensed under
+          <a class="license-link" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">Creative Commons Attribution-NonCommercial 4.0 International</a>.
+        </p>
+        <ul class="license-list">
+          <li><strong class="license-strong">Share</strong> — copy + redistribute in any medium/format</li>
+          <li><strong class="license-strong">Adapt</strong> — remix, transform, build upon</li>
+          <li><strong class="license-strong">Attribution</strong> — credit Jordan Newell, link to canonical URL, note changes</li>
+          <li><strong class="license-strong">NonCommercial</strong> — not for commercial use without written permission</li>
+        </ul>
+
+        <div class="license-line license-section-label">
+          <span class="license-prompt">#</span>
+          <span>brand elements — all rights reserved</span>
+        </div>
+        <p>
+          The following brand assets are <strong class="license-strong">All Rights Reserved</strong> —
+          not for reproduction, modification, or distribution without explicit written permission:
+        </p>
+        <ul class="license-list">
+          <li>The <strong class="license-strong">Newell "N" mark</strong> and "JN" monogram — favicon, og-card, watermark</li>
+          <li>The full <strong class="license-strong">jordannewell.com visual identity</strong> — color palette, typography pairing, dot-grid + scanline motifs</li>
+          <li>The <strong class="license-strong">Newell typeface</strong> — covered by its own OFL-1.1 license at <a class="license-link" href="https://jordannewell.github.io/newell-typeface/" target="_blank" rel="noopener">the typeface repo</a></li>
+        </ul>
+        <p class="license-muted license-tag">this is the brand. it's not for cloning.</p>
+
+        <div class="license-line license-section-label">
+          <span class="license-prompt">#</span>
+          <span>attribution + inquiries</span>
+        </div>
+        <ul class="license-list">
+          <li><strong class="license-strong">source:</strong> <a class="license-link" href="https://github.com/JordanNewell/jordannewell-com" target="_blank" rel="noopener">github.com/JordanNewell/jordannewell-com</a></li>
+          <li><strong class="license-strong">site:</strong> <a class="license-link" href="https://jordannewell.com">jordannewell.com</a></li>
+          <li><strong class="license-strong">license file:</strong> <a class="license-link" href="https://github.com/JordanNewell/jordannewell-com/blob/main/LICENSE" target="_blank" rel="noopener">LICENSE</a> in the repo (controls in any conflict)</li>
+          <li><strong class="license-strong">inquiries:</strong> <a class="license-link" href="/" title="Back to splash">through the splash</a></li>
+        </ul>
+
+        <div class="license-line license-final">
+          <span class="license-prompt">$</span>
+          <span class="license-cursor" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script is:inline>
+    (() => {
+      const body = document.querySelector('.license-body');
+      if (!body) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) {
+        body.classList.add('license-done');
+        return;
+      }
+      const children = Array.from(body.children);
+      const typedLine = children[0];
+      const rest = children.slice(1);
+      body.classList.add('license-typing');
+      rest.forEach(el => el.classList.add('license-pending'));
+      const cmdSpan = typedLine.querySelector('.license-cmd');
+      const cmdText = cmdSpan.textContent;
+      cmdSpan.textContent = '';
+      const cursorClone = document.createElement('span');
+      cursorClone.className = 'license-cursor license-cursor-inline';
+      cursorClone.setAttribute('aria-hidden', 'true');
+      typedLine.appendChild(cursorClone);
+      let i = 0;
+      let skipped = false;
+      function typeChar() {
+        if (skipped) return;
+        if (i < cmdText.length) {
+          cmdSpan.textContent += cmdText[i++];
+          const ch = cmdText[i - 1];
+          const delay = /\s/.test(ch) ? 12 : (/[a-zA-Z0-9]/.test(ch) ? 28 : 45);
+          setTimeout(typeChar, delay);
+        } else {
+          cursorClone.remove();
+          let idx = 0;
+          function revealNext() {
+            if (skipped) return;
+            if (idx < rest.length) {
+              rest[idx].classList.remove('license-pending');
+              rest[idx].classList.add('license-revealed');
+              rest[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              idx++;
+              const el = rest[idx - 1];
+              const isLabel = el.classList.contains('license-section-label');
+              const isListItem = el.tagName === 'LI';
+              const delay = isLabel ? 220 : (isListItem ? 55 : 90);
+              setTimeout(revealNext, delay);
+            } else {
+              body.classList.remove('license-typing');
+              body.classList.add('license-done');
+            }
+          }
+          setTimeout(revealNext, 180);
+        }
+      }
+      setTimeout(typeChar, 400);
+      function skip() {
+        if (skipped) return;
+        skipped = true;
+        body.classList.remove('license-typing');
+        body.classList.add('license-done');
+        cmdSpan.textContent = cmdText;
+        cursorClone.remove();
+        rest.forEach(el => {
+          el.classList.remove('license-pending');
+          el.classList.add('license-revealed');
+        });
+        document.removeEventListener('keydown', keySkip);
+        document.removeEventListener('click', skip);
+      }
+      function keySkip(e) {
+        if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') skip();
+      }
+      document.addEventListener('keydown', keySkip);
+      document.addEventListener('click', skip);
+    })();
+  </script>
+</BaseLayout>
+
+<style is:global>
+  body { background-color: #000; }
+  .dot-grid { display: none; }
+  /* Override BaseLayout's <main class="max-w-prose ..."> — license page fills viewport. */
+  main {
+    max-width: none !important;
+    padding: 24px 16px 0 !important;
+    margin: 0 !important;
+    height: calc(100vh - 48px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* Lock page — no body scroll on desktop. Mobile still scrolls for long content. */
+  @media (min-width: 769px) {
+    html, body { height: 100%; overflow: hidden; }
+  }
+</style>
+
+<style>
+  /* — Floating scattered keycaps (mirrors Splash.astro) — */
+  .cs-key {
+    position: fixed;
+    top: var(--k-top, auto);
+    right: var(--k-right, auto);
+    left: var(--k-left, auto);
+    transform: rotate(var(--k-rot, 0deg));
+    transform-origin: center;
+    width: 46px;
+    height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: transform 0.14s cubic-bezier(0.2, 0.9, 0.4, 1.2),
+                opacity 0.18s ease;
+    opacity: 0.45;
+    z-index: 5;
+    user-select: none;
+  }
+  .cs-key:hover { opacity: 1; }
+  .cs-key-cap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 3px;
+    background: #0a0a0a;
+    font-family: "Newell", var(--font-mono);
+    font-size: 1.25rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition: background 0.14s, color 0.14s;
+  }
+  .cs-key-green {
+    background: #0a0a0a;
+    box-shadow:
+      0 0 0 1.5px #3FFF46,
+      0 1px 0 #3FFF46,
+      0 3px 5px rgba(0, 0, 0, 0.6),
+      0 0 12px rgba(63, 255, 70, 0.15);
+  }
+  .cs-key-green .cs-key-cap {
+    color: #fff;
+    box-shadow: inset 0 0 0 1px #1a1a1a;
+  }
+  .cs-key-white {
+    background: #0a0a0a;
+    box-shadow:
+      0 0 0 1.5px #fafafa,
+      0 1px 0 #fafafa,
+      0 3px 5px rgba(0, 0, 0, 0.6),
+      0 0 12px rgba(255, 255, 255, 0.08);
+  }
+  .cs-key-white .cs-key-cap {
+    color: #3FFF46;
+    box-shadow: inset 0 0 0 1px #1a1a1a;
+  }
+  .cs-key:hover {
+    transform: rotate(var(--k-rot, 0deg)) translateY(-2px) scale(1.06);
+  }
+  @media (max-width: 768px) {
+    .cs-key { display: none; }
+  }
+
+  /* — PFP bottom-right (mirrors Splash.astro) — */
+  .cs-pfp {
+    position: fixed;
+    right: -30px;
+    bottom: -30px;
+    width: 200px;
+    height: auto;
+    text-decoration: none;
+    transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+    z-index: 50;
+    opacity: 0.7;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
+  }
+  .cs-pfp img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .cs-pfp:hover {
+    opacity: 1;
+    transform: translateY(-4px);
+    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.7))
+            drop-shadow(0 0 18px rgba(63, 255, 70, 0.25));
+  }
+  @media (max-width: 768px) {
+    .cs-pfp { width: 160px; right: -20px; bottom: -20px; }
+  }
+
+  /* — License page layout — */
+  .license-main {
+    max-width: 760px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .license-terminal {
+    background: #000;
+    border: 1px solid color-mix(in srgb, var(--color-green) 25%, var(--color-border));
+    box-shadow: 0 0 32px color-mix(in srgb, var(--color-green) 10%, transparent),
+                inset 0 0 0 1px color-mix(in srgb, var(--color-green) 5%, transparent);
+    font-family: var(--font-mono);
+    overflow: hidden;
+    position: relative;
+  }
+  .license-terminal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+  .license-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 16px;
+    background: color-mix(in srgb, var(--color-green) 5%, #000);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-green) 15%, var(--color-border));
+    position: relative;
+    z-index: 1;
+  }
+  /* GH far left, X far right — both flanks flex:1 so the center cluster
+     (Home + legal pulse) stays perfectly centered. */
+  .license-socials,
+  .license-x {
+    display: inline-flex;
+    align-items: center;
+    flex: 1;
+    color: var(--color-fg);
+  }
+  .license-socials { justify-content: flex-start; }
+  .license-x { justify-content: flex-end; }
+  .license-socials a,
+  .license-x a {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease, filter 0.15s ease;
+  }
+  .license-socials a:hover,
+  .license-x a:hover {
+    color: var(--color-green);
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-green) 50%, transparent));
+  }
+  /* Center cluster — Home icon + legal pulse, natural width. */
+  .license-center {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex: 0 0 auto;
+  }
+  .license-home {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+    padding: 4px;
+    transition: color 0.15s ease, filter 0.15s ease;
+  }
+  .license-home:hover {
+    color: var(--color-green);
+    filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-green) 50%, transparent));
+  }
+  .license-pulse {
+    flex: 0 0 auto;
+  }
+  /* Mobile: tighten the bar — GH + center cluster + X layout. */
+  @media (max-width: 600px) {
+    .license-bar { gap: 8px; padding: 8px 10px; }
+    .license-center { gap: 6px; }
+  }
+  .license-pulse {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.65rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-green);
+  }
+  .license-pulse-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--color-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-green);
+    animation: license-blink 2s ease-in-out infinite;
+  }
+  @keyframes license-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .license-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--color-fg-muted);
+    flex: 1;
+    text-align: center;
+  }
+  .license-back {
+    font-size: 0.7rem;
+    color: var(--color-fg-muted);
+    text-decoration: none;
+    border-bottom: 1px dotted color-mix(in srgb, var(--color-green) 30%, transparent);
+    transition: color 0.15s, border-color 0.15s;
+    justify-self: flex-start;
+  }
+  .license-back:hover {
+    color: var(--color-green);
+    border-bottom-color: var(--color-green);
+  }
+
+  .license-body {
+    padding: 18px 22px 22px;
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--color-fg-secondary);
+    position: relative;
+    z-index: 1;
+    /* Internal scroll — body scrolls inside the terminal, page doesn't.
+       Bumped from 180px to 220px to leave room for SocialEmojis below. */
+    max-height: calc(100vh - 220px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(63, 255, 70, 0.4) transparent;
+  }
+  .license-body::-webkit-scrollbar { width: 4px; }
+  .license-body::-webkit-scrollbar-track { background: transparent; }
+  .license-body::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+      rgba(63, 255, 70, 0.6) 0%,
+      rgba(63, 255, 70, 0.3) 100%);
+    border-radius: 2px;
+  }
+  /* Typing animation states. */
+  .license-body.license-typing .license-pending { display: none; }
+  .license-body .license-revealed { animation: license-reveal 0.24s ease-out; }
+  @keyframes license-reveal {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .license-cursor-inline { margin-left: 4px; transform: translateY(2px); }
+
+  .license-body p { margin: 0 0 12px; }
+  .license-body strong.license-strong {
+    color: var(--color-fg);
+    font-weight: 600;
+  }
+  .license-line {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 4px 0;
+  }
+  .license-prompt {
+    color: var(--color-green);
+    font-weight: 700;
+  }
+  .license-cmd {
+    color: var(--color-fg);
+  }
+  .license-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 14px;
+    background: var(--color-green);
+    animation: license-cursor-blink 1s steps(2, start) infinite;
+    transform: translateY(2px);
+  }
+  @keyframes license-cursor-blink {
+    50% { opacity: 0; }
+  }
+  .license-section-label {
+    color: var(--color-fg);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 26px;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed color-mix(in srgb, var(--color-green) 18%, transparent);
+  }
+  .license-section-label span:last-child {
+    color: var(--color-green);
+  }
+  .license-quote {
+    margin: 12px 0;
+    padding: 12px 16px;
+    background: color-mix(in srgb, var(--color-green) 4%, transparent);
+    border-left: 2px solid var(--color-green);
+    color: var(--color-fg-secondary);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+  .license-list {
+    margin: 8px 0 12px;
+    padding-left: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .license-list li {
+    list-style: '→ ';
+    padding-left: 4px;
+  }
+  .license-link {
+    color: var(--color-fg);
+    text-decoration: none;
+    border-bottom: 1px dotted color-mix(in srgb, var(--color-green) 40%, transparent);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .license-link:hover {
+    color: var(--color-green);
+    border-bottom-color: var(--color-green);
+  }
+  .license-muted {
+    color: var(--color-fg-muted);
+    font-size: 0.78rem;
+  }
+  .license-tag {
+    margin-top: 14px;
+    font-style: italic;
+    opacity: 0.85;
+  }
+  .license-final {
+    margin-top: 28px;
+    padding-top: 14px;
+    border-top: 1px dashed color-mix(in srgb, var(--color-green) 18%, transparent);
+  }
+  @media (max-width: 600px) {
+    .license-body { padding: 14px 14px 16px; font-size: 0.82rem; }
+    .license-title { display: none; }
+  }
+</style>

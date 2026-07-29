@@ -1,0 +1,257 @@
+---
+// Real 60% QWERTY mechanical keyboard base under the terminal — INVERTED:
+// only the JORDAN-NEWELL letter keys are present (with full keycaps),
+// every other position is an empty socket. The keyboard "only types Jordan Newell."
+// Rendered with 3D perspective via CSS on the parent container.
+
+const U = 28;          // 1u pixel size
+const PAD = 16;        // chassis bezel padding
+const GAP = 3;         // gap between key sockets
+
+// 60% QWERTY layout
+const ROWS = [
+  [["*grave", 1], ["1", 1], ["2", 1], ["3", 1], ["4", 1], ["5", 1],
+   ["6", 1], ["7", 1], ["8", 1], ["9", 1], ["0", 1], ["-", 1], ["=", 1],
+   ["*bksp", 2]],
+  [["*tab", 1.5], ["Q", 1], ["W", 1], ["E", 1], ["R", 1], ["T", 1],
+   ["Y", 1], ["U", 1], ["I", 1], ["O", 1], ["P", 1], ["[", 1], ["]", 1],
+   ["*bslash", 1.5]],
+  [["*caps", 1.75], ["A", 1], ["S", 1], ["D", 1], ["F", 1], ["G", 1],
+   ["H", 1], ["J", 1], ["K", 1], ["L", 1], [";", 1], ["'", 1],
+   ["*enter", 2.25]],
+  [["*lshift", 2.25], ["Z", 1], ["X", 1], ["C", 1], ["V", 1], ["B", 1],
+   ["N", 1], ["M", 1], [",", 1], [".", 1], ["/", 1],
+   ["*rshift", 2.75]],
+  [["*ctrl", 1.25], ["*win", 1.25], ["*alt", 1.25],
+   ["*space", 6.25],
+   ["*alt", 1.25], ["*fn", 1.25], ["*menu", 1.25], ["*ctrl", 1.25]],
+];
+
+// Labels for function keys (the * prefix ones). Newell font, scaled down.
+const FUNC_LABELS: Record<string, string> = {
+  "*tab": "TAB",
+  "*caps": "CAPS",
+  "*lshift": "SHIFT",
+  "*rshift": "SHIFT",
+  "*ctrl": "CTRL",
+  "*alt": "ALT",
+  "*win": "CMD",
+  "*fn": "FN",
+  "*menu": "MENU",
+  "*space": "",
+  "*bksp": "BKSP",
+  "*enter": "ENTER",
+  "*grave": "`",
+  "*bslash": "\\",
+};
+
+// Letters that have flown off — scattered as floating keys elsewhere on the page.
+const MISSING = new Set(["J", "O", "R", "D", "A", "N", "E", "W", "L"]);
+
+const TOTAL_UNITS = 15;
+const CONTENT_W = TOTAL_UNITS * U;
+const ROW_H = U;
+const CONTENT_H = ROWS.length * ROW_H;
+const W = CONTENT_W + PAD * 2;
+const H = CONTENT_H + PAD * 2;
+
+const GREEN = "#3FFF46";
+const WHITE = "#ffffff";
+---
+
+<svg
+  class="kb"
+  viewBox={`0 0 ${W} ${H}`}
+  width={W}
+  height={H}
+  role="img"
+  aria-label="Mechanical keyboard with only the J O R D A N N E W E L L keys present"
+>
+  <defs>
+    <linearGradient id="kb-chassis" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0a0a0c" />
+      <stop offset="50%" stop-color="#000000" />
+      <stop offset="100%" stop-color="#08080a" />
+    </linearGradient>
+    <linearGradient id="kb-socket" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" />
+      <stop offset="100%" stop-color="#040404" />
+    </linearGradient>
+    <radialGradient id="kb-glow" cx="50%" cy="100%" r="80%">
+      <stop offset="0%" stop-color="#3FFF46" stop-opacity="0.15" />
+      <stop offset="35%" stop-color="#3FFF46" stop-opacity="0.05" />
+      <stop offset="70%" stop-color="#3FFF46" stop-opacity="0.01" />
+      <stop offset="100%" stop-color="#3FFF46" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="kb-glow-wide" cx="50%" cy="100%" r="100%">
+      <stop offset="0%" stop-color="#3FFF46" stop-opacity="0.08" />
+      <stop offset="50%" stop-color="#3FFF46" stop-opacity="0.02" />
+      <stop offset="100%" stop-color="#3FFF46" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  {/* Wide soft RGB-green underglow that bleeds beyond the chassis */}
+  <ellipse cx={W / 2} cy={H + 8} rx={W * 0.65} ry="42" fill="url(#kb-glow-wide)" />
+
+  {/* Tighter underglow hugging the chassis bottom edge */}
+  <rect x="-8" y={H - 50} width={W + 16} height="60" fill="url(#kb-glow)" />
+
+  {/* Chassis — pure-black body, bright neon-green rim */}
+  <rect
+    x="2" y="2" width={W - 4} height={H - 4} rx="9" ry="9"
+    fill="url(#kb-chassis)"
+    stroke="#3FFF46"
+    stroke-width="1.5"
+  />
+  <rect x="3" y="3" width={W - 6} height="1" fill="#3FFF46" opacity="0.5" />
+
+  {/* Render each key position */}
+  {ROWS.map((row, r) => {
+    let cursor = 0;
+    let keyIdx = 0;
+    return row.map(([label, size]) => {
+      const x = PAD + cursor * U + GAP / 2;
+      const y = PAD + r * ROW_H + GAP / 2;
+      const w = size * U - GAP;
+      const h = ROW_H - GAP;
+      const isLetter = !label.startsWith("*");
+      const labelClean = isLetter ? label : label.slice(1);
+      const upper = labelClean.toUpperCase();
+      const isMissing = isLetter && MISSING.has(upper);
+      cursor += size;
+      keyIdx += 1;
+
+      return (
+        <g class="kb-key">
+          {/* Recessed socket */}
+          <rect
+            x={x} y={y} width={w} height={h} rx="3" ry="3"
+            fill="url(#kb-socket)"
+            stroke="#1f1f23"
+            stroke-width="0.75"
+          />
+
+          {/* Keys still on the board — match the floating keycap style:
+              black inner cap + thin colored rim (alternating green/white),
+              Newell-font letter in contrasting color. Same GMK aesthetic. */}
+          {!isMissing && (() => {
+            const variant = (r + keyIdx) % 2 === 0 ? "green" : "white";
+            const frameColor = variant === "green" ? GREEN : WHITE;
+            const letterColor = variant === "green" ? WHITE : GREEN;
+            const isAlpha = /^[A-Z]$/i.test(labelClean);
+            return (
+              <g>
+                {/* Outer colored frame (thin rim around black cap).
+                    shape-rendering=geometricPrecision keeps the white crisp
+                    instead of looking fuzzy/translucent under 3D tilt. */}
+                <rect
+                  x={x + 1} y={y + 1} width={w - 2} height={h - 2} rx="3"
+                  fill="#0a0a0a"
+                  stroke={frameColor}
+                  stroke-width="1.4"
+                  shape-rendering="geometricPrecision"
+                />
+                {/* White frames get a subtle inner halo so they read SOLID white,
+                    not ghosted green from the chassis underglow bleeding through. */}
+                {variant === "white" && (
+                  <rect
+                    x={x + 2} y={y + 2} width={w - 4} height={h - 4} rx="2.5"
+                    fill="none"
+                    stroke={frameColor}
+                    stroke-width="0.5"
+                    opacity="0.6"
+                    shape-rendering="geometricPrecision"
+                  />
+                )}
+                {/* Inner black cap (slightly inset) */}
+                <rect
+                  x={x + 3} y={y + 3} width={w - 6} height={h - 6} rx="2"
+                  fill="#0a0a0a"
+                />
+                {/* Label: Newell font for letters AND function key labels
+                    (scaled down for long words like SHIFT/ENTER).
+                    Symbols/numbers stay in JetBrains Mono for legibility. */}
+                {isLetter && isAlpha && (
+                  <text
+                    x={x + w / 2}
+                    y={y + h / 2 + 3.5}
+                    text-anchor="middle"
+                    font-family="Newell, monospace"
+                    font-size="11"
+                    fill={letterColor}
+                  >{upper}</text>
+                )}
+                {isLetter && !isAlpha && (
+                  <text
+                    x={x + w / 2}
+                    y={y + h / 2 + 3}
+                    text-anchor="middle"
+                    font-family="JetBrains Mono, monospace"
+                    font-size="9"
+                    fill={letterColor}
+                    opacity="0.75"
+                  >{labelClean}</text>
+                )}
+                {!isLetter && label === "*space" && (
+                  <image
+                    href="/images/coming-soon/newell-wordmark.png"
+                    x={x + (w - Math.min(w - 12, (h - 8) * 5.48)) / 2}
+                    y={y + (h - (h - 8)) / 2 - 1}
+                    width={Math.min(w - 12, (h - 8) * 5.48)}
+                    height={h - 8}
+                    opacity="0.78"
+                    preserveAspectRatio="xMidYMid meet"
+                  />
+                )}
+                {!isLetter && label !== "*space" && FUNC_LABELS[label] && (
+                  <text
+                    x={x + w / 2}
+                    y={y + h / 2 + 2.5}
+                    text-anchor="middle"
+                    font-family="Newell, monospace"
+                    font-size={FUNC_LABELS[label].length > 3 ? "6.5" : "8"}
+                    fill={letterColor}
+                    opacity="0.85"
+                    letter-spacing="0.5"
+                  >{FUNC_LABELS[label]}</text>
+                )}
+              </g>
+            );
+          })()}
+
+          {/* Empty positions: just a darker recessed socket — no outline, no
+              letter. The keys are gone (they're floating elsewhere on the page). */}
+          {isMissing && (
+            <rect
+              x={x + 2} y={y + 2} width={w - 4} height={h - 4} rx="2"
+              fill="#000"
+            />
+          )}
+        </g>
+      );
+    });
+  })}
+</svg>
+
+<style>
+  .kb {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.7));
+  }
+  /* Each key is independently hoverable — pops up + glows when hovered.
+     transform-box: fill-box makes transform-origin relative to the key's
+     own bounding box instead of the SVG canvas origin. */
+  .kb :global(.kb-key) {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.4, 1.4);
+    cursor: pointer;
+  }
+  .kb :global(.kb-key:hover) {
+    transform: scale(1.35);
+    filter: drop-shadow(0 0 3px rgba(63, 255, 70, 0.28));
+  }
+</style>
+

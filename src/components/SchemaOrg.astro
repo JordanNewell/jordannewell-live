@@ -1,0 +1,7 @@
+---
+import { graphSchema } from "../lib/schema";
+const { schema } = Astro.props as { schema: object[] };
+const graph = graphSchema(...schema);
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />

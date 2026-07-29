@@ -1,0 +1,48 @@
+---
+const { path } = Astro.props;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="max-w-[720px] mx-auto px-3 sm:px-0 pt-3 pb-1 sm:pt-4 sm:pb-2 flex items-center justify-center gap-3 sm:gap-6">
+    <div class="brand-cluster">
+      <a href="/" class="brand-mark" aria-label="Jordan Newell — home">
+        <img
+          src="/images/coming-soon/newell-wordmark.png"
+          alt="Newell"
+          width="839"
+          height="153"
+          decoding="async"
+        />
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .brand-cluster {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    line-height: 0;
+  }
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+    text-decoration: none;
+  }
+  .brand-mark img {
+    display: block;
+    height: 28px;
+    width: auto;
+    transition: filter 0.18s ease;
+  }
+  .brand-mark:hover img {
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-green) 60%, transparent));
+  }
+  @media (min-width: 640px) {
+    .brand-mark img { height: 34px; }
+  }
+</style>

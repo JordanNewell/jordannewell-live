@@ -1,0 +1,58 @@
+---
+import { SITE, FOOTER_LINKS } from "../lib/site";
+const year = new Date().getFullYear();
+const isComingSoon = Astro.url.pathname === "/";
+---
+
+<footer>
+  <div class="max-w-prose mx-auto px-5 py-3 text-center text-sm text-fg-muted font-mono">
+    {isComingSoon ? (
+      <>
+        {/* Splash page: footer is empty. Emojis + copyright live inside the
+            StatusTerminal component (top bar + terminal-foot) so the whole
+            block reads as one fluid panel. */}
+      </>
+    ) : (
+      <>
+        <p class="mb-2">
+          <a href="/rss.xml" class="hover:text-green">rss</a>
+          <span class="mx-2">·</span>
+          <a href="/feed.json" class="hover:text-green">json</a>
+          <span class="mx-2">·</span>
+          <a href="/llms.txt" class="hover:text-green">llms.txt</a>
+          <span class="mx-2">·</span>
+          <a href="https://github.com/JordanNewell/jordannewell-com" target="_blank" rel="noopener" class="hover:text-green">source</a>
+        </p>
+        <p class="mb-3">© {year} <a href="/" class="hover:text-green">{SITE.author.name}</a> <span aria-hidden="true">⚡</span> <a href="/license" class="hover:text-green">license</a></p>
+        <p class="mb-3">
+          <a href="https://status.jordannewell.com" class="status-badge inline-flex items-center gap-1.5 hover:text-green is-down" target="_blank" rel="noopener" aria-label="System status">
+            <span class="inline-block w-1.5 h-1.5 rounded-full" style="background: #FBBF24; box-shadow: 0 0 8px rgba(251,191,36,0.4);"></span>
+            <span style="color: #FBBF24;">1 of 5 services degraded</span>
+          </a>
+        </p>
+        <p class="flex items-center justify-center gap-4 text-xl">
+          {FOOTER_LINKS.map((link) => (
+            <a href={link.href} class="inline-flex items-center hover:opacity-70 transition-opacity" aria-label={link.label} title={link.label}>
+              <span aria-hidden="true">{link.emoji}</span>
+            </a>
+          ))}
+          <a href="https://buymeacoffee.com/jordannewell" target="_blank" rel="noopener" class="inline-flex items-center hover:opacity-70 transition-opacity" aria-label="Buy me a coffee" title="Buy me a coffee">
+            <span aria-hidden="true" class="emoji-coffee">☕</span>
+          </a>
+          <a href="https://github.com/sponsors/JordanNewell" target="_blank" rel="noopener" class="inline-flex items-center hover:opacity-70 transition-opacity" aria-label="Sponsor on GitHub" title="Sponsor on GitHub">
+            <span aria-hidden="true">🤍</span>
+          </a>
+          <span aria-hidden="true" class="inline-flex items-center">👋</span>
+        </p>
+      </>
+    )}
+  </div>
+</footer>
+
+<!-- Status badge static — Kuma back online 2026-07-22, 1 of 5 services still investigating. Re-enable JS fetch for live updates. -->
+
+<style>
+  .emoji-coffee {
+    filter: sepia(1) saturate(4) hue-rotate(5deg) brightness(1.1);
+  }
+</style>

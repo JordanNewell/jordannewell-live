@@ -1,0 +1,5 @@
+# False positives — verified as intentional public/non-secret values.
+#
+# Cloudflare Web Analytics beacon token — embedded in client-side HTML by design.
+# Token is public (visible in page source) and only used for CF analytics tracking.
+src/layouts/BaseLayout.astro:generic-api-key:60
