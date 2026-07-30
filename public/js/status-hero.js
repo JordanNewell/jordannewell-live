@@ -4,13 +4,10 @@
 
 (function () {
   const USER = "JordanNewell";
-  // Production: same-origin Worker proxy at /api/activity.json (avoids CSP + rate limit).
-  // Dev fallback: hit GitHub directly so the terminal works on localhost.
-  const PROD_URL = "/api/activity.json";
-  const DEV_URL = `https://api.github.com/users/${USER}/events/public`;
-  const EVENTS_URL = location.hostname === "localhost" || location.hostname === "127.0.0.1"
-    ? DEV_URL
-    : PROD_URL;
+  // Hit GitHub directly — the old Worker proxy at /api/activity.json died
+  // when DNS swapped to GitHub Pages. Unauthenticated rate limit is 60/hr
+  // per visitor IP, which is plenty for a splash.
+  const EVENTS_URL = `https://api.github.com/users/${USER}/events/public`;
   const POLL_MS = 60_000;
   const MAX_COMMITS = 10;
   const MAX_RELEASES = 2;
