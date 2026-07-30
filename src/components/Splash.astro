@@ -161,21 +161,6 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
 </style>
 
-<script>
-  // Mutual exclusion: opening one drawer closes the other.
-  // Prevents the UI meltdown of both N-button and PFP drawers open at once.
-  const docks = Array.from(document.querySelectorAll('.dock-details, .cs-pfp-details'));
-  docks.forEach((d) => {
-    d.addEventListener('toggle', () => {
-      if (d.open) {
-        docks.forEach((other) => {
-          if (other !== d && other.open) other.open = false;
-        });
-      }
-    });
-  });
-</script>
-
 <style is:global>
   body { background-color: #000; }
   .dot-grid { display: none; }
