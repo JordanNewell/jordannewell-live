@@ -22,26 +22,37 @@
     </div>
     <div class="dock-drawer dock-drawer-side">
       <a class="dock-link drawer-link" href="https://community.obsidian.md/plugins/curtis-ai-chat" target="_blank" rel="noopener" aria-label="Curtis AI" title="Curtis AI">
-        <img src="/images/curtisaiemoji.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
+        <img src="/images/curtis-ai-logo.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
       </a>
-      <a class="dock-link drawer-link" href="/products" aria-label="Harbormasterd" title="Harbormasterd">
-        <img src="/images/harbo-emoji.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
+      <a class="dock-link drawer-link" href="https://github.com/JordanNewell/harbormasterd" target="_blank" rel="noopener" aria-label="Harbormasterd" title="Harbormasterd">
+        <img src="/images/harbor-logo.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
+      </a>
+      <a class="dock-link drawer-link" href="https://github.com/JordanNewell/git-hygiene" target="_blank" rel="noopener" aria-label="Git Hygiene" title="Git Hygiene">
+        <img src="/images/git-hygiene-logo.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
       </a>
     </div>
   </details>
 </div>
 
 <style>
-  /* Static — centered at the bottom of the .cs flex column via margin-top:auto. */
+  /* Static — left-aligned at the bottom of the .cs flex column. */
   .dock-container {
     width: 100%;
     max-width: 720px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: auto;
+    margin-left: -20px;
     padding: 0 4px;
-    transform: translateY(-10px);
+    transform: translateY(10px);
+  }
+  /* Desktop: push the trigger further into the left corner — content column
+     is centered, so negative margin eats into the surrounding viewport void. */
+  @media (min-width: 769px) {
+    .dock-container {
+      margin-left: -120px;
+    }
   }
   .dock-details {
     position: relative;
@@ -110,15 +121,15 @@
     transform-origin: bottom center;
   }
   .dock-drawer-side {
-    right: calc(100% + 8px);
+    left: calc(100% + 8px);
     top: 50%;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     align-items: center;
     gap: 14px;
     padding: 0 8px;
-    transform: translateY(-50%) translateX(10px) scale(0.95);
-    transform-origin: right center;
+    transform: translateY(-50%) translateX(-10px) scale(0.95);
+    transform-origin: left center;
   }
   .dock-details[open] .dock-drawer-up {
     opacity: 1;
@@ -132,6 +143,7 @@
     transform: translateY(-50%) translateX(0) scale(1);
     pointer-events: auto;
   }
+  /* Dock on LEFT: side-drawer opens rightward (toward page center). */
   .dock-details[open] .dock-drawer-up,
   .dock-details[open] .dock-drawer-side {
     transition: opacity 0.22s ease,
