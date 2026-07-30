@@ -13,8 +13,6 @@
       <a class="dock-link drawer-link" href="mailto:hello@jordannewell.com" aria-label="Say hello" title="Say hello">
         <span aria-hidden="true">💬</span>
       </a>
-    </div>
-    <div class="dock-drawer dock-drawer-right">
       <a class="dock-link drawer-link" href="https://buymeacoffee.com/jordannewell" target="_blank" rel="noopener" aria-label="Buy me a coffee" title="Buy me a coffee">
         <span aria-hidden="true">☕</span>
       </a>
@@ -22,31 +20,27 @@
         <span aria-hidden="true">💚</span>
       </a>
     </div>
-    <div class="dock-drawer dock-drawer-side">
-      <a class="dock-link drawer-link" href="https://community.obsidian.md/plugins/curtis-ai-chat" target="_blank" rel="noopener" aria-label="Curtis AI" title="Curtis AI">
-        <img src="/images/curtis-ai-logo.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
-      </a>
-      <a class="dock-link drawer-link" href="https://github.com/JordanNewell/harbormasterd" target="_blank" rel="noopener" aria-label="Harbormasterd" title="Harbormasterd">
-        <img src="/images/harbor-logo.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
-      </a>
-      <a class="dock-link drawer-link" href="https://github.com/JordanNewell/git-hygiene" target="_blank" rel="noopener" aria-label="Git Hygiene" title="Git Hygiene">
-        <img src="/images/git-hygiene-logo.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
-      </a>
-    </div>
   </details>
 </div>
 
 <style>
-  /* Static — centered at the bottom of the .cs flex column. */
+  /* Static — left corner of the .cs flex column. PFP-drawer on the right
+     handles the product logos; this N button only owns the social emojis. */
   .dock-container {
     width: 100%;
     max-width: 720px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     margin-top: auto;
+    margin-left: -20px;
     padding: 0 4px;
     transform: translateY(10px);
+  }
+  @media (min-width: 769px) {
+    .dock-container {
+      margin-left: -120px;
+    }
   }
   .dock-details {
     position: relative;
@@ -114,46 +108,9 @@
     transform: translateX(-50%) translateY(10px) scale(0.95);
     transform-origin: bottom center;
   }
-  .dock-drawer-side {
-    right: calc(100% + 8px);
-    top: 50%;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    gap: 14px;
-    padding: 0 8px;
-    transform: translateY(-50%) translateX(10px) scale(0.95);
-    transform-origin: right center;
-  }
-  /* Right-side drawer — coffee + sponsor, opens rightward. */
+  .dock-drawer-side,
   .dock-drawer-right {
-    left: calc(100% + 8px);
-    top: 50%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 14px;
-    padding: 0 8px;
-    transform: translateY(-50%) translateX(-10px) scale(0.95);
-    transform-origin: left center;
-  }
-  .dock-details[open] .dock-drawer-up {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(-50%) translateY(0) scale(1);
-    pointer-events: auto;
-  }
-  .dock-details[open] .dock-drawer-side {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-50%) translateX(0) scale(1);
-    pointer-events: auto;
-  }
-  .dock-details[open] .dock-drawer-right {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-50%) translateX(0) scale(1);
-    pointer-events: auto;
+    display: none;
   }
   .dock-details[open] .dock-drawer-up,
   .dock-details[open] .dock-drawer-side,
@@ -161,6 +118,12 @@
     transition: opacity 0.22s ease,
                 transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
                 visibility 0s linear 0s;
+  }
+  .dock-details[open] .dock-drawer-up {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1);
+    pointer-events: auto;
   }
   .drawer-link {
     font-size: 32px;
