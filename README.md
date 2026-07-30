@@ -25,3 +25,10 @@ Automatic on push to `main`. GitHub Actions builds and ships to GH Pages. No man
 
 - Main blog repo: [JordanNewell/jordannewell-com](https://github.com/JordanNewell/jordannewell-com) (currently orphaned — splash took over the domain)
 - Source splash components originally lived in jordannewell-com; extracted 2026-07-29.
+
+
+<p align="right">
+  <a href="https://jordannewell.com" title="Built by Jordan Newell">
+    <img src="assets/newell-badge.png" alt="Built by Jordan Newell" width="48" height="48">
+  </a>
+</p>
