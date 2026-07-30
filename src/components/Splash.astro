@@ -149,8 +149,10 @@ const LETTERS = [...LEFT, ...RIGHT];
   body { background-color: #000; }
   .dot-grid { display: none; }
   main { padding-top: 10px !important; padding-bottom: 0 !important; max-width: none !important; }
-  /* Lock ALL viewports — no page scroll anywhere. */
-  html, body { height: 100%; overflow: hidden; }
+  /* Lock scroll on desktop only — mobile needs to scroll to reach the dock. */
+  @media (min-width: 769px) {
+    html, body { height: 100%; overflow: hidden; }
+  }
 </style>
 
 <style>
