@@ -75,7 +75,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   {/* Pinned portrait bottom-right — tall card, subtle, hoverable.
       Stays visible across all viewports. */}
   <a href="/" class="cs-pfp" aria-label="Jordan Newell">
-    <img src="/images/jordan-portrait.png?v=3" alt="Jordan Newell" width="120" height="180" loading="lazy" decoding="async" />
+    <img src="/images/jordan-portrait.png?v=4" alt="Jordan Newell" width="120" height="180" loading="lazy" decoding="async" />
   </a>
 
   {/* Curtis AI badge bottom-left — mirrors the PFP. Same hover treatment
@@ -231,7 +231,7 @@ const LETTERS = [...LEFT, ...RIGHT];
      Just the figure on the page. Subtle ground shadow only. */
   .cs-pfp {
     position: fixed;
-    left: -30px;
+    right: -30px;
     bottom: -30px;
     width: 200px;
     height: auto;
@@ -253,7 +253,7 @@ const LETTERS = [...LEFT, ...RIGHT];
             drop-shadow(0 0 18px rgba(63, 255, 70, 0.25));
   }
   @media (max-width: 768px) {
-    .cs-pfp { width: 160px; left: -20px; bottom: -20px; }
+    .cs-pfp { width: 160px; right: -20px; bottom: -20px; }
   }
   /* Curtis AI badge — visual sibling of the PFP, anchored bottom-left. */
   .cs-curtis {
