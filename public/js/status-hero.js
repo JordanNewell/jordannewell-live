@@ -56,16 +56,36 @@
     for (const ev of events) {
       if (ev.type === "PushEvent" && commits.length < MAX_COMMITS) {
         const repo = ev.repo?.name?.replace(/^JordanNewell\//, "") ?? "?";
-        for (const c of ev.payload?.commits || []) {
-          if (commits.length >= MAX_COMMITS) break;
-          const key = `${repo}:${c.sha}`;
+        // GitHub's public events API truncates payload.commits — only the head
+        // SHA + ref come through. Fall back to per-commit fetch when commits
+        // are missing, else render one row per push using the head SHA.
+        const commitsArray = ev.payload?.commits || [];
+        if (commitsArray.length > 0) {
+          for (const c of commitsArray) {
+            if (commits.length >= MAX_COMMITS) break;
+            const key = `${repo}:${c.sha}`;
+            if (seenCommit.has(key)) continue;
+            seenCommit.add(key);
+            commits.push({
+              sha: c.sha.slice(0, 7),
+              repo,
+              message: firstLine(c.message),
+              url: `https://github.com/JordanNewell/${repo}/commit/${c.sha}`,
+              time: new Date(ev.created_at),
+            });
+          }
+        } else {
+          // Truncated payload — render the push itself as one row.
+          const sha = ev.payload?.head?.slice(0, 7) ?? "?";
+          const ref = (ev.payload?.ref || "").replace(/^refs\/heads\//, "");
+          const key = `${repo}:${sha}`;
           if (seenCommit.has(key)) continue;
           seenCommit.add(key);
           commits.push({
-            sha: c.sha.slice(0, 7),
+            sha,
             repo,
-            message: firstLine(c.message),
-            url: `https://github.com/JordanNewell/${repo}/commit/${c.sha}`,
+            message: ref ? `push → ${ref}` : "push",
+            url: `https://github.com/JordanNewell/${repo}/commit/${ev.payload?.head || ""}`,
             time: new Date(ev.created_at),
           });
         }
