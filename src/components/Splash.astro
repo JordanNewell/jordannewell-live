@@ -72,27 +72,17 @@ const LETTERS = [...LEFT, ...RIGHT];
     </div>
   </div>
 
-  {/* Pinned portrait bottom-right — click to open product-logo drawer
-      that extends leftward toward the N button. Splash-only behavior. */}
-  <details class="cs-pfp-details">
-    <summary class="cs-pfp" aria-label="Jordan Newell — open product links" title="Jordan Newell">
-      <img src="/images/jordan-portrait.png?v=4" alt="Jordan Newell" width="120" height="180" loading="lazy" decoding="async" />
-    </summary>
-    <div class="cs-pfp-drawer">
-      <a class="cs-pfp-link" href="https://github.com/JordanNewell/harbormasterd" target="_blank" rel="noopener" aria-label="Harbormasterd" title="Harbormasterd">
-        <img src="/images/harbor-logo.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
-      </a>
-      <a class="cs-pfp-link" href="https://community.obsidian.md/plugins/curtis-ai-chat" target="_blank" rel="noopener" aria-label="Curtis AI" title="Curtis AI">
-        <img src="/images/curtis-ai-logo.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
-      </a>
-      <a class="cs-pfp-link" href="https://github.com/JordanNewell/git-hygiene" target="_blank" rel="noopener" aria-label="Git Hygiene" title="Git Hygiene">
-        <img src="/images/git-hygiene-logo.png?v=1" alt="" class="drawer-emoji-img" decoding="async" />
-      </a>
-      <a class="cs-pfp-link" href="https://github.com/JordanNewell/curtis-compliance" target="_blank" rel="noopener" aria-label="Curtis Compliance" title="Curtis Compliance">
-        <img src="/images/compliance-logo.png?v=2" alt="" class="drawer-emoji-img" decoding="async" />
-      </a>
-    </div>
-  </details>
+  {/* Pinned portrait bottom-right — static overlay, no interaction. */}
+  <img
+    src="/images/jordan-portrait.png?v=4"
+    alt=""
+    aria-hidden="true"
+    class="cs-pfp"
+    width="120"
+    height="180"
+    loading="lazy"
+    decoding="async"
+  />
 
   {/* Curtis AI badge bottom-left — mirrors the PFP. Same hover treatment
       (lift + neon green glow), links to the Obsidian plugin page. */}
@@ -246,77 +236,17 @@ const LETTERS = [...LEFT, ...RIGHT];
     );
   }
   /* Portrait standing free at bottom-right — no frame, no box, no border.
-     Just the figure on the page. Subtle ground shadow only.
-     Now a <summary> so clicking opens the product-logo drawer. */
-  .cs-pfp-details {
+     Just the figure on the page. Static, no interaction. */
+  .cs-pfp {
     position: fixed;
     right: -30px;
     bottom: -30px;
-    z-index: 50;
-  }
-  .cs-pfp-details summary {
-    list-style: none;
-  }
-  .cs-pfp-details summary::-webkit-details-marker {
-    display: none;
-  }
-  .cs-pfp {
-    display: block;
     width: 200px;
     height: auto;
-    text-decoration: none;
-    transition: transform 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
     opacity: 0.7;
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
-    cursor: pointer;
-  }
-  /* Product-logo drawer — opens LEFTWARD from the PFP toward the N button. */
-  .cs-pfp-drawer {
-    position: absolute;
-    right: calc(100% + 8px);
-    bottom: 30px;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    gap: 14px;
-    padding: 0 8px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateX(10px) scale(0.95);
-    transform-origin: right center;
     pointer-events: none;
-    transition: opacity 0.22s ease,
-                transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
-                visibility 0s linear 0.22s;
-    z-index: 60;
-  }
-  .cs-pfp-details[open] .cs-pfp-drawer {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0) scale(1);
-    pointer-events: auto;
-    transition: opacity 0.22s ease,
-                transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
-                visibility 0s linear 0s;
-  }
-  .cs-pfp-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 60px;
-    min-height: 60px;
-    opacity: 0.85;
-    transition: opacity 0.18s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.18s ease;
-  }
-  .cs-pfp-link:hover {
-    opacity: 1;
-    transform: scale(1.25) translateY(-2px);
-    filter: drop-shadow(0 0 8px rgba(63, 255, 70, 0.3));
-  }
-  .cs-pfp-link img {
-    width: 59px;
-    height: 59px;
-    display: block;
+    z-index: 50;
   }
   .cs-pfp img {
     width: 100%;
@@ -330,8 +260,7 @@ const LETTERS = [...LEFT, ...RIGHT];
             drop-shadow(0 0 18px rgba(63, 255, 70, 0.25));
   }
   @media (max-width: 768px) {
-    .cs-pfp-details { right: -20px; bottom: -20px; }
-    .cs-pfp { width: 160px; }
+    .cs-pfp { width: 160px; right: -20px; bottom: -20px; }
   }
   /* Curtis AI badge — visual sibling of the PFP, anchored bottom-left. */
   .cs-curtis {
