@@ -22,12 +22,10 @@
 
   async function fetchEvents() {
     const isProxy = EVENTS_URL.startsWith("/") || EVENTS_URL.includes("/api/activity");
-    // 5-minute-bucket cache-bust: URL stays stable within a 5-min window so
-    // the edge cache actually hits. New bucket every 5 min forces a fresh
-    // Worker call (and fresh GitHub fetch). Aligned with the Worker's 300s TTL.
-    const url = isProxy
-      ? `${EVENTS_URL}?t=${Math.floor(Date.now() / 300_000)}`
-      : EVENTS_URL;
+    // Cache-bust every poll: GitHub's response carries Cache-Control: max-age=300,
+    // so without a query param the browser serves stale data for up to 5 min.
+    // Polling at 60s with a unique query forces revalidation each tick.
+    const url = `${EVENTS_URL}?t=${Math.floor(Date.now() / 60_000)}`;
     const res = await fetch(url, isProxy ? {} : {
       headers: { Accept: "application/vnd.github+json" },
     });
