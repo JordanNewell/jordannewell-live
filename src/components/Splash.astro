@@ -629,39 +629,93 @@ const LETTERS = [...LEFT, ...RIGHT];
     margin: 0 auto;
     perspective: 1200px;
     perspective-origin: 50% 20%;
+    transition: opacity 0.3s ease;
   }
   .cs-sd-bezel {
-    background: #060606;
+    background: #080810;
     border-radius: 8px;
     padding: 10px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 0 0 1px #1A1A1A, 0 3px 0 #0D0D0D, 0 8px 16px rgba(0,0,0,0.7);
-    transform: rotateX(8deg) scale(0.9);
+    box-shadow:
+      inset 0 1px 0 rgba(96, 165, 250, 0.08),
+      0 0 0 1.5px rgba(59, 130, 246, 0.3),
+      0 3px 0 #0a0a14,
+      0 8px 16px rgba(0, 0, 0, 0.7),
+      0 0 20px rgba(59, 130, 246, 0.08);
+    transform: rotateX(8deg) scale(0.92);
     transform-origin: center 80%;
-    transition: transform 0.35s cubic-bezier(0.2,0.9,0.4,1.2), box-shadow 0.35s ease;
+    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2),
+                box-shadow 0.35s ease;
   }
   .cs-streamdeck:hover .cs-sd-bezel {
-    transform: rotateX(10deg) scale(0.95);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 0 0 1px #222, 0 3px 0 #0D0D0D, 0 10px 24px rgba(0,0,0,0.8), 0 0 16px rgba(0,255,65,0.06);
+    transform: rotateX(12deg) scale(1.06);
+    box-shadow:
+      inset 0 1px 0 rgba(96, 165, 250, 0.12),
+      0 0 0 1.5px rgba(59, 130, 246, 0.6),
+      0 4px 0 #0a0a14,
+      0 14px 28px rgba(0, 0, 0, 0.8),
+      0 0 28px rgba(59, 130, 246, 0.2);
   }
-  .cs-sd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .cs-sd-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
   .cs-sd-key {
-    aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
-    text-decoration: none; border-radius: 4px; background: #0a0a0a;
-    transition: transform 0.14s cubic-bezier(0.2,0.9,0.4,1.2), box-shadow 0.14s ease; position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-decoration: none;
+    border-radius: 4px;
+    background: #06060c;
+    transition: transform 0.14s cubic-bezier(0.2, 0.9, 0.4, 1.2),
+                box-shadow 0.14s ease;
+    position: relative;
   }
-  .cs-sd-green { box-shadow: 0 0 0 1.5px #3FFF46, 0 1px 0 #3FFF46, 0 3px 5px rgba(0,0,0,0.6), 0 0 12px rgba(63,255,70,0.15); }
-  .cs-sd-white { box-shadow: 0 0 0 1.5px #fafafa, 0 1px 0 #fafafa, 0 3px 5px rgba(0,0,0,0.6), 0 0 12px rgba(255,255,255,0.08); }
-  .cs-sd-key:hover { transform: translateY(-2px) scale(1.03); z-index: 5; }
-  .cs-sd-green:hover { box-shadow: 0 0 0 1.5px #5fff66, 0 3px 0 #3FFF46, 0 6px 10px rgba(0,0,0,0.7), 0 0 22px rgba(63,255,70,0.4); }
-  .cs-sd-white:hover { box-shadow: 0 0 0 1.5px #ffffff, 0 3px 0 #fafafa, 0 6px 10px rgba(0,0,0,0.7), 0 0 22px rgba(255,255,255,0.18); }
-  .cs-sd-key:active { transform: translateY(0) scale(0.97); }
-  .cs-sd-cap { font-family: "Newell", "JetBrains Mono", monospace; font-size: 0.7rem; font-weight: 700; line-height: 1; }
+  /* Blue-framed keys (contrast with keyboard's green) */
+  .cs-sd-green {
+    box-shadow: 0 0 0 1.5px rgba(96, 165, 250, 0.5), 0 1px 0 rgba(96, 165, 250, 0.3), 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(59, 130, 246, 0.1);
+  }
+  .cs-sd-white {
+    box-shadow: 0 0 0 1.5px rgba(59, 130, 246, 0.35), 0 1px 0 rgba(59, 130, 246, 0.2), 0 3px 5px rgba(0,0,0,0.6);
+  }
+  .cs-sd-key:hover {
+    transform: translateY(-3px) scale(1.06);
+    z-index: 5;
+  }
+  .cs-sd-green:hover {
+    box-shadow: 0 0 0 2px #60A5FA, 0 4px 0 rgba(59, 130, 246, 0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(59, 130, 246, 0.35);
+  }
+  .cs-sd-white:hover {
+    box-shadow: 0 0 0 2px #3B82F6, 0 4px 0 rgba(59, 130, 246, 0.3), 0 6px 10px rgba(0,0,0,0.7), 0 0 18px rgba(59, 130, 246, 0.25);
+  }
+  .cs-sd-key:active {
+    transform: translateY(0) scale(0.97);
+  }
+  /* Bright readable caps — white text, clearly visible by default */
+  .cs-sd-cap {
+    font-family: "Newell", "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #FFFFFF;
+  }
   .cs-sd-green .cs-sd-cap { color: #FFFFFF; }
-  .cs-sd-white .cs-sd-cap { color: #00FF41; }
-  .cs-sd-label { font-family: "JetBrains Mono", monospace; font-size: 0.35rem; color: #505050; letter-spacing: 0.02em; transition: color 0.14s; }
-  .cs-sd-key:hover .cs-sd-label { color: #00FF41; }
+  .cs-sd-white .cs-sd-cap { color: #BFDBFE; }
+  /* Brighter labels — was #505050 (invisible), now readable */
+  .cs-sd-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.38rem;
+    color: #808080;
+    letter-spacing: 0.02em;
+    transition: color 0.14s;
+  }
+  .cs-sd-key:hover .cs-sd-cap { color: #60A5FA; }
+  .cs-sd-key:hover .cs-sd-label { color: #60A5FA; }
 
-  /* Desktop: fix to left of keyboard, under terminal */
+  /* Desktop: fixed left of keyboard, under terminal */
   @media (min-width: 769px) {
     .cs-streamdeck {
       position: fixed;
@@ -669,14 +723,18 @@ const LETTERS = [...LEFT, ...RIGHT];
       top: 64%;
       transform: translateY(-50%);
       z-index: 6;
-      opacity: 0.85;
+      opacity: 1;
       margin: 0;
-      transition: opacity 0.3s ease;
     }
-    .cs-streamdeck:hover { opacity: 1; }
-    .cs-keyboard-stage {
-      transform: translateX(120px);
+  }
+
+  /* Mobile: in-flow below font link */
+  @media (max-width: 768px) {
+    .cs-streamdeck {
+      margin: 8px auto 0;
+      max-width: 280px;
     }
+    .cs-sd-bezel { transform: none; }
   }
 </style>
 
