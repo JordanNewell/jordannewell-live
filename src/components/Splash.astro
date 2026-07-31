@@ -732,6 +732,10 @@ const LETTERS = [...LEFT, ...RIGHT];
       text-transform: uppercase;
       text-decoration: none;
     }
+    /* Mobile: hide keyboard + stream deck — just terminal + letters + typelink.
+       Push terminal down so splash doesn't sit cramped at top. */
+    .cs-keyboard-stage { display: none; }
+    .cs :global([data-terminal]) { margin-top: 64px; }
   }
 </style>
 
