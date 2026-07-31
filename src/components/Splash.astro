@@ -626,7 +626,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 <style is:global>
   .cs-streamdeck {
     position: fixed;
-    left: calc(50% - 420px);
+    left: calc(50% - 480px);
     top: 64%;
     transform: translateY(-50%);
     width: 180px;
@@ -667,6 +667,18 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-white .cs-sd-cap { color: #00FF41; }
   .cs-sd-label { font-family: "JetBrains Mono", monospace; font-size: 0.35rem; color: #505050; letter-spacing: 0.02em; transition: color 0.14s; }
   .cs-sd-key:hover .cs-sd-label { color: #00FF41; }
-  @media (max-width: 768px) { .cs-streamdeck { display: none; } }
+  @media (max-width: 768px) {
+    .cs-streamdeck {
+      position: static !important;
+      transform: none !important;
+      width: 100% !important;
+      max-width: 320px;
+      margin: 8px auto 0;
+      opacity: 1;
+      perspective: none;
+    }
+    .cs-sd-bezel { transform: none !important; }
+    .cs-sd-grid { grid-template-columns: repeat(3, 1fr); }
+  }
 </style>
 
