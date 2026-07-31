@@ -1,34 +1,52 @@
 ---
-// Bottom-left N mark — fixed overlay, mirrors the PFP. Static, no interaction.
+// Bottom-left N mark — clickable, links to jordannewell.com.
+// Matches git-hygiene floating mark behavior (hover scale, link).
 ---
-
-<img
-  src="/images/nmojibutton.png?v=1"
-  alt=""
-  aria-hidden="true"
-  class="dock-trigger-img"
-  width="80"
-  height="80"
-  decoding="async"
-/>
+<a href="https://jordannewell.com" class="dock-trigger-link" aria-label="NEWELL — visit jordannewell.com" title="A NEWELL project">
+  <img
+    src="/images/nmojibutton.png?v=1"
+    alt="NEWELL"
+    class="dock-trigger-img"
+    width="80"
+    height="80"
+    decoding="async"
+  />
+</a>
 
 <style>
-  .dock-trigger-img {
+  .dock-trigger-link {
     position: fixed;
-    left: -15px;
-    bottom: -25px;
-    width: 140px;
-    height: auto;
-    opacity: 0.85;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
-    pointer-events: none;
-    z-index: 50;
+    left: 16px;
+    bottom: 16px;
+    display: block;
+    z-index: 9999;
+    opacity: 0.9;
+    transition: transform 0.18s cubic-bezier(0.2, 0.9, 0.4, 1.2),
+                opacity 0.18s ease;
+    text-decoration: none;
+    line-height: 0;
+  }
+  .dock-trigger-link:hover {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+  .dock-trigger-link:active {
+    transform: scale(0.97);
+  }
+  .dock-trigger-img {
+    display: block;
+    width: 64px;
+    height: 64px;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
   }
   @media (max-width: 768px) {
     .dock-trigger-img {
-      width: 110px;
-      left: -5px;
-      bottom: -15px;
+      width: 48px;
+      height: 48px;
+    }
+    .dock-trigger-link {
+      left: 12px;
+      bottom: 12px;
     }
   }
 </style>
