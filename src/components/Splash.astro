@@ -65,6 +65,37 @@ const LETTERS = [...LEFT, ...RIGHT];
 
   <StatusTerminal />
 
+  {/* Mobile-only single-row key strip — J O R D A N N E W E L L.
+      Sits under the terminal. Hidden on desktop (scattered fixed keys take over). */}
+  <div class="cs-key-strip" aria-label="Newell typeface keys">
+    <div class="cs-strip-word">
+      {LEFT.map((letter, i) => (
+        <a
+          class={`cs-strip-key cs-key-${i % 2 === 0 ? "green" : "white"}`}
+          href={FONT_URL}
+          target="_blank"
+          rel="noopener"
+          aria-label="Newell typeface"
+          title="Newell typeface"
+        >
+          <span class="cs-strip-cap">{letter}</span>
+        </a>
+      ))}
+      {RIGHT.map((letter, i) => (
+        <a
+          class={`cs-strip-key cs-key-${i % 2 === 0 ? "white" : "green"}`}
+          href={FONT_URL}
+          target="_blank"
+          rel="noopener"
+          aria-label="Newell typeface"
+          title="Newell typeface"
+        >
+          <span class="cs-strip-cap">{letter}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+
   {/* Mechanical keyboard in 3D perspective — desk gradient removed per request.
       Stream Deck is a child of keyboard-stage so it's absolutely positioned
       relative to it, scrolling with the page instead of floating on viewport. */}
@@ -72,37 +103,10 @@ const LETTERS = [...LEFT, ...RIGHT];
     <div class="cs-keyboard">
       <KeyboardBase />
     </div>
-    {/* Mobile-only single-row key strip — J O R D A N N E W E L L.
-        Hidden on desktop (scattered fixed keys take over). Sits between
-        keyboard and stream deck so mobile reads: keyboard → letters → keypad. */}
-    <div class="cs-key-strip" aria-label="Newell typeface keys">
-      <div class="cs-strip-word">
-        {LEFT.map((letter, i) => (
-          <a
-            class={`cs-strip-key cs-key-${i % 2 === 0 ? "green" : "white"}`}
-            href={FONT_URL}
-            target="_blank"
-            rel="noopener"
-            aria-label="Newell typeface"
-            title="Newell typeface"
-          >
-            <span class="cs-strip-cap">{letter}</span>
-          </a>
-        ))}
-        {RIGHT.map((letter, i) => (
-          <a
-            class={`cs-strip-key cs-key-${i % 2 === 0 ? "white" : "green"}`}
-            href={FONT_URL}
-            target="_blank"
-            rel="noopener"
-            aria-label="Newell typeface"
-            title="Newell typeface"
-          >
-            <span class="cs-strip-cap">{letter}</span>
-          </a>
-        ))}
-      </div>
-    </div>
+    {/* Mobile-only typelink — under the keyboard, before the stream deck. */}
+    <a class="cs-typelink cs-typelink-mobile" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
+      Newell font <span aria-hidden="true">→</span>
+    </a>
     <div class="cs-streamdeck" aria-label="NEWELL product family">
       <div class="cs-sd-bezel">
         <div class="cs-sd-grid">
@@ -144,6 +148,8 @@ const LETTERS = [...LEFT, ...RIGHT];
           </a>
         </div>
       </div>
+      {/* Mobile-only launch pad label under the keypad bezel */}
+      <a class="cs-sd-launch" href="#" aria-hidden="true">launch pad <span aria-hidden="true">→</span></a>
     </div>
     <a class="cs-typelink cs-typelink-desktop" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
       Newell font <span aria-hidden="true">→</span>
@@ -164,11 +170,8 @@ const LETTERS = [...LEFT, ...RIGHT];
     <img src="/images/curtis-ai-corner.png?v=4" alt="Curtis AI" width="155" height="120" loading="lazy" decoding="async" />
   </a>
 
-  {/* Mobile-only "Newell font →" — under the JORDAN NEWELL letters.
-      Desktop hides this and uses the one inside keyboard-stage. */}
-  <a class="cs-typelink cs-typelink-mobile" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
-    Newell font <span aria-hidden="true">→</span>
-  </a>
+  {/* Mobile-only "Newell font →" lives inside keyboard-stage now (between
+      keyboard and stream deck). Desktop typelink also inside keyboard-stage. */}
 
 <EmojiDock />
 </section>
@@ -229,8 +232,10 @@ const LETTERS = [...LEFT, ...RIGHT];
                 filter 0.35s ease;
     filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.75));
   }
-  /* Stationary 3D pose — hover just magnifies, no tilt change. */
-  .cs-keyboard-stage:hover .cs-keyboard {
+  /* Stationary 3D pose — hover just magnifies, no tilt change.
+     Use direct .cs-keyboard:hover (not stage:hover) so hovering the stream deck
+     inside the stage doesn't enlarge the keyboard. */
+  .cs-keyboard:hover {
     transform: rotateX(16deg) scale(1.04);
     filter: drop-shadow(0 28px 26px rgba(0, 0, 0, 0.8))
             drop-shadow(0 0 14px rgba(63, 255, 70, 0.12));
@@ -696,9 +701,24 @@ const LETTERS = [...LEFT, ...RIGHT];
       text-align: center;
     }
   }
+  /* Mobile-only launch pad label under stream deck bezel */
+  .cs-sd-launch {
+    display: none;
+  }
   @media (max-width: 768px) {
     .cs-streamdeck { margin: 8px auto 0; max-width: 280px; }
     .cs-sd-bezel { transform: none; }
+    .cs-sd-launch {
+      display: block;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.55rem;
+      color: #606060;
+      margin-top: 6px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
   }
 </style>
 
