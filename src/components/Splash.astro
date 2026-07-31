@@ -72,6 +72,37 @@ const LETTERS = [...LEFT, ...RIGHT];
     <div class="cs-keyboard">
       <KeyboardBase />
     </div>
+    {/* Mobile-only single-row key strip — J O R D A N N E W E L L.
+        Hidden on desktop (scattered fixed keys take over). Sits between
+        keyboard and stream deck so mobile reads: keyboard → letters → keypad. */}
+    <div class="cs-key-strip" aria-label="Newell typeface keys">
+      <div class="cs-strip-word">
+        {LEFT.map((letter, i) => (
+          <a
+            class={`cs-strip-key cs-key-${i % 2 === 0 ? "green" : "white"}`}
+            href={FONT_URL}
+            target="_blank"
+            rel="noopener"
+            aria-label="Newell typeface"
+            title="Newell typeface"
+          >
+            <span class="cs-strip-cap">{letter}</span>
+          </a>
+        ))}
+        {RIGHT.map((letter, i) => (
+          <a
+            class={`cs-strip-key cs-key-${i % 2 === 0 ? "white" : "green"}`}
+            href={FONT_URL}
+            target="_blank"
+            rel="noopener"
+            aria-label="Newell typeface"
+            title="Newell typeface"
+          >
+            <span class="cs-strip-cap">{letter}</span>
+          </a>
+        ))}
+      </div>
+    </div>
     <div class="cs-streamdeck" aria-label="NEWELL product family">
       <div class="cs-sd-bezel">
         <div class="cs-sd-grid">
@@ -132,40 +163,6 @@ const LETTERS = [...LEFT, ...RIGHT];
   >
     <img src="/images/curtis-ai-corner.png?v=4" alt="Curtis AI" width="155" height="120" loading="lazy" decoding="async" />
   </a>
-
-  {/* Mobile-only key strip — same 12 letters in 2 rows (JORDAN / NEWELL).
-      Sits below the terminal as a footer accent. Hidden on >=769px where the
-      scattered fixed keycaps take over. */}
-  <div class="cs-key-strip" aria-label="Newell typeface keys">
-    <div class="cs-strip-word">
-      {LEFT.map((letter, i) => (
-        <a
-          class={`cs-strip-key cs-key-${i % 2 === 0 ? "green" : "white"}`}
-          href={FONT_URL}
-          target="_blank"
-          rel="noopener"
-          aria-label="Newell typeface"
-          title="Newell typeface"
-        >
-          <span class="cs-strip-cap">{letter}</span>
-        </a>
-      ))}
-    </div>
-    <div class="cs-strip-word">
-      {RIGHT.map((letter, i) => (
-        <a
-          class={`cs-strip-key cs-key-${i % 2 === 0 ? "white" : "green"}`}
-          href={FONT_URL}
-          target="_blank"
-          rel="noopener"
-          aria-label="Newell typeface"
-          title="Newell typeface"
-        >
-          <span class="cs-strip-cap">{letter}</span>
-        </a>
-      ))}
-    </div>
-  </div>
 
   {/* Mobile-only "Newell font →" — under the JORDAN NEWELL letters.
       Desktop hides this and uses the one inside keyboard-stage. */}
@@ -486,28 +483,29 @@ const LETTERS = [...LEFT, ...RIGHT];
     .cs-key-cap { width: 30px; height: 30px; font-size: 1rem; }
   }
 
-  /* Mobile-only key strip — JORDAN row + NEWELL row, centered */
+  /* Mobile-only key strip — single row of 12 (J O R D A N N E W E L L) */
   .cs-key-strip {
     display: none; /* hidden on desktop, scattered fixed keys take over */
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    gap: 6px;
+    gap: 3px;
     padding: 4px 2px 8px;
   }
   .cs-strip-word {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 3px;
   }
   .cs-strip-key {
     flex: 0 0 auto;
-    width: 34px;
-    height: 34px;
+    width: 24px;
+    height: 24px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 4px;
     background: #0a0a0a;
     transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
                 box-shadow 0.18s ease;
@@ -529,12 +527,12 @@ const LETTERS = [...LEFT, ...RIGHT];
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 2px;
     background: #0a0a0a;
     font-family: "Newell", var(--font-mono);
-    font-size: 0.95rem;
+    font-size: 0.7rem;
     line-height: 1;
   }
   /* Same variant styling as fixed keys but with thinner rims for small sizes */
