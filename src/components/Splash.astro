@@ -658,22 +658,23 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-key:hover .cs-sd-label { color: #FFFFFF; }
 
   /* Desktop: stream deck absolute-positioned to left of keyboard, scrolls with page.
+     Tops aligned with keyboard so they read as siblings, not floating.
      Keyboard-stage is the positioning context (position:relative already set above). */
   @media (min-width: 769px) {
     .cs-streamdeck {
       position: absolute;
       right: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      margin-right: 24px;
+      top: 12px;
+      margin-right: 28px;
       z-index: 6;
       width: 200px;
     }
     .cs-keyboard-stage {
-      transform: translateX(175px);
+      transform: translateX(225px);
+      margin-top: 40px;
     }
     .cs-typelink-desktop {
-      transform: translateX(175px);
+      transform: translateX(225px);
     }
   }
   @media (max-width: 768px) {
