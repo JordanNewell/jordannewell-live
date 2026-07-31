@@ -66,9 +66,10 @@ const LETTERS = [...LEFT, ...RIGHT];
   <StatusTerminal />
 
   {/* Mechanical keyboard in 3D perspective — desk gradient removed per request. */}
-    <div class="cs-desk">
-    {/* NEWELL Stream Deck — product hot keys, sits left of keyboard */}
-  <div class="cs-streamdeck" aria-label="NEWELL product family">
+  {/* NEWELL Stream Deck — product hot keys, sits left of keyboard */}
+  
+    <div class="cs-keyboard-stage">
+      <div class="cs-streamdeck" aria-label="NEWELL product family">
     <div class="cs-sd-bezel">
       <div class="cs-sd-grid">
         <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/harbormasterd/" target="_blank" rel="noopener" title="harbormasterd">
@@ -110,11 +111,10 @@ const LETTERS = [...LEFT, ...RIGHT];
       </div>
     </div>
   </div>
-    <div class="cs-keyboard-stage">
+    
     <div class="cs-keyboard">
       <KeyboardBase />
     </div>
-  </div>
   </div>
 
   {/* Pinned portrait bottom-right — static overlay, no interaction. */}
@@ -223,13 +223,19 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
   .cs-keyboard-stage {
     width: 100%;
-    max-width: 720px; /* match terminal width so the two read as proportional siblings */
+    max-width: 900px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* match terminal width so the two read as proportional siblings */
     margin-top: 0;
     position: relative;
     perspective: 1500px;
     perspective-origin: 50% 20%;
   }
   .cs-keyboard {
+    flex: 1 1 auto;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -249,38 +255,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
   /* Desk surface — a tilted plane that recedes from foreground to background.
      Drawn as a CSS gradient: light hit near the keyboard, fading to deep shadow
-     toward the back. Slight green tint near the keyboard's underglow. */
-  .cs-desk {
-    position: absolute;
-    left: 50%;
-    bottom: -10px;
-    width: 110%;
-    height: 80px;
-    transform: translateX(-50%) perspective(600px) rotateX(60deg);
-    transform-origin: center top;
-    background:
-      radial-gradient(ellipse at 50% 0%,
-        rgba(63, 255, 70, 0.10) 0%,
-        rgba(20, 20, 22, 0.6) 25%,
-        rgba(8, 8, 10, 0.95) 60%,
-        rgba(0, 0, 0, 1) 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
-  /* Subtle desk grain via repeating gradient overlay */
-  .cs-desk::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent 2px,
-      rgba(255, 255, 255, 0.012) 2px,
-      rgba(255, 255, 255, 0.012) 3px
-    );
-  }
-  /* Portrait standing free at bottom-right — no frame, no box, no border.
+     toward the back. Slight green tint near the keyboard's underglow. *//* Subtle desk grain via repeating gradient overlay *//* Portrait standing free at bottom-right — no frame, no box, no border.
      Just the figure on the page. Static, no interaction. */
   .cs-pfp {
     position: fixed;
@@ -723,31 +698,6 @@ const LETTERS = [...LEFT, ...RIGHT];
     .cs-sd-grid { gap: 4px; }
     .cs-sd-cap { font-size: 0.8rem; }
     .cs-sd-label { font-size: 0.38rem; }
-  }
-
-
-  /* Desk — keyboard + Stream Deck side by side */
-  .cs-desk {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 16px;
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .cs-desk .cs-streamdeck {
-    flex: 0 0 auto;
-    margin: 0;
-    align-self: center;
-  }
-  .cs-desk .cs-keyboard-stage {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-  @media (max-width: 900px) {
-    .cs-desk { flex-direction: column; gap: 8px; }
-  }
+  }@media (max-width: 900px) {}
 
 </style>
