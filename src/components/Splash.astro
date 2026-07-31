@@ -278,35 +278,7 @@ const LETTERS = [...LEFT, ...RIGHT];
       rgba(255, 255, 255, 0.012) 2px,
       rgba(255, 255, 255, 0.012) 3px
     );
-  }
-  /* Portrait standing free at bottom-right — no frame, no box, no border.
-     Just the figure on the page. Static, no interaction. */
-  .cs-pfp {
-    position: fixed;
-    right: -30px;
-    bottom: -30px;
-    width: 200px;
-    height: auto;
-    opacity: 0.7;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55));
-    pointer-events: none;
-    z-index: 50;
-  }
-  .cs-pfp img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
-  .cs-pfp:hover {
-    opacity: 1;
-    transform: translateY(-4px);
-    filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.7))
-            drop-shadow(0 0 18px rgba(63, 255, 70, 0.25));
-  }
-  @media (max-width: 768px) {
-    .cs-pfp { width: 160px; right: -20px; bottom: -20px; }
-  }
-  /* Curtis AI badge — visual sibling of the PFP, anchored bottom-left. */
+  }/* Curtis AI badge — visual sibling of the PFP, anchored bottom-left. */
   .cs-curtis {
     position: fixed;
     left: 28px;
