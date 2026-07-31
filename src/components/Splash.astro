@@ -142,39 +142,39 @@ const LETTERS = [...LEFT, ...RIGHT];
   <div class="cs-streamdeck" aria-label="NEWELL product family">
     <div class="cs-sd-bezel">
       <div class="cs-sd-grid">
-      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/harbormasterd/" target="_blank" rel="noopener" title="harbormasterd">
+      <a class="cs-sd-key cs-sd-c1" href="https://jordannewell.github.io/harbormasterd/" target="_blank" rel="noopener" title="harbormasterd">
         <span class="cs-sd-cap">H</span>
         <span class="cs-sd-label">harbor</span>
       </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
+      <a class="cs-sd-key cs-sd-c2" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
         <span class="cs-sd-cap">CL</span>
         <span class="cs-sd-label">claudeway</span>
       </a>
-      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/curtis-ai-chat/" target="_blank" rel="noopener" title="curtis-ai-chat">
+      <a class="cs-sd-key cs-sd-c3" href="https://jordannewell.github.io/curtis-ai-chat/" target="_blank" rel="noopener" title="curtis-ai-chat">
         <span class="cs-sd-cap">CA</span>
         <span class="cs-sd-label">curtis-ai</span>
       </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/curtis-compliance/" target="_blank" rel="noopener" title="curtis-compliance">
+      <a class="cs-sd-key cs-sd-c4" href="https://jordannewell.github.io/curtis-compliance/" target="_blank" rel="noopener" title="curtis-compliance">
         <span class="cs-sd-cap">CC</span>
         <span class="cs-sd-label">curtis-co</span>
       </a>
-      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/crypto-key-classifier/" target="_blank" rel="noopener" title="crypto-key-classifier">
+      <a class="cs-sd-key cs-sd-c5" href="https://jordannewell.github.io/crypto-key-classifier/" target="_blank" rel="noopener" title="crypto-key-classifier">
         <span class="cs-sd-cap">K</span>
         <span class="cs-sd-label">crypto-key</span>
       </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/temporal-git/" target="_blank" rel="noopener" title="temporal-git">
+      <a class="cs-sd-key cs-sd-c6" href="https://jordannewell.github.io/temporal-git/" target="_blank" rel="noopener" title="temporal-git">
         <span class="cs-sd-cap">T</span>
         <span class="cs-sd-label">temporal</span>
       </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/git-hygiene/" target="_blank" rel="noopener" title="git-hygiene">
+      <a class="cs-sd-key cs-sd-c8" href="https://jordannewell.github.io/git-hygiene/" target="_blank" rel="noopener" title="git-hygiene">
         <span class="cs-sd-cap">G</span>
         <span class="cs-sd-label">git-hygiene</span>
       </a>
-      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/newell-typeface/" target="_blank" rel="noopener" title="newell-typeface">
+      <a class="cs-sd-key cs-sd-c7" href="https://jordannewell.github.io/newell-typeface/" target="_blank" rel="noopener" title="newell-typeface">
         <span class="cs-sd-cap">N</span>
         <span class="cs-sd-label">typeface</span>
       </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/pat-scanner/" target="_blank" rel="noopener" title="pat-scanner">
+      <a class="cs-sd-key cs-sd-c2" href="https://jordannewell.github.io/pat-scanner/" target="_blank" rel="noopener" title="pat-scanner">
         <span class="cs-sd-cap">P</span>
         <span class="cs-sd-label">pat-scan</span>
       </a>
@@ -629,18 +629,18 @@ const LETTERS = [...LEFT, ...RIGHT];
     margin: 0 auto;
     perspective: 1200px;
     perspective-origin: 50% 20%;
-    transition: opacity 0.3s ease;
   }
+  /* GREEN bezel outline (matches keyboard green theme) */
   .cs-sd-bezel {
-    background: #080810;
+    background: #060606;
     border-radius: 8px;
     padding: 10px;
     box-shadow:
-      inset 0 1px 0 rgba(96, 165, 250, 0.08),
-      0 0 0 1.5px rgba(59, 130, 246, 0.3),
-      0 3px 0 #0a0a14,
+      inset 0 1px 0 rgba(0, 255, 65, 0.06),
+      0 0 0 1.5px rgba(0, 255, 65, 0.4),
+      0 3px 0 #0D0D0D,
       0 8px 16px rgba(0, 0, 0, 0.7),
-      0 0 20px rgba(59, 130, 246, 0.08);
+      0 0 20px rgba(0, 255, 65, 0.06);
     transform: rotateX(8deg) scale(0.92);
     transform-origin: center 80%;
     transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2),
@@ -649,91 +649,68 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-streamdeck:hover .cs-sd-bezel {
     transform: rotateX(12deg) scale(1.06);
     box-shadow:
-      inset 0 1px 0 rgba(96, 165, 250, 0.12),
-      0 0 0 1.5px rgba(59, 130, 246, 0.6),
-      0 4px 0 #0a0a14,
+      inset 0 1px 0 rgba(0, 255, 65, 0.1),
+      0 0 0 1.5px rgba(0, 255, 65, 0.7),
+      0 4px 0 #0D0D0D,
       0 14px 28px rgba(0, 0, 0, 0.8),
-      0 0 28px rgba(59, 130, 246, 0.2);
+      0 0 28px rgba(0, 255, 65, 0.15);
   }
-  .cs-sd-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-  }
+  .cs-sd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
   .cs-sd-key {
     aspect-ratio: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    text-decoration: none;
-    border-radius: 4px;
-    background: #06060c;
-    transition: transform 0.14s cubic-bezier(0.2, 0.9, 0.4, 1.2),
-                box-shadow 0.14s ease;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    text-decoration: none; border-radius: 4px; background: #0a0a0a;
+    transition: transform 0.14s cubic-bezier(0.2, 0.9, 0.4, 1.2), box-shadow 0.14s ease;
     position: relative;
   }
-  /* Blue-framed keys (contrast with keyboard's green) */
-  .cs-sd-green {
-    box-shadow: 0 0 0 1.5px rgba(96, 165, 250, 0.5), 0 1px 0 rgba(96, 165, 250, 0.3), 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(59, 130, 246, 0.1);
-  }
-  .cs-sd-white {
-    box-shadow: 0 0 0 1.5px rgba(59, 130, 246, 0.35), 0 1px 0 rgba(59, 130, 246, 0.2), 0 3px 5px rgba(0,0,0,0.6);
-  }
-  .cs-sd-key:hover {
-    transform: translateY(-3px) scale(1.06);
-    z-index: 5;
-  }
-  .cs-sd-green:hover {
-    box-shadow: 0 0 0 2px #60A5FA, 0 4px 0 rgba(59, 130, 246, 0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(59, 130, 246, 0.35);
-  }
-  .cs-sd-white:hover {
-    box-shadow: 0 0 0 2px #3B82F6, 0 4px 0 rgba(59, 130, 246, 0.3), 0 6px 10px rgba(0,0,0,0.7), 0 0 18px rgba(59, 130, 246, 0.25);
-  }
-  .cs-sd-key:active {
-    transform: translateY(0) scale(0.97);
-  }
-  /* Bright readable caps — white text, clearly visible by default */
-  .cs-sd-cap {
-    font-family: "Newell", "JetBrains Mono", monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    line-height: 1;
-    color: #FFFFFF;
-  }
-  .cs-sd-green .cs-sd-cap { color: #FFFFFF; }
-  .cs-sd-white .cs-sd-cap { color: #BFDBFE; }
-  /* Brighter labels — was #505050 (invisible), now readable */
-  .cs-sd-label {
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.38rem;
-    color: #808080;
-    letter-spacing: 0.02em;
-    transition: color 0.14s;
-  }
-  .cs-sd-key:hover .cs-sd-cap { color: #60A5FA; }
-  .cs-sd-key:hover .cs-sd-label { color: #60A5FA; }
+  .cs-sd-key:hover { transform: translateY(-3px) scale(1.06); z-index: 5; }
+  .cs-sd-key:active { transform: translateY(0) scale(0.97); }
+  /* MULTICOLOR neon keycap outlines */
+  .cs-sd-c1 { box-shadow: 0 0 0 1.5px #00FF41, 0 1px 0 #00FF41, 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(0,255,65,0.15); }
+  .cs-sd-c2 { box-shadow: 0 0 0 1.5px #3B82F6, 0 1px 0 #3B82F6, 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(59,130,246,0.15); }
+  .cs-sd-c3 { box-shadow: 0 0 0 1.5px #06B6D4, 0 1px 0 #06B6D4, 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(6,182,212,0.15); }
+  .cs-sd-c4 { box-shadow: 0 0 0 1.5px #A855F7, 0 1px 0 #A855F7, 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(168,85,247,0.15); }
+  .cs-sd-c5 { box-shadow: 0 0 0 1.5px #00FF41, 0 1px 0 #00FF41, 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(0,255,65,0.15); }
+  .cs-sd-c6 { box-shadow: 0 0 0 1.5px #3B82F6, 0 1px 0 #3B82F6, 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(59,130,246,0.15); }
+  .cs-sd-c7 { box-shadow: 0 0 0 1.5px #06B6D4, 0 1px 0 #06B6D4, 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(6,182,212,0.15); }
+  .cs-sd-c8 { box-shadow: 0 0 0 1.5px #00FF41, 0 1px 0 #00FF41, 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(0,255,65,0.15); }
+  .cs-sd-c9 { box-shadow: 0 0 0 1.5px #F59E0B, 0 1px 0 #F59E0B, 0 3px 5px rgba(0,0,0,0.6), 0 0 10px rgba(245,158,11,0.15); }
+  /* Hover: brighten each color */
+  .cs-sd-c1:hover { box-shadow: 0 0 0 2px #00FF41, 0 4px 0 rgba(0,255,65,0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(0,255,65,0.4); }
+  .cs-sd-c2:hover { box-shadow: 0 0 0 2px #3B82F6, 0 4px 0 rgba(59,130,246,0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(59,130,246,0.4); }
+  .cs-sd-c3:hover { box-shadow: 0 0 0 2px #06B6D4, 0 4px 0 rgba(6,182,212,0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(6,182,212,0.4); }
+  .cs-sd-c4:hover { box-shadow: 0 0 0 2px #A855F7, 0 4px 0 rgba(168,85,247,0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(168,85,247,0.4); }
+  .cs-sd-c5:hover { box-shadow: 0 0 0 2px #00FF41, 0 4px 0 rgba(0,255,65,0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(0,255,65,0.4); }
+  .cs-sd-c6:hover { box-shadow: 0 0 0 2px #3B82F6, 0 4px 0 rgba(59,130,246,0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(59,130,246,0.4); }
+  .cs-sd-c7:hover { box-shadow: 0 0 0 2px #06B6D4, 0 4px 0 rgba(6,182,212,0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(6,182,212,0.4); }
+  .cs-sd-c8:hover { box-shadow: 0 0 0 2px #00FF41, 0 4px 0 rgba(0,255,65,0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(0,255,65,0.4); }
+  .cs-sd-c9:hover { box-shadow: 0 0 0 2px #F59E0B, 0 4px 0 rgba(245,158,11,0.4), 0 6px 10px rgba(0,0,0,0.7), 0 0 20px rgba(245,158,11,0.4); }
+  /* Bright readable caps */
+  .cs-sd-cap { font-family: "Newell", "JetBrains Mono", monospace; font-size: 0.75rem; font-weight: 700; line-height: 1; color: #FFFFFF; }
+  .cs-sd-label { font-family: "JetBrains Mono", monospace; font-size: 0.38rem; color: #808080; letter-spacing: 0.02em; transition: color 0.14s; }
+  .cs-sd-c1:hover .cs-sd-cap, .cs-sd-c5:hover .cs-sd-cap, .cs-sd-c8:hover .cs-sd-cap { color: #00FF41; }
+  .cs-sd-c2:hover .cs-sd-cap, .cs-sd-c6:hover .cs-sd-cap { color: #3B82F6; }
+  .cs-sd-c3:hover .cs-sd-cap, .cs-sd-c7:hover .cs-sd-cap { color: #06B6D4; }
+  .cs-sd-c4:hover .cs-sd-cap { color: #A855F7; }
+  .cs-sd-c9:hover .cs-sd-cap { color: #F59E0B; }
+  .cs-sd-key:hover .cs-sd-label { color: #FFFFFF; }
 
-  /* Desktop: fixed left of keyboard, under terminal */
+  /* Desktop: fixed, keyboard shifted right for spacing */
   @media (min-width: 769px) {
     .cs-streamdeck {
       position: fixed;
-      left: calc(50% - 340px);
+      left: calc(50% - 420px);
       top: 64%;
       transform: translateY(-50%);
       z-index: 6;
-      opacity: 1;
       margin: 0;
     }
-  }
-
-  /* Mobile: in-flow below font link */
-  @media (max-width: 768px) {
-    .cs-streamdeck {
-      margin: 8px auto 0;
-      max-width: 280px;
+    .cs-keyboard-stage {
+      transform: translateX(200px);
     }
+  }
+  @media (max-width: 768px) {
+    .cs-streamdeck { margin: 8px auto 0; max-width: 280px; }
     .cs-sd-bezel { transform: none; }
   }
 </style>
