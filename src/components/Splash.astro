@@ -232,6 +232,12 @@ const LETTERS = [...LEFT, ...RIGHT];
                 filter 0.35s ease;
     filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.75));
   }
+  /* SVG has explicit width/height attrs (452px) — cap to parent so it
+     shrinks on narrow mobile viewports instead of overflowing right. */
+  .cs-keyboard :global(svg.kb) {
+    max-width: 100%;
+    height: auto;
+  }
   /* Stationary 3D pose — hover just magnifies, no tilt change.
      Use direct .cs-keyboard:hover (not stage:hover) so hovering the stream deck
      inside the stage doesn't enlarge the keyboard. */
