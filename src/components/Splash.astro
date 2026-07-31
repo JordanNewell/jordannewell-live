@@ -657,12 +657,12 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-c9:hover .cs-sd-cap { color: #F59E0B; }
   .cs-sd-key:hover .cs-sd-label { color: #FFFFFF; }
 
-  /* Desktop: fixed, keyboard shifted right for spacing */
+  /* Desktop: stream deck fixed to left of keyboard, vertically aligned with keyboard center */
   @media (min-width: 769px) {
     .cs-streamdeck {
       position: fixed;
-      left: calc(50% - 340px);
-      top: 64%;
+      left: calc(50% - 470px);
+      top: 50%;
       transform: translateY(-50%);
       z-index: 6;
       margin: 0;
