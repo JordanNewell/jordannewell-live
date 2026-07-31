@@ -584,6 +584,16 @@ const LETTERS = [...LEFT, ...RIGHT];
       display: none;
     }
   }
+  /* Desktop: typelink is full-width block centered under keyboard (overrides
+     the scoped inline-flex base above by source order at equal specificity). */
+  @media (min-width: 769px) {
+    .cs-typelink-desktop {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin: 12px 0 0;
+    }
+  }
   .cs-typelink:hover {
     color: #3FFF46;
     border-bottom-color: #3FFF46;
@@ -686,12 +696,6 @@ const LETTERS = [...LEFT, ...RIGHT];
       transform: translateX(270px);
       margin-top: 40px;
       text-align: center;
-    }
-    .cs-typelink-desktop {
-      display: block;
-      width: 100%;
-      text-align: center;
-      margin: 12px 0 0;
     }
   }
   @media (max-width: 768px) {
