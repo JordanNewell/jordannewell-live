@@ -65,10 +65,55 @@ const LETTERS = [...LEFT, ...RIGHT];
 
   <StatusTerminal />
 
-  {/* Mechanical keyboard in 3D perspective — desk gradient removed per request. */}
+  {/* Mechanical keyboard in 3D perspective — desk gradient removed per request.
+      Stream Deck is a child of keyboard-stage so it's absolutely positioned
+      relative to it, scrolling with the page instead of floating on viewport. */}
   <div class="cs-keyboard-stage">
     <div class="cs-keyboard">
       <KeyboardBase />
+    </div>
+    <div class="cs-streamdeck" aria-label="NEWELL product family">
+      <div class="cs-sd-bezel">
+        <div class="cs-sd-grid">
+          <a class="cs-sd-key cs-sd-c1" href="https://jordannewell.github.io/harbormasterd/" target="_blank" rel="noopener" title="harbormasterd">
+            <span class="cs-sd-cap">H</span>
+            <span class="cs-sd-label">harbor</span>
+          </a>
+          <a class="cs-sd-key cs-sd-c2" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
+            <span class="cs-sd-cap">CL</span>
+            <span class="cs-sd-label">claudeway</span>
+          </a>
+          <a class="cs-sd-key cs-sd-c3" href="https://jordannewell.github.io/curtis-ai-chat/" target="_blank" rel="noopener" title="curtis-ai-chat">
+            <span class="cs-sd-cap">CA</span>
+            <span class="cs-sd-label">curtis-ai</span>
+          </a>
+          <a class="cs-sd-key cs-sd-c4" href="https://jordannewell.github.io/curtis-compliance/" target="_blank" rel="noopener" title="curtis-compliance">
+            <span class="cs-sd-cap">CC</span>
+            <span class="cs-sd-label">curtis-co</span>
+          </a>
+          <a class="cs-sd-key cs-sd-c5" href="https://jordannewell.github.io/crypto-key-classifier/" target="_blank" rel="noopener" title="crypto-key-classifier">
+            <span class="cs-sd-cap">K</span>
+            <span class="cs-sd-label">crypto-key</span>
+          </a>
+          <a class="cs-sd-key cs-sd-c6" href="https://jordannewell.github.io/temporal-git/" target="_blank" rel="noopener" title="temporal-git">
+            <span class="cs-sd-cap">T</span>
+            <span class="cs-sd-label">temporal</span>
+          </a>
+          <a class="cs-sd-key cs-sd-c8" href="https://jordannewell.github.io/git-hygiene/" target="_blank" rel="noopener" title="git-hygiene">
+            <span class="cs-sd-cap">G</span>
+            <span class="cs-sd-label">git-hygiene</span>
+          </a>
+          <a class="cs-sd-key cs-sd-c7" href="https://jordannewell.github.io/newell-typeface/" target="_blank" rel="noopener" title="newell-typeface">
+            <span class="cs-sd-cap">N</span>
+            <span class="cs-sd-label">typeface</span>
+          </a>
+          <a class="cs-sd-key cs-sd-c2" href="https://jordannewell.github.io/pat-scanner/" target="_blank" rel="noopener" title="pat-scanner">
+            <span class="cs-sd-cap">P</span>
+            <span class="cs-sd-label">pat-scan</span>
+          </a>
+        </div>
+      </div>
+      <a class="cs-sd-launch" href="#" style="display:block;text-align:center;font-family:JetBrains Mono,monospace;font-size:0.55rem;color:#606060;margin-top:6px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">launch pad <span aria-hidden="true">→</span></a>
     </div>
   </div>
   />
@@ -126,51 +171,6 @@ const LETTERS = [...LEFT, ...RIGHT];
     Newell font <span aria-hidden="true">→</span>
   </a>
 
-
-  {/* NEWELL Stream Deck — product hot keys */}
-  <div class="cs-streamdeck" aria-label="NEWELL product family">
-    <div class="cs-sd-bezel">
-      <div class="cs-sd-grid">
-      <a class="cs-sd-key cs-sd-c1" href="https://jordannewell.github.io/harbormasterd/" target="_blank" rel="noopener" title="harbormasterd">
-        <span class="cs-sd-cap">H</span>
-        <span class="cs-sd-label">harbor</span>
-      </a>
-      <a class="cs-sd-key cs-sd-c2" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
-        <span class="cs-sd-cap">CL</span>
-        <span class="cs-sd-label">claudeway</span>
-      </a>
-      <a class="cs-sd-key cs-sd-c3" href="https://jordannewell.github.io/curtis-ai-chat/" target="_blank" rel="noopener" title="curtis-ai-chat">
-        <span class="cs-sd-cap">CA</span>
-        <span class="cs-sd-label">curtis-ai</span>
-      </a>
-      <a class="cs-sd-key cs-sd-c4" href="https://jordannewell.github.io/curtis-compliance/" target="_blank" rel="noopener" title="curtis-compliance">
-        <span class="cs-sd-cap">CC</span>
-        <span class="cs-sd-label">curtis-co</span>
-      </a>
-      <a class="cs-sd-key cs-sd-c5" href="https://jordannewell.github.io/crypto-key-classifier/" target="_blank" rel="noopener" title="crypto-key-classifier">
-        <span class="cs-sd-cap">K</span>
-        <span class="cs-sd-label">crypto-key</span>
-      </a>
-      <a class="cs-sd-key cs-sd-c6" href="https://jordannewell.github.io/temporal-git/" target="_blank" rel="noopener" title="temporal-git">
-        <span class="cs-sd-cap">T</span>
-        <span class="cs-sd-label">temporal</span>
-      </a>
-      <a class="cs-sd-key cs-sd-c8" href="https://jordannewell.github.io/git-hygiene/" target="_blank" rel="noopener" title="git-hygiene">
-        <span class="cs-sd-cap">G</span>
-        <span class="cs-sd-label">git-hygiene</span>
-      </a>
-      <a class="cs-sd-key cs-sd-c7" href="https://jordannewell.github.io/newell-typeface/" target="_blank" rel="noopener" title="newell-typeface">
-        <span class="cs-sd-cap">N</span>
-        <span class="cs-sd-label">typeface</span>
-      </a>
-      <a class="cs-sd-key cs-sd-c2" href="https://jordannewell.github.io/pat-scanner/" target="_blank" rel="noopener" title="pat-scanner">
-        <span class="cs-sd-cap">P</span>
-        <span class="cs-sd-label">pat-scan</span>
-      </a>
-      </div>
-    </div>
-  </div>
-  <a class="cs-sd-launch" href="#" style="display:block;text-align:center;font-family:JetBrains Mono,monospace;font-size:0.55rem;color:#606060;margin-top:6px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">launch pad <span aria-hidden="true">→</span></a>
 <EmojiDock />
 </section>
 <script src="/js/status-hero.js?v=5" defer></script>
@@ -657,21 +657,23 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-c9:hover .cs-sd-cap { color: #F59E0B; }
   .cs-sd-key:hover .cs-sd-label { color: #FFFFFF; }
 
-  /* Desktop: stream deck fixed to left of keyboard, vertically aligned with keyboard center */
+  /* Desktop: stream deck absolute-positioned to left of keyboard, scrolls with page.
+     Keyboard-stage is the positioning context (position:relative already set above). */
   @media (min-width: 769px) {
     .cs-streamdeck {
-      position: fixed;
-      left: calc(50% - 470px);
+      position: absolute;
+      right: 100%;
       top: 50%;
       transform: translateY(-50%);
+      margin-right: 24px;
       z-index: 6;
-      margin: 0;
+      width: 200px;
     }
     .cs-keyboard-stage {
-      transform: translateX(125px);
+      transform: translateX(175px);
     }
     .cs-typelink-desktop {
-      transform: translateX(125px);
+      transform: translateX(175px);
     }
   }
   @media (max-width: 768px) {
