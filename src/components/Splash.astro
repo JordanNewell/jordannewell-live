@@ -224,7 +224,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     width: 100%;
     max-width: 720px; /* match terminal width so the two read as proportional siblings */
     margin-top: 0;
-    position: relative; backface-visibility: hidden; -webkit-backface-visibility: hidden; will-change: transform;
+    position: relative;
     perspective: 1500px;
     perspective-origin: 50% 20%;
   }
@@ -232,7 +232,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     width: 100%;
     display: flex;
     justify-content: center;
-    position: relative; backface-visibility: hidden; -webkit-backface-visibility: hidden; will-change: transform;
+    position: relative;
     z-index: 2;
     transform: rotateX(10deg) scale(0.92);
     transform-origin: center 80%;
@@ -661,7 +661,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
     text-decoration: none; border-radius: 4px; background: #0a0a0a;
     transition: transform 0.14s cubic-bezier(0.2, 0.9, 0.4, 1.2), box-shadow 0.14s ease;
-    position: relative; backface-visibility: hidden; -webkit-backface-visibility: hidden; will-change: transform;
+    position: relative;
   }
   .cs-sd-key:hover { transform: translateY(-3px) scale(1.06); z-index: 5; }
   .cs-sd-key:active { transform: translateY(0) scale(0.97); }
