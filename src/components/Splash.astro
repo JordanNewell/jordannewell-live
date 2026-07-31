@@ -216,7 +216,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
   .cs-keyboard-stage {
     width: 100%;
-    max-width: 720px; /* match terminal width so the two read as proportional siblings */
+    max-width: 500px; /* match keyboard visual (452px SVG + scale + buffer) so stream deck anchors next to keys */
     margin-top: 0;
     position: relative;
     perspective: 1500px;
@@ -228,7 +228,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     justify-content: center;
     position: relative;
     z-index: 2;
-    transform: rotateX(10deg) scale(1.05);
+    transform: rotateX(10deg) scale(1.0);
     transform-origin: center 80%;
     transition: box-shadow 0.3s ease,
                 filter 0.35s ease;
@@ -244,7 +244,7 @@ const LETTERS = [...LEFT, ...RIGHT];
      Use direct .cs-keyboard:hover (not stage:hover) so hovering the stream deck
      inside the stage doesn't enlarge the keyboard. */
   .cs-keyboard:hover {
-    transform: rotateX(16deg) scale(1.04);
+    transform: rotateX(16deg) scale(1.0);
     filter: drop-shadow(0 28px 26px rgba(0, 0, 0, 0.8))
             drop-shadow(0 0 14px rgba(63, 255, 70, 0.12));
   }
@@ -626,7 +626,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 
 <style is:global>
   .cs-streamdeck {
-    width: 220px;
+    width: 200px;
     margin: 0 auto;
     perspective: 1200px;
     perspective-origin: 50% 20%;
@@ -642,12 +642,12 @@ const LETTERS = [...LEFT, ...RIGHT];
       0 3px 0 #0D0D0D,
       0 8px 16px rgba(0, 0, 0, 0.7),
       0 0 20px rgba(0, 255, 65, 0.06);
-    transform: rotateX(14deg) scale(1.05);
+    transform: rotateX(14deg) scale(1.0);
     transform-origin: center 80%;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
   .cs-streamdeck:hover .cs-sd-bezel {
-    transform: rotateX(20deg) scale(1.09);
+    transform: rotateX(20deg) scale(1.04);
     box-shadow:
       inset 0 1px 0 rgba(0, 255, 65, 0.08),
       0 0 0 1.5px rgba(0, 255, 65, 0.6),
@@ -707,12 +707,12 @@ const LETTERS = [...LEFT, ...RIGHT];
       position: absolute;
       right: 100%;
       top: 2px;
-      margin-right: -20px;
+      margin-right: 15px;
       z-index: 6;
-      width: 220px;
+      width: 200px;
     }
     .cs-keyboard-stage {
-      transform: translateX(180px);
+      transform: translateX(115px);
       margin-top: 50px;
       text-align: center;
     }
