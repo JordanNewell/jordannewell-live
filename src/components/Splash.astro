@@ -222,7 +222,8 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
   .cs-keyboard-stage {
     width: 100%;
-    max-width: 720px; /* match terminal width so the two read as proportional siblings */
+    max-width: 720px;
+    transform: translateX(60px); /* match terminal width so the two read as proportional siblings */
     margin-top: 0;
     position: relative;
     perspective: 1500px;
@@ -627,16 +628,17 @@ const LETTERS = [...LEFT, ...RIGHT];
     position: absolute;
     left: 50%;
     bottom: 8%;
-    transform: translateX(calc(-50% - 380px));
-    width: 280px;
+    transform: translateX(calc(-50% - 400px));
+    width: 180px;
     z-index: 4;
     perspective: 1200px;
     perspective-origin: 50% 20%;
-  }
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
   .cs-sd-bezel {
     background: #060606;
-    border-radius: 10px;
-    padding: 12px;
+    border-radius: 8px;
+    padding: 10px;
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.03),
       0 0 0 1px #1A1A1A,
@@ -647,19 +649,14 @@ const LETTERS = [...LEFT, ...RIGHT];
     transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2),
                 box-shadow 0.35s ease;
   }
+  .cs-streamdeck:hover { opacity: 1; }
   .cs-streamdeck:hover .cs-sd-bezel {
     transform: rotateX(10deg) scale(0.95);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.05),
-      0 0 0 1px #222,
-      0 3px 0 #0D0D0D,
-      0 10px 24px rgba(0, 0, 0, 0.8),
-      0 0 16px rgba(0, 255, 65, 0.06);
-  }
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 0 0 1px #222, 0 3px 0 #0D0D0D, 0 10px 24px rgba(0,0,0,0.8), 0 0 16px rgba(0,255,65,0.06);
   .cs-sd-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
+    gap: 4px;
   }
   .cs-sd-key {
     aspect-ratio: 1;
@@ -683,7 +680,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-key:active { transform: translateY(0) scale(0.97); }
   .cs-sd-cap {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     font-weight: 700;
     line-height: 1;
   }
@@ -691,7 +688,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-white .cs-sd-cap { color: #00FF41; }
   .cs-sd-label {
     font-family: "JetBrains Mono", monospace;
-    font-size: 0.42rem;
+    font-size: 0.35rem;
     color: #505050;
     letter-spacing: 0.02em;
     transition: color 0.14s;
