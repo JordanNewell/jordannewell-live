@@ -717,9 +717,17 @@ const LETTERS = [...LEFT, ...RIGHT];
       text-align: center;
     }
   }
-  /* Mobile-only launch pad label under stream deck bezel */
+  /* Launch pad label under stream deck bezel */
   .cs-sd-launch {
-    display: none;
+    display: block;
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.55rem;
+    color: #606060;
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
   }
   @media (max-width: 768px) {
     .cs-streamdeck { margin: 8px auto 0; max-width: 280px; }
