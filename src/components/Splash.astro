@@ -66,55 +66,10 @@ const LETTERS = [...LEFT, ...RIGHT];
   <StatusTerminal />
 
   {/* Mechanical keyboard in 3D perspective — desk gradient removed per request. */}
-    <div class="cs-desk-pair">
-    {/* NEWELL Stream Deck */}
-  <div class="cs-streamdeck" aria-label="NEWELL product family">
-    <div class="cs-sd-bezel">
-      <div class="cs-sd-grid">
-      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/harbormasterd/" target="_blank" rel="noopener" title="harbormasterd">
-        <span class="cs-sd-cap">H</span>
-        <span class="cs-sd-label">harbor</span>
-      </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
-        <span class="cs-sd-cap">CL</span>
-        <span class="cs-sd-label">claudeway</span>
-      </a>
-      <a class="cs-sd-key cs-sd-green" href="https://github.com/JordanNewell/curtis-ai-chat" target="_blank" rel="noopener" title="curtis-ai-chat">
-        <span class="cs-sd-cap">CA</span>
-        <span class="cs-sd-label">curtis-ai</span>
-      </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/curtis-compliance/" target="_blank" rel="noopener" title="curtis-compliance">
-        <span class="cs-sd-cap">CC</span>
-        <span class="cs-sd-label">curtis-co</span>
-      </a>
-      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/crypto-key-classifier/" target="_blank" rel="noopener" title="crypto-key-classifier">
-        <span class="cs-sd-cap">K</span>
-        <span class="cs-sd-label">crypto-key</span>
-      </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/temporal-git/" target="_blank" rel="noopener" title="temporal-git">
-        <span class="cs-sd-cap">T</span>
-        <span class="cs-sd-label">temporal</span>
-      </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/git-hygiene/" target="_blank" rel="noopener" title="git-hygiene">
-        <span class="cs-sd-cap">G</span>
-        <span class="cs-sd-label">git-hygiene</span>
-      </a>
-      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/newell-typeface/" target="_blank" rel="noopener" title="newell-typeface">
-        <span class="cs-sd-cap">N</span>
-        <span class="cs-sd-label">typeface</span>
-      </a>
-      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/pat-scanner/" target="_blank" rel="noopener" title="pat-scanner">
-        <span class="cs-sd-cap">P</span>
-        <span class="cs-sd-label">pat-scan</span>
-      </a>
-      </div>
-    </div>
-  </div>
-    <div class="cs-keyboard-stage">
+  <div class="cs-keyboard-stage">
     <div class="cs-keyboard">
       <KeyboardBase />
     </div>
-  </div>
   </div>
 
   {/* Pinned portrait bottom-right — static overlay, no interaction. */}
@@ -183,6 +138,49 @@ const LETTERS = [...LEFT, ...RIGHT];
   </a>
 
 
+  {/* NEWELL Stream Deck — product hot keys */}
+  <div class="cs-streamdeck" aria-label="NEWELL product family">
+    <div class="cs-sd-bezel">
+      <div class="cs-sd-grid">
+      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/harbormasterd/" target="_blank" rel="noopener" title="harbormasterd">
+        <span class="cs-sd-cap">H</span>
+        <span class="cs-sd-label">harbor</span>
+      </a>
+      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
+        <span class="cs-sd-cap">CL</span>
+        <span class="cs-sd-label">claudeway</span>
+      </a>
+      <a class="cs-sd-key cs-sd-green" href="https://github.com/JordanNewell/curtis-ai-chat" target="_blank" rel="noopener" title="curtis-ai-chat">
+        <span class="cs-sd-cap">CA</span>
+        <span class="cs-sd-label">curtis-ai</span>
+      </a>
+      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/curtis-compliance/" target="_blank" rel="noopener" title="curtis-compliance">
+        <span class="cs-sd-cap">CC</span>
+        <span class="cs-sd-label">curtis-co</span>
+      </a>
+      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/crypto-key-classifier/" target="_blank" rel="noopener" title="crypto-key-classifier">
+        <span class="cs-sd-cap">K</span>
+        <span class="cs-sd-label">crypto-key</span>
+      </a>
+      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/temporal-git/" target="_blank" rel="noopener" title="temporal-git">
+        <span class="cs-sd-cap">T</span>
+        <span class="cs-sd-label">temporal</span>
+      </a>
+      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/git-hygiene/" target="_blank" rel="noopener" title="git-hygiene">
+        <span class="cs-sd-cap">G</span>
+        <span class="cs-sd-label">git-hygiene</span>
+      </a>
+      <a class="cs-sd-key cs-sd-green" href="https://jordannewell.github.io/newell-typeface/" target="_blank" rel="noopener" title="newell-typeface">
+        <span class="cs-sd-cap">N</span>
+        <span class="cs-sd-label">typeface</span>
+      </a>
+      <a class="cs-sd-key cs-sd-white" href="https://jordannewell.github.io/pat-scanner/" target="_blank" rel="noopener" title="pat-scanner">
+        <span class="cs-sd-cap">P</span>
+        <span class="cs-sd-label">pat-scan</span>
+      </a>
+      </div>
+    </div>
+  </div>
   <EmojiDock />
 </section>
 <script src="/js/status-hero.js?v=5" defer></script>
@@ -627,18 +625,11 @@ const LETTERS = [...LEFT, ...RIGHT];
 
 <style is:global>
   .cs-streamdeck {
-    position: fixed;
-    left: calc(50% - 480px);
-    top: 64%;
-    transform: translateY(-50%);
     width: 180px;
-    z-index: 6;
+    margin: 0 auto;
     perspective: 1200px;
     perspective-origin: 50% 20%;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
   }
-  .cs-streamdeck:hover { opacity: 1; }
   .cs-sd-bezel {
     background: #060606;
     border-radius: 8px;
@@ -669,48 +660,20 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-white .cs-sd-cap { color: #00FF41; }
   .cs-sd-label { font-family: "JetBrains Mono", monospace; font-size: 0.35rem; color: #505050; letter-spacing: 0.02em; transition: color 0.14s; }
   .cs-sd-key:hover .cs-sd-label { color: #00FF41; }
-  @media (max-width: 768px) {
+
+  /* Desktop: fix to left of keyboard, under terminal */
+  @media (min-width: 769px) {
     .cs-streamdeck {
-      position: static !important;
-      transform: none !important;
-      width: 100% !important;
-      max-width: 320px;
-      margin: 8px auto 0;
-      opacity: 1;
-      perspective: none;
+      position: fixed;
+      left: calc(50% - 460px);
+      top: 64%;
+      transform: translateY(-50%);
+      z-index: 6;
+      opacity: 0.85;
+      margin: 0;
+      transition: opacity 0.3s ease;
     }
-    .cs-sd-bezel { transform: none !important; }
-    .cs-sd-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-</style>
-
-
-<style is:global>
-  .cs-desk-pair {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    width: 100%;
-    max-width: 920px;
-    margin: 0 auto;
-  }
-  .cs-desk-pair .cs-streamdeck {
-    position: static !important;
-    transform: none !important;
-    opacity: 1;
-    flex: 0 0 180px;
-    width: 180px;
-    perspective: 1200px;
-  }
-  .cs-desk-pair .cs-keyboard-stage {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-  @media (max-width: 768px) {
-    .cs-desk-pair { flex-direction: column; gap: 8px; }
-    .cs-desk-pair .cs-streamdeck { flex: 0 0 auto; width: 100%; max-width: 280px; }
+    .cs-streamdeck:hover { opacity: 1; }
   }
 </style>
 
