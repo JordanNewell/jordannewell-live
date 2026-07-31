@@ -69,6 +69,7 @@ const resolvedFavicon = favicon.startsWith("http") ? favicon : `${SITE.url}${fav
       {!bare && <Footer />}
     </div>
     <script src="/js/main.js" defer></script>
+  {bare && (
   <footer class="newell-site-footer">
   <div class="nsf-inner">
     <div class="nsf-brand">
@@ -110,6 +111,7 @@ const resolvedFavicon = favicon.startsWith("http") ? favicon : `${SITE.url}${fav
     </div>
   </div>
 </footer>
+  )}
 <style is:global>
 .newell-site-footer { border-top: 1px solid #1F1F1F; background: #0A0A0A; padding: 24px; font-family: "JetBrains Mono", "SF Mono", Menlo, monospace; font-size: 12px; color: #A0A0A0; }
 .nsf-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
