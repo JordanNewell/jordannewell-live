@@ -11,7 +11,7 @@
   // 5min poll keeps per-visitor burn ≤12/hr — well under GitHub's 60/hr
   // unauthenticated core limit. Tab must stay open 5+ hours to hit the wall.
   const POLL_MS = 300_000;
-  const MAX_COMMITS = 10;
+  const MAX_COMMITS = 20;
   const MAX_RELEASES = 2;
 
   const terminal = document.querySelector("[data-terminal]");
