@@ -115,8 +115,10 @@ const LETTERS = [...LEFT, ...RIGHT];
       </div>
       <a class="cs-sd-launch" href="#" style="display:block;text-align:center;font-family:JetBrains Mono,monospace;font-size:0.55rem;color:#606060;margin-top:6px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;">launch pad <span aria-hidden="true">→</span></a>
     </div>
+    <a class="cs-typelink cs-typelink-desktop" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
+      Newell font <span aria-hidden="true">→</span>
+    </a>
   </div>
-  />
 
   {/* Curtis AI badge bottom-left — mirrors the PFP. Same hover treatment
       (lift + neon green glow), links to the Obsidian plugin page. */}
@@ -166,10 +168,8 @@ const LETTERS = [...LEFT, ...RIGHT];
     </div>
   </div>
 
-  {/* "Newell font →" — single link, positioned under the name letters. */}
-  <a class="cs-typelink cs-typelink-desktop" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
-    Newell font <span aria-hidden="true">→</span>
-  </a>
+  {/* "Newell font →" — single link. Lives inside .cs-keyboard-stage so it
+      inherits the keyboard's shift and centers under it automatically. */}
 
 <EmojiDock />
 </section>
@@ -664,7 +664,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     .cs-streamdeck {
       position: absolute;
       right: 100%;
-      top: 12px;
+      top: 7px;
       margin-right: 28px;
       z-index: 6;
       width: 200px;
@@ -672,9 +672,6 @@ const LETTERS = [...LEFT, ...RIGHT];
     .cs-keyboard-stage {
       transform: translateX(225px);
       margin-top: 40px;
-    }
-    .cs-typelink-desktop {
-      transform: translateX(225px);
     }
   }
   @media (max-width: 768px) {
