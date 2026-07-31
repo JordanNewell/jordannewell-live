@@ -665,7 +665,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   @media (min-width: 769px) {
     .cs-streamdeck {
       position: fixed;
-      left: calc(50% - 460px);
+      left: calc(50% - 340px);
       top: 64%;
       transform: translateY(-50%);
       z-index: 6;
@@ -674,6 +674,9 @@ const LETTERS = [...LEFT, ...RIGHT];
       transition: opacity 0.3s ease;
     }
     .cs-streamdeck:hover { opacity: 1; }
+    .cs-keyboard-stage {
+      transform: translateX(120px);
+    }
   }
 </style>
 
