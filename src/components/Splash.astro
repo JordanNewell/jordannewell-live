@@ -201,7 +201,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   main { padding-top: 10px !important; padding-bottom: 0 !important; max-width: none !important; }
   /* Lock scroll on desktop only — mobile needs to scroll to reach the dock. */
   @media (min-width: 769px) {
-    html, body { height: 100%; overflow: hidden; }
+    html, body { min-height: 100%; }
   }
 </style>
 
