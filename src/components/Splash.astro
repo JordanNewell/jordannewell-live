@@ -201,6 +201,10 @@ const LETTERS = [...LEFT, ...RIGHT];
         <span class="cs-power-btn-vintage-icon" aria-hidden="true"></span>
       </button>
       <span class="cs-power-btn-vintage-label" aria-hidden="true">POWER</span>
+      <div class="cs-knob-name" aria-hidden="true">
+        <span>JORDAN</span>
+        <span>NEWELL</span>
+      </div>
     </div>
   </div>
 </footer>
@@ -1147,6 +1151,23 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-transform: uppercase;
     user-select: none;
   }
+  /* JORDAN / NEWELL stacked under POWER — Newell display face */
+  .cs-knob-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    margin-top: 6px;
+    font-family: "Newell", var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.35);
+    transition: color 0.18s ease;
+    user-select: none;
+  }
+  .cs-knob-name span { display: block; }
+  .cs-knob-name span + span { margin-top: 1px; }
+  .cs-bottom-bar:hover .cs-knob-name { color: rgba(63, 255, 70, 0.65); }
   /* When screen is OFF, knob indicator goes red (standby) + label dims.
      Indicator pulses in sync with the header button's 1.8s red pulse. */
   body.cs-powered-off .cs-power-btn-vintage .cs-power-btn-vintage-icon {
