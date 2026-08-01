@@ -1,9 +1,11 @@
 // Keyboard shortcuts + fun effects on the splash desk.
-// Click handlers: ENTER on keyboard -> self-type JORDAN NEWELL
-//                 SPACE -> CRT scanline sweep
-//                 BKSP  -> scattered letters spin
-// Physical keyboard: Enter / Space / Backspace do the same.
-// Konami code (↑↑↓↓←→←→ba) -> page-wide Matrix glitch.
+// Click handlers on keyboard function keys:
+//   ENTER  -> self-type JORDANNEWELL
+//   SPACE  -> CRT scanline sweep
+//   BKSP   -> scattered letters spin
+//   CAPS   -> Matrix rain (also via konami code)
+// Physical keys Enter / Space / Backspace mirror the click actions.
+// Konami code (↑↑↓↓←→←→ba) also triggers Matrix rain.
 (function () {
   function ready(fn) {
     if (document.readyState !== "loading") fn();
@@ -17,7 +19,6 @@
     const order = ["J","O","R","D","A","N","N","E","W","E","L","L"];
     const sockets = Array.from(document.querySelectorAll(".kb-socket"));
     if (!sockets.length) return;
-    // Reset any in-flight animation
     sockets.forEach((s) => s.classList.remove("kb-typed"));
     for (const letter of order) {
       const matches = sockets.filter((s) => s.getAttribute("data-letter") === letter);
@@ -29,7 +30,7 @@
     }
   }
 
-  // ---- Effect 2: CRT scanline sweep top-to-bottom ----
+  // ---- Effect 2: CRT scanline sweep ----
   function scanline() {
     const old = document.querySelector(".kb-scanline");
     if (old) old.remove();
@@ -39,7 +40,7 @@
     setTimeout(() => line.remove(), 750);
   }
 
-  // ---- Effect 3: Scattered letters spin 360 ----
+  // ---- Effect 3: Scattered letters spin ----
   function letterSpin() {
     const letters = Array.from(document.querySelectorAll(".cs-key"));
     letters.forEach((letter, i) => {
@@ -50,14 +51,13 @@
     });
   }
 
-  // ---- Konami code: page-wide Matrix glitch ----
+  // ---- Effect 4: Matrix rain ----
   function matrixGlitch() {
+    if (document.querySelector(".kb-matrix")) return;
     const overlay = document.createElement("div");
     overlay.className = "kb-matrix";
     document.body.appendChild(overlay);
-    // Falling glyph columns
     const cols = Math.floor(window.innerWidth / 18);
-    const spans = [];
     for (let i = 0; i < cols; i++) {
       const col = document.createElement("div");
       col.className = "kb-matrix-col";
@@ -71,17 +71,35 @@
       }
       col.textContent = chars.join("\n");
       overlay.appendChild(col);
-      spans.push(col);
     }
     setTimeout(() => overlay.remove(), 4000);
   }
 
   // ---- Action dispatch ----
   const ACTIONS = {
-    launch: selfType,    // ENTER
-    bottom: scanline,    // SPACE
-    top: letterSpin,     // BKSP
+    launch: selfType,
+    scanline: scanline,
+    spin: letterSpin,
+    matrix: matrixGlitch,
   };
+
+  // ---- Konami code tracking (visual progress hint) ----
+  const KONAMI = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+  let konamiIdx = 0;
+
+  function showKonamiProgress(idx) {
+    let hint = document.querySelector(".kb-konami-hint");
+    if (idx === 0) {
+      if (hint) hint.remove();
+      return;
+    }
+    if (!hint) {
+      hint = document.createElement("div");
+      hint.className = "kb-konami-hint";
+      document.body.appendChild(hint);
+    }
+    hint.textContent = "↑↑↓↓←→←→ba ".slice(0, idx) + "_";
+  }
 
   ready(function () {
     const keyboard = document.querySelector(".cs-keyboard");
@@ -94,24 +112,27 @@
       });
     }
 
-    // Physical keyboard
-    const KONAMI = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
-    let konamiIdx = 0;
     document.addEventListener("keydown", function (e) {
       const tag = (e.target.tagName || "").toLowerCase();
       if (tag === "input" || tag === "textarea" || e.target.isContentEditable) return;
 
-      // Konami tracking (ignore modifier keys)
+      // Konami tracking
       if (!e.metaKey && !e.ctrlKey && !e.altKey) {
         const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
         if (key === KONAMI[konamiIdx]) {
           konamiIdx++;
+          showKonamiProgress(konamiIdx);
           if (konamiIdx === KONAMI.length) {
             konamiIdx = 0;
+            showKonamiProgress(0);
             matrixGlitch();
           }
         } else {
-          konamiIdx = key === KONAMI[0] ? 1 : 0;
+          const reset = key === KONAMI[0] ? 1 : 0;
+          if (reset !== konamiIdx) {
+            konamiIdx = reset;
+            showKonamiProgress(konamiIdx);
+          }
         }
       }
 
