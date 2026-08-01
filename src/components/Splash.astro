@@ -776,6 +776,10 @@ const LETTERS = [...LEFT, ...RIGHT];
     gap: 24px;
     z-index: 99999;
     pointer-events: none;
+    /* Force own GPU layer so no ancestor's transform/filter can capture this element
+       into a non-viewport containing block. */
+    transform: translateZ(0);
+    will-change: transform;
   }
   .cs-bottom-bar > * { pointer-events: auto; }
   .cs-splash-wordmark {
@@ -948,6 +952,11 @@ const LETTERS = [...LEFT, ...RIGHT];
     transform-origin: center center;
     animation: crt-power-off 0.75s cubic-bezier(0.5, 0, 0.5, 1) forwards;
     pointer-events: none;
+  }
+  /* Live pulse indicator goes dark with the screen */
+  body.cs-powered-off .terminal-pulse {
+    opacity: 0;
+    transition: opacity 0.4s ease;
   }
   .terminal-body {
     transform-origin: center center;
