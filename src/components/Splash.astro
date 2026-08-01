@@ -169,12 +169,13 @@ const LETTERS = [...LEFT, ...RIGHT];
 
 </section>
 
-{/* Fixed bottom bar — NEWELL wordmark only. Outside .cs so the
-    CRT-collapse animation does not capture the fixed-position descendants. */}
+{/* Vintage power knob — bottom-of-page ceremonial power button.
+    Desktop only (mobile uses the header button). Outside .cs so it survives
+    the CRT-collapse animation. */}
 <footer class="cs-bottom-bar">
-  <div class="cs-splash-wordmark" aria-hidden="true">
-    <img src="/images/coming-soon/newell-wordmark.png?v=1" alt="NEWELL" width="839" height="153" decoding="async" />
-  </div>
+  <button class="cs-power-btn cs-power-btn-vintage" aria-label="Power toggle" title="Power">
+    <span aria-hidden="true">⏻</span>
+  </button>
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
@@ -763,14 +764,72 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-transform: uppercase;
     text-decoration: none;
   }
-  /* Bottom bar — NEWELL wordmark only. In-flow at the bottom of the page.
-     Scrolls with content. Outside .cs so the CRT-collapse animation doesn't capture it. */
+  /* Bottom bar — vintage power knob. In-flow at the bottom of the page.
+     Desktop only (mobile uses header button). Outside .cs so CRT-collapse
+     doesn't capture it. */
   .cs-bottom-bar {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 24px;
-    padding: 24px 16px 32px;
+    padding: 32px 16px 40px;
+  }
+
+  /* Vintage power knob — chunky tube-TV-style bevel. Visually distinct from
+     the header's discreet 32px shadcn circle so the redundancy is intentional
+     (different visual languages: "quick toggle" vs "ceremonial power"). */
+  .cs-power-btn-vintage {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 25%, #1a1a1a 0%, #0a0a0a 55%, #000 100%);
+    border: 2px solid #1a1a1a;
+    color: #3FFF46;
+    font-size: 1.4rem;
+    text-shadow: 0 0 6px rgba(63, 255, 70, 0.6);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.25s ease;
+    box-shadow:
+      /* Outer ring — knob bezel */
+      0 0 0 3px #050505,
+      0 0 0 4px #2a2a2a,
+      /* Top highlight (light from above) */
+      inset 0 2px 4px rgba(255, 255, 255, 0.1),
+      /* Bottom inner shadow (recessed face) */
+      inset 0 -3px 6px rgba(0, 0, 0, 0.85),
+      /* Drop shadow on page */
+      0 4px 8px rgba(0, 0, 0, 0.7),
+      0 10px 20px rgba(0, 0, 0, 0.5);
+  }
+  .cs-power-btn-vintage:hover {
+    transform: translateY(-1px);
+    border-color: rgba(63, 255, 70, 0.4);
+    box-shadow:
+      0 0 0 3px #050505,
+      0 0 0 4px #2a2a2a,
+      inset 0 2px 4px rgba(255, 255, 255, 0.12),
+      inset 0 -3px 6px rgba(0, 0, 0, 0.85),
+      0 4px 8px rgba(0, 0, 0, 0.7),
+      0 12px 24px rgba(0, 0, 0, 0.5),
+      0 0 28px rgba(63, 255, 70, 0.35);
+  }
+  .cs-power-btn-vintage:active {
+    transform: translateY(2px);
+    box-shadow:
+      0 0 0 3px #050505,
+      0 0 0 4px #1a1a1a,
+      inset 0 2px 5px rgba(0, 0, 0, 0.8),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.5),
+      0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  .cs-power-btn-vintage:focus-visible {
+    outline: 2px solid #3FFF46;
+    outline-offset: 4px;
+  }
+  /* Mobile: vintage knob hidden, header button takes over */
+  @media (max-width: 768px) {
+    .cs-bottom-bar { display: none; }
   }
   .cs-splash-wordmark {
     display: inline-flex;
