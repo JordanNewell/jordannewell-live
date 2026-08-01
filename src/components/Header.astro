@@ -7,12 +7,6 @@ const isActive = (href: string) =>
 <header class="site-header">
   <div class="max-w-[720px] mx-auto px-3 sm:px-0 pt-3 pb-1 sm:pt-4 sm:pb-2 flex items-center justify-center gap-3 sm:gap-6">
     <div class="brand-cluster">
-      <button class="cs-power-btn" aria-label="Power toggle" title="Power">
-        <svg class="cs-power-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2v10"/>
-          <path d="M18.4 6.6a9 9 0 1 1-12.77.04"/>
-        </svg>
-      </button>
       <a href="/" class="brand-mark" aria-label="Jordan Newell — home">
         <img
           src="/images/coming-soon/newell-wordmark.png"
@@ -33,14 +27,6 @@ const isActive = (href: string) =>
     gap: 10px;
     line-height: 0;
   }
-  .cs-power-icon {
-    display: block;
-    width: 14px;
-    height: 14px;
-  }
-  @media (min-width: 640px) {
-    .cs-power-icon { width: 16px; height: 16px; }
-  }
   .brand-mark {
     display: inline-flex;
     align-items: center;
@@ -56,28 +42,8 @@ const isActive = (href: string) =>
   .brand-mark:hover img {
     filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-green) 60%, transparent));
   }
-  /* Mobile: smaller wordmark + power button so they balance */
-  .site-header .cs-power-btn {
-    width: 24px;
-    height: 24px;
-    font-size: 0.75rem;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.6),
-      0 1px 2px rgba(0, 0, 0, 0.4);
-  }
   @media (min-width: 640px) {
     .brand-cluster { gap: 14px; }
     .brand-mark img { height: 34px; }
-    .site-header .cs-power-btn {
-      width: 32px;
-      height: 32px;
-      font-size: 0.95rem;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.06),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.6),
-        0 1px 2px rgba(0, 0, 0, 0.4),
-        0 4px 8px rgba(0, 0, 0, 0.35);
-    }
   }
 </style>

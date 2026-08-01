@@ -105,12 +105,8 @@ const LETTERS = [...LEFT, ...RIGHT];
     </div>
     <div class="cs-streamdeck" aria-label="NEWELL product family">
       <div class="cs-sd-bezel">
-        <div class="cs-sd-grid">
-          <a class="cs-sd-key cs-sd-c1" href="https://jordannewell.github.io/harbormasterd/" target="_blank" rel="noopener" title="harbormasterd">
-            <span class="cs-sd-cap">H</span>
-            <span class="cs-sd-label">harbor</span>
-          </a>
-          <a class="cs-sd-key cs-sd-c2" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
+        <div class="cs-sd-grid cs-sd-grid-6">
+          <a class="cs-sd-key cs-sd-c1" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
             <span class="cs-sd-cap">CL</span>
             <span class="cs-sd-label">claudeway</span>
           </a>
@@ -118,30 +114,43 @@ const LETTERS = [...LEFT, ...RIGHT];
             <span class="cs-sd-cap">CA</span>
             <span class="cs-sd-label">curtis-ai</span>
           </a>
-          <a class="cs-sd-key cs-sd-c10" href="https://jordannewell.github.io/curtis-compliance/" target="_blank" rel="noopener" title="curtis-compliance">
-            <span class="cs-sd-cap">CC</span>
-            <span class="cs-sd-label">curtis-co</span>
-          </a>
           <a class="cs-sd-key cs-sd-c5" href="https://jordannewell.github.io/crypto-key-classifier/" target="_blank" rel="noopener" title="crypto-key-classifier">
             <span class="cs-sd-cap">K</span>
             <span class="cs-sd-label">crypto-key</span>
-          </a>
-          <a class="cs-sd-key cs-sd-c6" href="https://jordannewell.github.io/temporal-git/" target="_blank" rel="noopener" title="temporal-git">
-            <span class="cs-sd-cap">T</span>
-            <span class="cs-sd-label">temporal</span>
-          </a>
-          <a class="cs-sd-key cs-sd-c10" href="https://jordannewell.github.io/git-hygiene/" target="_blank" rel="noopener" title="git-hygiene">
-            <span class="cs-sd-cap">G</span>
-            <span class="cs-sd-label">git-hygiene</span>
           </a>
           <a class="cs-sd-key cs-sd-c7" href="https://jordannewell.github.io/newell-typeface/" target="_blank" rel="noopener" title="newell-typeface">
             <span class="cs-sd-cap">N</span>
             <span class="cs-sd-label">typeface</span>
           </a>
+          <a class="cs-sd-key cs-sd-c10" href="https://jordannewell.github.io/git-hygiene/" target="_blank" rel="noopener" title="git-hygiene">
+            <span class="cs-sd-cap">G</span>
+            <span class="cs-sd-label">git-hygiene</span>
+          </a>
           <a class="cs-sd-key cs-sd-c2" href="https://jordannewell.github.io/pat-scanner/" target="_blank" rel="noopener" title="pat-scanner">
             <span class="cs-sd-cap">P</span>
             <span class="cs-sd-label">pat-scan</span>
           </a>
+        </div>
+        {/* FX rack — inside the same bezel as the launch keys.
+            Top 2 slots: LED indicators (pulse on any effect trigger).
+            Bottom 2 slots: unique effects not on the keyboard. */}
+        <div class="cs-fx-rack" aria-label="Effects and indicators">
+          <div class="cs-fx-led" aria-hidden="true" data-led="1"></div>
+          <button class="cs-fx-key cs-fx-music" data-music-toggle aria-label="Open music player" title="Music player">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/>
+              <circle cx="18" cy="16" r="3"/>
+            </svg>
+          </button>
+          <button class="cs-fx-key" data-fx="spotlight" aria-label="Spotlight a random launch key" title="Spotlight">
+            <img class="cs-fx-key-img" src="/images/coming-soon/nmoji-button.png" alt="" width="14" height="14" decoding="async" loading="lazy">
+          </button>
+          <button class="cs-fx-key" data-fx="glitch" aria-label="Glitch the launch pad" title="Glitch">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </button>
         </div>
       </div>
       {/* Launch label under the keypad bezel */}
@@ -174,14 +183,30 @@ const LETTERS = [...LEFT, ...RIGHT];
     the CRT-collapse animation. Styled as a chunky rotary knob with pointer
     indicator — visually distinct from the header's discreet shadcn circle. */}
 <footer class="cs-bottom-bar">
-  <button class="cs-power-btn cs-power-btn-vintage" aria-label="Power toggle" title="Power">
-    <span class="cs-power-btn-vintage-icon" aria-hidden="true"></span>
-  </button>
-  <span class="cs-power-btn-vintage-label" aria-hidden="true">POWER</span>
+  <div class="cs-controls-row">
+    <button class="cs-audio-btn" data-audio-toggle aria-pressed="false" aria-label="Toggle ambient audio" title="Ambient audio (opt-in)">
+      <svg class="cs-audio-icon cs-audio-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <line x1="22" y1="9" x2="16" y2="15"/>
+        <line x1="16" y1="9" x2="22" y2="15"/>
+      </svg>
+      <svg class="cs-audio-icon cs-audio-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+      </svg>
+    </button>
+    <div class="cs-knob-col">
+      <button class="cs-power-btn cs-power-btn-vintage" aria-label="Power toggle" title="Power">
+        <span class="cs-power-btn-vintage-icon" aria-hidden="true"></span>
+      </button>
+      <span class="cs-power-btn-vintage-label" aria-hidden="true">POWER</span>
+    </div>
+  </div>
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=8" defer></script>
+<script src="/js/kb-shortcuts.js?v=26" defer></script>
 
 <style is:global>
   @font-face {
@@ -232,11 +257,12 @@ const LETTERS = [...LEFT, ...RIGHT];
     justify-content: center;
     position: relative;
     z-index: 2;
-    transform: scale(1.05);
+    transform: translateX(-10px) scale(1.12);
     transform-origin: center 80%;
-    margin-top: 5px;
+    margin-top: 10px;
     transition: box-shadow 0.3s ease,
-                filter 0.35s ease;
+                filter 0.5s ease,
+                opacity 0.5s ease;
     filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.75));
   }
   /* SVG has explicit width/height attrs (452px) — cap to parent so it
@@ -249,7 +275,7 @@ const LETTERS = [...LEFT, ...RIGHT];
      Use direct .cs-keyboard:hover (not stage:hover) so hovering the stream deck
      inside the stage doesn't enlarge the keyboard. */
   .cs-keyboard:hover {
-    transform: scale(1.07);
+    transform: translateX(-10px) scale(1.14);
     filter: drop-shadow(0 28px 26px rgba(0, 0, 0, 0.8))
             drop-shadow(0 0 14px rgba(63, 255, 70, 0.06));
   }
@@ -665,9 +691,14 @@ const LETTERS = [...LEFT, ...RIGHT];
     margin: 0 auto;
     perspective: 1200px;
     perspective-origin: 50% 20%;
+    transition: filter 0.5s ease, opacity 0.5s ease;
   }
-  /* GREEN bezel outline (matches keyboard green theme) — flat, no rotateX */
+  /* GREEN bezel outline (matches keyboard green theme) — flat, no rotateX.
+     Flex container so the deck grid + FX rack sit side-by-side as ONE unit. */
   .cs-sd-bezel {
+    display: flex;
+    gap: 6px;
+    align-items: stretch;
     background: #060606;
     border-radius: 8px;
     padding: 10px;
@@ -736,20 +767,23 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-c10:hover .cs-sd-cap { color: #fafafa; }
   .cs-sd-key:hover .cs-sd-label { color: #FFFFFF; }
 
-  /* Desktop: stream deck absolute-positioned to left of keyboard, scrolls with page.
-     Tops aligned with keyboard so they read as siblings, not floating.
-     Keyboard-stage is the positioning context (position:relative already set above). */
+  /* Desktop: 2-col × 3-row stream deck (6 launch keys) + 4 FX buttons share
+     one bezel as a single launch-pad unit. 168px wide total. Sits beside the
+     keyboard, fits within terminal width. */
   @media (min-width: 769px) {
     .cs-streamdeck {
       position: absolute;
       left: 100%;
       top: -2.5px;
-      margin-left: 10px;
+      margin-left: 13px;
       z-index: 6;
-      width: 180px;
+      width: 168px;
+    }
+    .cs-sd-grid.cs-sd-grid-6 {
+      grid-template-columns: repeat(2, 1fr);
     }
     .cs-keyboard-stage {
-      transform: translateX(-110px);
+      transform: translateX(-89px);
       margin-top: 25px;
       text-align: center;
     }
@@ -766,15 +800,232 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-transform: uppercase;
     text-decoration: none;
   }
-  /* Bottom bar — vintage power knob + label. In-flow at the bottom of the
-     page. Desktop only. Outside .cs so CRT-collapse doesn't capture it. */
-  .cs-bottom-bar {
+
+  /* FX rack — flex child of the bezel (sits inside the same green frame
+     as the launch keys). Top 2 slots are LED indicators, bottom 2 are
+     effect triggers (spotlight + glitch) unique to the FX rack. */
+  .cs-fx-rack {
     display: flex;
     flex-direction: column;
+    gap: 5px;
+    width: 34px;
+    /* Subtle vertical divider between deck and FX */
+    border-left: 1px solid rgba(63, 255, 70, 0.18);
+    padding-left: 6px;
+  }
+  /* LED indicator — pulses green when any effect fires */
+  .cs-fx-led {
+    flex: 1 1 0;
+    width: 100%;
+    border-radius: 4px;
+    background: #0a0a0a;
+    border: 1px solid rgba(63, 255, 70, 0.2);
+    position: relative;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .cs-fx-led::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(63, 255, 70, 0.18);
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .cs-fx-led.is-lit {
+    border-color: #3FFF46;
+    background: rgba(63, 255, 70, 0.08);
+  }
+  .cs-fx-led.is-lit::after {
+    background: #3FFF46;
+    width: 14px;
+    height: 14px;
+    box-shadow:
+      0 0 8px #3FFF46,
+      0 0 16px rgba(63, 255, 70, 0.7),
+      inset 0 0 4px rgba(255, 255, 255, 0.4);
+  }
+  /* Spotlight: random launch key pops + glows green briefly */
+  .cs-sd-key.cs-sd-spotlight {
+    animation: cs-sd-spotlight 1.5s cubic-bezier(0.2, 0.8, 0.4, 1);
+    z-index: 10;
+  }
+  @keyframes cs-sd-spotlight {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      filter: brightness(1);
+    }
+    30% {
+      transform: translateY(-8px) scale(1.3);
+      filter: brightness(1.5) drop-shadow(0 0 18px #3FFF46) drop-shadow(0 0 32px rgba(63, 255, 70, 0.6));
+    }
+  }
+  /* Glitch: bezel distorts briefly (skew + hue shift + jitter).
+     Bezel base transform is `none` so we can freely animate it. */
+  .cs-sd-bezel.cs-glitch {
+    animation: cs-glitch 0.5s steps(5);
+  }
+  @keyframes cs-glitch {
+    0%   { transform: translate(0, 0)    skewX(0deg);  filter: none; }
+    18%  { transform: translate(-3px, 1px) skewX(2deg);  filter: hue-rotate(90deg) saturate(2); }
+    36%  { transform: translate(2px, -2px) skewX(-2deg); filter: invert(0.12) contrast(1.3); }
+    54%  { transform: translate(-2px, 2px) skewX(1deg);  filter: hue-rotate(-90deg) brightness(1.3); }
+    72%  { transform: translate(3px, -1px) skewX(-1deg); filter: saturate(2.5); }
+    100% { transform: translate(0, 0)    skewX(0deg);  filter: none; }
+  }
+  .cs-fx-key {
+    flex: 1 1 0;
+    width: 100%;
+    border-radius: 4px;
+    background: #0a0a0a;
+    border: 1px solid rgba(63, 255, 70, 0.35);
+    color: #3FFF46;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 1px 2px rgba(0, 0, 0, 0.6);
+    transition: transform 0.14s cubic-bezier(0.2, 0.9, 0.4, 1.2),
+                box-shadow 0.14s ease,
+                border-color 0.14s ease,
+                color 0.14s ease;
+  }
+  .cs-fx-key svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+  }
+  .cs-fx-key-img {
+    width: 18px;
+    height: 18px;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(63, 255, 70, 0.5));
+  }
+  .cs-fx-key:hover {
+    transform: translateY(-2px);
+    border-color: #3FFF46;
+    color: #fff;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 0 1px #3FFF46,
+      0 3px 6px rgba(0, 0, 0, 0.7),
+      0 0 12px rgba(63, 255, 70, 0.4);
+  }
+  .cs-fx-key:active {
+    transform: translateY(0);
+    color: #3FFF46;
+    box-shadow:
+      inset 0 1px 2px rgba(0, 0, 0, 0.6),
+      0 0 0 1px rgba(63, 255, 70, 0.5);
+  }
+  .cs-fx-key:focus-visible {
+    outline: 2px solid #3FFF46;
+    outline-offset: 2px;
+  }
+  /* Bottom bar — vintage power knob + audio toggle. In-flow at the bottom
+     of the page. Desktop only. Outside .cs so CRT-collapse doesn't capture it. */
+  .cs-bottom-bar {
+    display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 28px;
     padding: 32px 16px 40px;
+  }
+  .cs-controls-row {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .cs-knob-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  /* Audio toggle — small push-button next to the knob. Off by default. */
+  .cs-audio-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 28%, #1f1f1f 0%, #0a0a0a 55%, #000 100%);
+    border: 1.5px solid #1f1f1f;
+    color: #707070;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.2s ease,
+                color 0.2s ease;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  .cs-audio-btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(63, 255, 70, 0.4);
+    color: #aaa;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 3px 6px rgba(0, 0, 0, 0.7);
+  }
+  .cs-audio-btn:focus-visible {
+    outline: 2px solid #3FFF46;
+    outline-offset: 3px;
+  }
+  .cs-audio-btn[aria-pressed="true"] {
+    background:
+      radial-gradient(circle at 35% 28%, rgba(63, 255, 70, 0.18) 0%, #0a0a0a 60%, #000 100%);
+    border-color: rgba(63, 255, 70, 0.55);
+    color: #3FFF46;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.08),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.6),
+      0 2px 4px rgba(0, 0, 0, 0.6),
+      0 0 14px rgba(63, 255, 70, 0.25);
+  }
+  .cs-audio-btn[aria-pressed="true"]:hover {
+    border-color: #3FFF46;
+    color: #5fff66;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 3px 6px rgba(0, 0, 0, 0.7),
+      0 0 22px rgba(63, 255, 70, 0.5);
+  }
+  .cs-audio-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+  /* Show the right icon based on pressed state */
+  .cs-audio-btn[aria-pressed="false"] .cs-audio-on { display: none; }
+  .cs-audio-btn[aria-pressed="true"] .cs-audio-off { display: none; }
+  /* When power is OFF, audio button joins the red standby pulse — synced
+     with the vintage knob on the same 1.8s cycle. */
+  body.cs-powered-off .cs-audio-btn {
+    background:
+      radial-gradient(circle at 35% 28%, rgba(255, 64, 64, 0.18) 0%, #0a0a0a 60%, #000 100%);
+    border-color: rgba(255, 64, 64, 0.6);
+    color: #ff4040;
+    animation: cs-power-pulse 1.8s ease-in-out infinite;
+  }
+  /* Mobile: smaller audio button to match the 60px knob */
+  @media (max-width: 768px) {
+    .cs-bottom-bar { gap: 18px; padding: 24px 16px 32px; }
+    .cs-controls-row { gap: 18px; }
+    .cs-audio-btn { width: 34px; height: 34px; }
+    .cs-audio-icon { width: 14px; height: 14px; }
   }
 
   /* Vintage power knob — chunky rotary tube-TV knob. Pseudo-elements render
@@ -870,10 +1121,15 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-transform: uppercase;
     user-select: none;
   }
-  /* When screen is OFF, knob indicator goes red (standby) + label dims */
+  /* When screen is OFF, knob indicator goes red (standby) + label dims.
+     Indicator pulses in sync with the header button's 1.8s red pulse. */
   body.cs-powered-off .cs-power-btn-vintage .cs-power-btn-vintage-icon {
     background: #ff4040;
-    box-shadow: 0 0 6px #ff4040, 0 0 14px rgba(255, 64, 64, 0.6);
+    animation: cs-vintage-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes cs-vintage-pulse {
+    0%, 100% { box-shadow: 0 0 6px #ff4040, 0 0 14px rgba(255, 64, 64, 0.6); }
+    50%      { box-shadow: 0 0 10px #ff4040, 0 0 22px rgba(255, 64, 64, 0.95); }
   }
   body.cs-powered-off .cs-power-btn-vintage::after {
     background: radial-gradient(circle at 35% 35%, #ff7070 0%, #ff4040 60%, #a62929 100%);
@@ -938,6 +1194,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   @media (max-width: 768px) {
     .cs-streamdeck { margin: 8px auto 0 16px; max-width: 280px; }
     .cs-sd-bezel { transform: none; }
+    .cs-fx-rack { display: none; }
     /* Mobile: bigger caps + labels for legibility on touch targets */
     .cs-sd-cap { font-size: 1.4rem; }
     .cs-sd-label { font-size: 0.7rem; }
@@ -1095,20 +1352,80 @@ const LETTERS = [...LEFT, ...RIGHT];
     outline: 2px solid #3FFF46;
     outline-offset: 2px;
   }
-  /* When splash is powered off, brighten + pulse the button so it reads as "press to wake" */
-  body.cs-powered-off .cs-power-btn {
-    background: rgba(63, 255, 70, 0.25);
+  /* Power-off state: both buttons turn RED (standby) and pulse in sync.
+     Header button: red bg + border + icon + pulse halo.
+     Vintage knob: keeps its chassis, only the indicator + spindle go red
+     (handled below by their own rules) + its own synced indicator pulse. */
+  body.cs-powered-off .cs-power-btn:not(.cs-power-btn-vintage) {
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255, 64, 64, 0.22), rgba(0, 0, 0, 0) 60%),
+      #0a0a0a;
+    border-color: rgba(255, 64, 64, 0.7);
+    color: #ff4040;
+    text-shadow: 0 0 4px rgba(255, 64, 64, 0.55);
     animation: cs-power-pulse 1.8s ease-in-out infinite;
   }
   @keyframes cs-power-pulse {
-    0%, 100% { box-shadow: 0 0 16px rgba(63, 255, 70, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.4); }
-    50%      { box-shadow: 0 0 28px rgba(63, 255, 70, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.4); }
+    0%, 100% { box-shadow: 0 0 16px rgba(255, 64, 64, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.4); }
+    50%      { box-shadow: 0 0 28px rgba(255, 64, 64, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.4); }
   }
 
   /* CRT power-off — inner screen collapses (tube-TX line→dot), PFP smokes out */
   body.cs-powered-off .terminal-body {
     transform-origin: center center;
     animation: crt-power-off 0.75s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+    pointer-events: none;
+  }
+  /* Power-off sequence — staged like a real CRT dying:
+     1. t=0   → screen text fuzzes out (keypad caps, labels, FX icons)
+     2. t=0.4 → hardware dims (keyboard, launch pad, floating keys, terminal chassis)
+     The terminal-body still does its CRT collapse in parallel. */
+  /* Phase 1: text fuzzes to nothing */
+  body.cs-powered-off .cs-sd-cap,
+  body.cs-powered-off .cs-sd-label,
+  body.cs-powered-off .cs-sd-launch,
+  body.cs-powered-off .cs-fx-key svg,
+  body.cs-powered-off .cs-fx-key-img {
+    animation: cs-text-fuzz-out 0.5s ease-out forwards;
+  }
+  @keyframes cs-text-fuzz-out {
+    0%   { filter: blur(0); opacity: 1; }
+    60%  { filter: blur(6px); opacity: 0.4; }
+    100% { filter: blur(12px); opacity: 0; }
+  }
+  /* Keyboard SVG labels (letters + wordmark image on space bar) also vanish */
+  body.cs-powered-off .kb text,
+  body.cs-powered-off .kb image {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  /* Phase 2: hardware darkens (delay 0.4s so text goes first) */
+  body.cs-powered-off .cs-keyboard,
+  body.cs-powered-off .cs-streamdeck {
+    opacity: 0.18;
+    filter: grayscale(1) brightness(0.35);
+    pointer-events: none;
+    transition: opacity 0.5s ease 0.4s, filter 0.5s ease 0.4s;
+  }
+  body.cs-powered-off .cs-key {
+    opacity: 0;
+    filter: grayscale(1) brightness(0.4);
+    pointer-events: none;
+    transition: opacity 0.5s ease 0.4s, filter 0.5s ease 0.4s;
+  }
+  /* Terminal chassis (bar + foot + the "live" dot, GH/X icons, dividers)
+     fully disappears — not just dim, gone. The screen body does its CRT
+     collapse in parallel. */
+  body.cs-powered-off .terminal-bar,
+  body.cs-powered-off .terminal-foot {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  /* NOTHING is clickable when power is off — except the power buttons
+     themselves (so you can wake the desk back up) and the music button
+     (music is independent of the desk power state). */
+  body.cs-powered-off a,
+  body.cs-powered-off button:not(.cs-power-btn):not(.cs-fx-music) {
     pointer-events: none;
   }
   body.cs-powered-off .terminal-watermark {
@@ -1171,14 +1488,158 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
 
   /* Reduced motion — only kill AMBIENT auto-playing animations.
-     User-triggered effects (Matrix rain via CAPS/konami, scanline sweep via
-     SPACE, letter spin via BKSP, CRT power toggle) stay — they're explicit
-     user actions, not motion the user didn't ask for. */
+     User-triggered effects stay — they're explicit user actions. */
   @media (prefers-reduced-motion: reduce) {
-    /* Live pulse dot — kill the infinite blink */
     .cs-pulse { animation: none !important; opacity: 0.7; }
-    /* Power button pulse when screen is off — kill the infinite glow pulse */
-    body.cs-powered-off .cs-power-btn { animation: none !important; }
+    body.cs-powered-off .cs-power-btn,
+    body.cs-powered-off .cs-power-btn-vintage-icon { animation: none !important; }
+  }
+
+  /* Inline pill tabs inside the terminal-bar — modern, like real terminal
+     apps. No orb, no hanging. Sits left of the socials. */
+  .terminal-tabs {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    margin-right: auto;
+  }
+  .terminal-tab {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 4px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+  .terminal-tab:hover {
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .terminal-tab.is-active {
+    color: #fff;
+    background: rgba(63, 255, 70, 0.08);
+    border-color: rgba(63, 255, 70, 0.25);
+    text-shadow: 0 0 8px rgba(63, 255, 70, 0.4);
+  }
+  /* GH pinned far left, X pinned far right, live centered between.
+     Socials + X use flex:1 with their original justify directions
+     (flex-start / flex-end) so the pulse stays in the middle. */
+  .terminal-bar .terminal-socials {
+    flex: 1 1 auto !important;
+    justify-content: flex-start !important;
+  }
+  .terminal-bar .terminal-x {
+    flex: 1 1 auto !important;
+    justify-content: flex-end !important;
+  }
+  .terminal-bar .terminal-socials a,
+  .terminal-bar .terminal-x a {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.6);
+    justify-content: center !important;
+    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+  .terminal-bar .terminal-socials a:hover,
+  .terminal-bar .terminal-x a:hover {
+    background: rgba(63, 255, 70, 0.1);
+    border-color: rgba(63, 255, 70, 0.35);
+    color: #3FFF46;
+    transform: translateY(-1px);
+  }
+  /* Swap body children in place — body never resizes */
+  .terminal-body.music-mode > *:not(.term-music-content) { display: none; }
+  .term-music-content { display: none; }
+  .terminal-body.music-mode .term-music-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
+    color: #3FFF46;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    padding: 4px 0;
+  }
+  .term-music-head { color: #aaa; }
+  .term-music-head::before { content: "$ "; color: #3FFF46; }
+  .term-music-tracks { display: flex; flex-direction: column; gap: 2px; margin: 4px 0 8px; }
+  .term-music-track {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 0;
+    color: #888;
+    cursor: pointer;
+  }
+  .term-music-track:hover { color: #fff; }
+  .term-music-track.is-playing {
+    color: #3FFF46;
+    text-shadow: 0 0 6px rgba(63, 255, 70, 0.6);
+  }
+  .term-music-track-num { color: #3FFF46; min-width: 22px; }
+  .term-music-track-name { flex: 1; }
+  .term-music-fmt {
+    font-size: 0.58rem;
+    padding: 0 4px;
+    border: 1px solid currentColor;
+    letter-spacing: 0.08em;
+  }
+  .term-music-fmt-cassette { color: #06B6D4; }
+  .term-music-fmt-record { color: #A855F7; }
+  .term-music-help { color: #555; font-size: 0.62rem; letter-spacing: 0.04em; }
+  .term-music-viz {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 22px;
+    margin-top: 8px;
+  }
+  .term-music-viz span {
+    flex: 1;
+    background: #3FFF46;
+    height: 12%;
+    min-height: 2px;
+    box-shadow: 0 0 2px rgba(63, 255, 70, 0.6);
+    transition: height 0.08s linear;
+  }
+  .term-music-vol-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #888;
+    font-size: 0.7rem;
+    margin-top: 6px;
+  }
+  .term-music-vol-bars { display: inline-flex; gap: 1px; }
+  .term-music-vol-bar {
+    display: inline-block;
+    width: 3px;
+    height: 10px;
+    background: #2a2a2a;
+  }
+  .term-music-vol-bar.is-on {
+    background: #3FFF46;
+    box-shadow: 0 0 2px rgba(63, 255, 70, 0.6);
+  }
+  /* Music tab hides when the desk is powered off */
+  body.cs-powered-off .terminal-tabs,
+  body.cs-powered-off .term-music-content { display: none !important; }
+
+  /* Keyboard hover ALSO enlarges the stream deck by the same amount
+     (0.02 scale lift) — they breathe together as one unit. */
+  @media (min-width: 769px) {
+    .cs-keyboard-stage:hover .cs-streamdeck .cs-sd-bezel {
+      transform: scale(1.02);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.4, 1);
+    }
   }
 </style>
 
