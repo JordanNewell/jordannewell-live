@@ -228,7 +228,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     justify-content: center;
     position: relative;
     z-index: 2;
-    transform: rotateX(10deg) scale(1.0);
+    transform: scale(1.0);
     transform-origin: center 80%;
     transition: box-shadow 0.3s ease,
                 filter 0.35s ease;
@@ -244,7 +244,7 @@ const LETTERS = [...LEFT, ...RIGHT];
      Use direct .cs-keyboard:hover (not stage:hover) so hovering the stream deck
      inside the stage doesn't enlarge the keyboard. */
   .cs-keyboard:hover {
-    transform: rotateX(14deg) scale(1.0);
+    transform: scale(1.02);
     filter: drop-shadow(0 28px 26px rgba(0, 0, 0, 0.8))
             drop-shadow(0 0 14px rgba(63, 255, 70, 0.12));
   }
