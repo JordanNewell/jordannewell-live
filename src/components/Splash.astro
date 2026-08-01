@@ -248,6 +248,19 @@ const LETTERS = [...LEFT, ...RIGHT];
     filter: drop-shadow(0 28px 26px rgba(0, 0, 0, 0.8))
             drop-shadow(0 0 14px rgba(63, 255, 70, 0.12));
   }
+  /* Mobile: keyboard under terminal, keypad hidden, letters under keyboard.
+     Scoped block (not is:global) so this wins over the base .cs-keyboard-stage rule above. */
+  @media (max-width: 768px) {
+    .cs-keyboard-stage {
+      display: block;
+      order: 2;
+      width: 100%;
+      max-width: none;
+      transform: none;
+      margin-top: 20px;
+    }
+    .cs-streamdeck { display: none; }
+  }
   /* Desk surface — a tilted plane that recedes from foreground to background.
      Drawn as a CSS gradient: light hit near the keyboard, fading to deep shadow
      toward the back. Slight green tint near the keyboard's underglow. */
