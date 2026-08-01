@@ -1003,9 +1003,9 @@ const LETTERS = [...LEFT, ...RIGHT];
     transition: opacity 0.4s ease, filter 0.4s ease;
   }
   @keyframes pfp-smoke-out {
-    0%   { opacity: 0.13; filter: blur(0); transform: scale(1); }
-    50%  { opacity: 0.08; filter: blur(6px); transform: scale(1.08); }
-    100% { opacity: 0;    filter: blur(20px); transform: scale(1.2); }
+    0%   { opacity: 0.13; filter: blur(0); transform: translateX(-50%) scale(1); }
+    50%  { opacity: 0.08; filter: blur(6px); transform: translateX(-50%) scale(1.08); }
+    100% { opacity: 0;    filter: blur(20px); transform: translateX(-50%) scale(1.2); }
   }
   @keyframes crt-power-off {
     0%   { transform: scale(1, 1);     filter: brightness(1); opacity: 1; }
@@ -1032,12 +1032,13 @@ const LETTERS = [...LEFT, ...RIGHT];
     80%  { transform: scale(1, 1);     filter: brightness(1.2) blur(0.2px); opacity: 1; }
     100% { transform: scale(1, 1);     filter: brightness(1) blur(0); opacity: 1; }
   }
-  /* PFP smokes in — heavy blur fading to crisp, no scale (prevents the jump). */
+  /* PFP smokes in — heavy blur fading to crisp, no scale (prevents the jump).
+     Preserve translateX(-50%) which is the watermark's normal centering transform. */
   @keyframes pfp-smoke-in {
-    0%   { opacity: 0;    filter: blur(24px) brightness(2); transform: scale(1); }
-    40%  { opacity: 0.05; filter: blur(14px) brightness(1.6); transform: scale(1.04); }
-    75%  { opacity: 0.10; filter: blur(5px) brightness(1.2); transform: scale(1.01); }
-    100% { opacity: 0.13; filter: blur(0) brightness(1); transform: scale(1); }
+    0%   { opacity: 0;    filter: blur(24px) brightness(2); transform: translateX(-50%) scale(1); }
+    40%  { opacity: 0.05; filter: blur(14px) brightness(1.6); transform: translateX(-50%) scale(1.04); }
+    75%  { opacity: 0.10; filter: blur(5px) brightness(1.2); transform: translateX(-50%) scale(1.01); }
+    100% { opacity: 0.13; filter: blur(0) brightness(1); transform: translateX(-50%) scale(1); }
   }
   @keyframes pulse-fade-in {
     from { opacity: 0; }
