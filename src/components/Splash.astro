@@ -776,8 +776,11 @@ const LETTERS = [...LEFT, ...RIGHT];
 
   /* Vintage power knob — chunky tube-TV-style bevel. Visually distinct from
      the header's discreet 32px shadcn circle so the redundancy is intentional
-     (different visual languages: "quick toggle" vs "ceremonial power"). */
-  .cs-power-btn-vintage {
+     (different visual languages: "quick toggle" vs "ceremonial power").
+     Use compound selector (.cs-power-btn.cs-power-btn-vintage) for higher
+     specificity than base .cs-power-btn so vintage rules win regardless of
+     source order after Astro/Lightning CSS merges <style is:global> blocks. */
+  .cs-power-btn.cs-power-btn-vintage {
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -791,18 +794,14 @@ const LETTERS = [...LEFT, ...RIGHT];
                 box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
                 border-color 0.25s ease;
     box-shadow:
-      /* Outer ring — knob bezel */
       0 0 0 3px #050505,
       0 0 0 4px #2a2a2a,
-      /* Top highlight (light from above) */
       inset 0 2px 4px rgba(255, 255, 255, 0.1),
-      /* Bottom inner shadow (recessed face) */
       inset 0 -3px 6px rgba(0, 0, 0, 0.85),
-      /* Drop shadow on page */
       0 4px 8px rgba(0, 0, 0, 0.7),
       0 10px 20px rgba(0, 0, 0, 0.5);
   }
-  .cs-power-btn-vintage:hover {
+  .cs-power-btn.cs-power-btn-vintage:hover {
     transform: translateY(-1px);
     border-color: rgba(63, 255, 70, 0.4);
     box-shadow:
@@ -814,7 +813,7 @@ const LETTERS = [...LEFT, ...RIGHT];
       0 12px 24px rgba(0, 0, 0, 0.5),
       0 0 28px rgba(63, 255, 70, 0.35);
   }
-  .cs-power-btn-vintage:active {
+  .cs-power-btn.cs-power-btn-vintage:active {
     transform: translateY(2px);
     box-shadow:
       0 0 0 3px #050505,
@@ -823,7 +822,7 @@ const LETTERS = [...LEFT, ...RIGHT];
       inset 0 -1px 2px rgba(0, 0, 0, 0.5),
       0 2px 4px rgba(0, 0, 0, 0.5);
   }
-  .cs-power-btn-vintage:focus-visible {
+  .cs-power-btn.cs-power-btn-vintage:focus-visible {
     outline: 2px solid #3FFF46;
     outline-offset: 4px;
   }
