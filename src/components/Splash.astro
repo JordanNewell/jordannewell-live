@@ -96,12 +96,6 @@ const LETTERS = [...LEFT, ...RIGHT];
     </div>
   </div>
 
-  {/* Mobile-only typelink — sits right under the JORDANNEWELL letters row,
-      small mono caps to match launch pad label aesthetic. Hidden on desktop. */}
-  <a class="cs-typelink cs-typelink-mobile" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
-    Newell font <span aria-hidden="true">→</span>
-  </a>
-
   {/* Mechanical keyboard in 3D perspective — desk gradient removed per request.
       Stream Deck is a child of keyboard-stage so it's absolutely positioned
       relative to it, scrolling with the page instead of floating on viewport. */}
@@ -150,12 +144,9 @@ const LETTERS = [...LEFT, ...RIGHT];
           </a>
         </div>
       </div>
-      {/* Mobile-only launch pad label under the keypad bezel */}
-      <a class="cs-sd-launch" href="#" aria-hidden="true">launch pad <span aria-hidden="true">→</span></a>
+      {/* Launch label under the keypad bezel */}
+      <a class="cs-sd-launch" href="#" aria-hidden="true">Launch <span aria-hidden="true">→</span></a>
     </div>
-    <a class="cs-typelink cs-typelink-desktop" href={FONT_URL} target="_blank" rel="noopener" title="Newell font">
-      Newell font <span aria-hidden="true">→</span>
-    </a>
   </div>
 
   {/* Curtis AI badge bottom-left — mirrors the PFP. Same hover treatment
@@ -794,6 +785,9 @@ const LETTERS = [...LEFT, ...RIGHT];
   @media (max-width: 768px) {
     .cs-streamdeck { margin: 8px auto 0; max-width: 280px; }
     .cs-sd-bezel { transform: none; }
+    /* Mobile: bigger caps + labels for legibility on touch targets */
+    .cs-sd-cap { font-size: 1.4rem; }
+    .cs-sd-label { font-size: 0.7rem; }
     .cs-sd-launch {
       display: block;
       text-align: center;
