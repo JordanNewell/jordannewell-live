@@ -283,15 +283,26 @@ const LETTERS = [...LEFT, ...RIGHT];
      Scoped block (not is:global) so this wins over the base .cs-keyboard-stage rule above. */
   @media (max-width: 768px) {
     .cs-keyboard-stage {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
       order: 2;
       width: 100%;
       max-width: none;
       transform: none;
       margin-top: 30px;
     }
-    /* Hide keyboard visual (decorative). Show keypad (product nav) centered. */
-    .cs-keyboard { display: none; }
+    /* Stack the keyboard ABOVE the keypad — both visible on mobile.
+       Keyboard scales to fit narrow viewports (452px native → ~0.7x). */
+    .cs-keyboard {
+      display: flex;
+      transform: scale(0.7);
+      transform-origin: center top;
+      margin: 0;
+      margin-bottom: -40px; /* pull deck closer — scale shrinks the visual box */
+    }
+    .cs-keyboard:hover { transform: scale(0.7); } /* no hover lift on touch */
     .cs-streamdeck {
       display: block;
       position: static;
@@ -1209,8 +1220,14 @@ const LETTERS = [...LEFT, ...RIGHT];
       text-transform: uppercase;
       text-decoration: none;
     }
-    /* Mobile: keyboard hidden (decorative), keypad shown (product nav), letters under. */
-    .cs-keyboard-stage .cs-keyboard { display: none; }
+    /* Mobile: keyboard stacked ABOVE keypad, both visible. */
+    .cs-keyboard-stage .cs-keyboard {
+      display: flex;
+      transform: scale(0.7);
+      transform-origin: center top;
+      margin: 0 0 -40px;
+    }
+    .cs-keyboard-stage .cs-keyboard:hover { transform: scale(0.7); }
     .cs-keyboard-stage .cs-streamdeck { display: block; position: static; margin: 0 auto; }
     .cs-keyboard-stage .cs-keyboard svg.kb { max-width: 100%; height: auto; }
     .cs-key-strip { order: 3; }
