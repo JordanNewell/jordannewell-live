@@ -1063,6 +1063,10 @@ const LETTERS = [...LEFT, ...RIGHT];
      less padding + smaller body), keyboard-stage gap tightens, bottom-bar
      moved UP ~30px to fit one screen. */
   @media (max-width: 768px) {
+    /* .cs has min-height: calc(100vh - 90px) on desktop to fill viewport.
+       On mobile, kill it so .cs shrinks to natural content size and the
+       bottom-bar (knob + audio) actually sits under the desk. */
+    .cs { min-height: 0 !important; padding-bottom: 0 !important; }
     /* Terminal body — was 500px on desktop, shrink to 240 on mobile.
        Still readable, still the centerpiece, just less empty space. */
     .terminal .terminal-body {
@@ -1075,13 +1079,11 @@ const LETTERS = [...LEFT, ...RIGHT];
     .terminal .terminal-foot { padding: 4px 12px 6px !important; font-size: 0.55rem !important; }
     /* Keyboard-stage: tighter gap, less margin */
     .cs-keyboard-stage {
-      gap: 24px !important;
-      margin-top: 12px !important;
+      gap: 20px !important;
+      margin-top: 8px !important;
     }
-    /* Strip the .cs bottom padding so the bottom-bar can move up */
-    .cs { padding-bottom: 0 !important; }
     /* Bottom-bar: minimal padding so power + audio sit close under the desk */
-    .cs-bottom-bar { gap: 14px; padding: 4px 16px 8px; margin-top: -8px; }
+    .cs-bottom-bar { gap: 12px; padding: 4px 16px 12px; margin-top: 0; }
     .cs-controls-row { gap: 18px; }
     .cs-audio-btn { width: 44px; height: 44px; }
     .cs-audio-icon { width: 18px; height: 18px; }
