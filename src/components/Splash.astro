@@ -313,9 +313,10 @@ const LETTERS = [...LEFT, ...RIGHT];
       max-width: 100%;
       height: auto;
     }
-    /* Keypad keys at 16:9 — wider/shorter so bezel height matches the
-       keyboard's natural ~112px (was 3:2 which made keypad too tall). */
-    .cs-sd-grid .cs-sd-key { aspect-ratio: 16 / 9; }
+    /* Keypad keys at 2:1 (more rectangular than 16:9) so bezel is
+       VISIBLY shorter than the keyboard — no more perception that
+       keypad is taller. */
+    .cs-sd-grid .cs-sd-key { aspect-ratio: 2 / 1; }
     .cs-streamdeck {
       display: block;
       position: static;
