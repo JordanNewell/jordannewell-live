@@ -173,7 +173,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </div>
 </section>
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=1" defer></script>
+<script src="/js/kb-shortcuts.js?v=2" defer></script>
 
 <style is:global>
   @font-face {
@@ -806,6 +806,66 @@ const LETTERS = [...LEFT, ...RIGHT];
     .cs-key-strip { order: 3; }
     .cs-typelink-mobile { order: 4; }
     .cs :global([data-terminal]) { margin-top: 40px; }
+  }
+</style>
+
+<style is:global>
+  /* Self-typing JORDANNEWELL — flashes the empty socket green when "typed" */
+  .kb-socket.kb-typed {
+    fill: #3FFF46 !important;
+    filter: drop-shadow(0 0 6px #3FFF46) drop-shadow(0 0 14px rgba(63,255,70,0.5));
+    transition: fill 0.06s ease-out, filter 0.06s ease-out;
+  }
+
+  /* CRT scanline sweep */
+  .kb-scanline {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to bottom, transparent, #3FFF46 50%, transparent);
+    box-shadow: 0 0 24px #3FFF46, 0 0 60px rgba(63,255,70,0.6);
+    pointer-events: none;
+    z-index: 99999;
+    animation: kb-scanline-sweep 0.75s linear forwards;
+  }
+  @keyframes kb-scanline-sweep {
+    from { transform: translateY(-4px); }
+    to   { transform: translateY(100vh); }
+  }
+
+  /* Scattered letter spin */
+  .cs-key.kb-spin {
+    animation: kb-letter-spin 0.7s ease-in-out;
+  }
+  @keyframes kb-letter-spin {
+    0%   { transform: rotate(var(--k-rot, 0deg)) scale(1); }
+    50%  { transform: rotate(calc(var(--k-rot, 0deg) + 360deg)) scale(1.35); opacity: 1; }
+    100% { transform: rotate(calc(var(--k-rot, 0deg) + 720deg)) scale(1); }
+  }
+
+  /* Konami Matrix rain overlay */
+  .kb-matrix {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    z-index: 99998;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .kb-matrix-col {
+    position: absolute;
+    top: -200px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    line-height: 1.1;
+    color: #3FFF46;
+    text-shadow: 0 0 6px #3FFF46, 0 0 12px rgba(63,255,70,0.6);
+    white-space: pre;
+    animation: kb-matrix-fall linear forwards;
+  }
+  @keyframes kb-matrix-fall {
+    from { transform: translateY(0); opacity: 1; }
+    to   { transform: translateY(120vh); opacity: 0; }
   }
 </style>
 
