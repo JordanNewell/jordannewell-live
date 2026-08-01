@@ -184,19 +184,49 @@ const LETTERS = [...LEFT, ...RIGHT];
 <script src="/js/status-hero.js?v=5" defer></script>
 <script src="/js/kb-shortcuts.js?v=7" defer></script>
 <script is:inline>
-  // Pin the bottom bar to <body> so no ancestor can capture position:fixed.
+  // Pin the bottom wordmark so it CANNOT move.
+  // Strategy: hide the in-flow .cs-bottom-bar entirely, then inject a fresh
+  // <div> directly under <body> with position:fixed and the wordmark image.
+  // The fresh element has no ancestors that can capture its containing block.
   (function () {
-    function relocate() {
-      var bar = document.querySelector(".cs-bottom-bar");
-      if (bar && bar.parentNode !== document.body) {
-        document.body.appendChild(bar);
-      }
+    function pin() {
+      if (document.getElementById("cs-pinned-wordmark")) return;
+      var original = document.querySelector(".cs-bottom-bar");
+      if (original) original.style.display = "none";
+      var pin = document.createElement("div");
+      pin.id = "cs-pinned-wordmark";
+      pin.style.cssText =
+        "position:fixed !important;" +
+        "bottom:16px !important;" +
+        "left:0 !important;" +
+        "right:0 !important;" +
+        "display:flex !important;" +
+        "justify-content:center !important;" +
+        "align-items:center !important;" +
+        "z-index:99999 !important;" +
+        "pointer-events:none !important;" +
+        "transform:translateZ(0) !important;" +
+        "will-change:transform !important;";
+      var img = document.createElement("img");
+      img.src = "/images/coming-soon/newell-wordmark.png?v=1";
+      img.alt = "NEWELL";
+      img.style.cssText =
+        "display:block !important;" +
+        "height:28px !important;" +
+        "width:auto !important;" +
+        "opacity:0.85 !important;" +
+        "filter:drop-shadow(0 0 8px rgba(63,255,70,0.18)) !important;" +
+        "pointer-events:auto !important;";
+      pin.appendChild(img);
+      document.body.appendChild(pin);
     }
     if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", relocate);
+      document.addEventListener("DOMContentLoaded", pin);
     } else {
-      relocate();
+      pin();
     }
+    // Re-pin on load just in case anything moves it later.
+    window.addEventListener("load", pin);
   })();
 </script>
 
