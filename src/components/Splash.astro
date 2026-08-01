@@ -179,52 +179,6 @@ const LETTERS = [...LEFT, ...RIGHT];
 
 <script src="/js/status-hero.js?v=5" defer></script>
 <script src="/js/kb-shortcuts.js?v=7" defer></script>
-<script is:inline>
-  // Pin the bottom wordmark so it CANNOT move.
-  // Strategy: hide the in-flow .cs-bottom-bar entirely, then inject a fresh
-  // <div> directly under <body> with position:fixed and the wordmark image.
-  // The fresh element has no ancestors that can capture its containing block.
-  (function () {
-    function pin() {
-      if (document.getElementById("cs-pinned-wordmark")) return;
-      var original = document.querySelector(".cs-bottom-bar");
-      if (original) original.style.display = "none";
-      var pin = document.createElement("div");
-      pin.id = "cs-pinned-wordmark";
-      pin.style.cssText =
-        "position:fixed !important;" +
-        "bottom:16px !important;" +
-        "left:0 !important;" +
-        "right:0 !important;" +
-        "display:flex !important;" +
-        "justify-content:center !important;" +
-        "align-items:center !important;" +
-        "z-index:99999 !important;" +
-        "pointer-events:none !important;" +
-        "transform:translateZ(0) !important;" +
-        "will-change:transform !important;";
-      var img = document.createElement("img");
-      img.src = "/images/coming-soon/newell-wordmark.png?v=1";
-      img.alt = "NEWELL";
-      img.style.cssText =
-        "display:block !important;" +
-        "height:28px !important;" +
-        "width:auto !important;" +
-        "opacity:0.85 !important;" +
-        "filter:drop-shadow(0 0 8px rgba(63,255,70,0.18)) !important;" +
-        "pointer-events:auto !important;";
-      pin.appendChild(img);
-      document.body.appendChild(pin);
-    }
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", pin);
-    } else {
-      pin();
-    }
-    // Re-pin on load just in case anything moves it later.
-    window.addEventListener("load", pin);
-  })();
-</script>
 
 <style is:global>
   @font-face {
@@ -253,7 +207,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     align-items: center;
     text-align: center;
     gap: 10px;
-    padding: 0 0 96px; /* leave room for the fixed bottom bar (wordmark + power btn) */
+    padding: 0 0 32px;
     /* Fit fully inside viewport on desktop. Header (~60px) + main padding (~28px)
        leave ~calc(100vh - 90px) for splash content. Body overflow:hidden backs this up. */
     min-height: calc(100vh - 90px);
@@ -809,25 +763,15 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-transform: uppercase;
     text-decoration: none;
   }
-  /* Fixed bottom bar — NEWELL wordmark + power button, outside .cs so they
-     survive the CRT-collapse animation. */
+  /* Bottom bar — NEWELL wordmark only. In-flow at the bottom of the page.
+     Scrolls with content. Outside .cs so the CRT-collapse animation doesn't capture it. */
   .cs-bottom-bar {
-    position: fixed;
-    bottom: 16px;
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 24px;
-    z-index: 99999;
-    pointer-events: none;
-    /* Force own GPU layer so no ancestor's transform/filter can capture this element
-       into a non-viewport containing block. */
-    transform: translateZ(0);
-    will-change: transform;
+    padding: 24px 16px 32px;
   }
-  .cs-bottom-bar > * { pointer-events: auto; }
   .cs-splash-wordmark {
     display: inline-flex;
     align-items: center;
