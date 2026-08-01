@@ -7,17 +7,9 @@
 // Physical keys Enter / Space / Backspace mirror the click actions.
 // Konami code (↑↑↓↓←→←→ba) also triggers Matrix rain.
 (function () {
-  // Page loads POWERED OFF — visitor arrives at a dead desk and must
-  // click the knob (or status LED) to wake it. Status LED pulses red,
-  // JORDAN/NEWELL nameplate shimmers, knob breathes red standby.
-  // Skip the off state if returning visitors left audio enabled? No —
-  // always start off so the wake cascade plays every visit.
-  document.documentElement.classList.add("cs-powered-off");
-  if (document.body) document.body.classList.add("cs-powered-off");
-  else document.addEventListener("DOMContentLoaded", () => {
-    document.body.classList.add("cs-powered-off");
-  });
-
+  // Page is born DEAD — <body> ships with class="cs-powered-off" in
+  // BaseLayout.astro so the off-state renders on first paint (no flash
+  // of the alive state). User clicks the knob to wake it.
   function ready(fn) {
     if (document.readyState !== "loading") fn();
     else document.addEventListener("DOMContentLoaded", fn);
