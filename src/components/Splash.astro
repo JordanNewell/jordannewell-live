@@ -293,17 +293,20 @@ const LETTERS = [...LEFT, ...RIGHT];
       margin: 24px 10px 0;
       padding: 0 10px;
       transform: none;
+      overflow: visible;
     }
-    /* Keyboard at natural size (100% width, SVG aspect preserved).
-       No scale — matches keypad bezel width exactly. */
+    /* Keyboard scaled up to visually match/exceed the keypad.
+       transform-origin: top anchors under terminal, overflow extends
+       down into the 40px gap (not up into the terminal). */
     .cs-keyboard {
       display: flex;
       width: 100%;
       margin: 0 !important;
-      transform: none !important;
+      transform: scale(1.2) !important;
+      transform-origin: center top;
       filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65));
     }
-    .cs-keyboard:hover { transform: none !important; }
+    .cs-keyboard:hover { transform: scale(1.2) !important; }
     .cs-keyboard svg.kb {
       width: 100%;
       max-width: 100%;
