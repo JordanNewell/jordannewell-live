@@ -169,15 +169,17 @@ const LETTERS = [...LEFT, ...RIGHT];
 
 </section>
 
-{/* Fixed bottom bar — NEWELL wordmark + power button. Outside .cs so the
+{/* Power button — top-right fixed. Outside .cs so it survives animations. */}
+<button class="cs-power-btn" aria-label="Power toggle" title="Power">
+  <span aria-hidden="true">⏻</span>
+</button>
+
+{/* Fixed bottom bar — NEWELL wordmark only. Outside .cs so the
     CRT-collapse animation does not capture the fixed-position descendants. */}
 <footer class="cs-bottom-bar">
   <div class="cs-splash-wordmark" aria-hidden="true">
     <img src="/images/coming-soon/newell-wordmark.png?v=1" alt="NEWELL" width="839" height="153" decoding="async" />
   </div>
-  <button class="cs-power-btn" aria-label="Power toggle" title="Power">
-    <span aria-hidden="true">⏻</span>
-  </button>
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
@@ -910,8 +912,12 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-shadow: 0 0 8px rgba(63, 255, 70, 0.8);
   }
 
-  /* CRT power button — sits next to NEWELL wordmark in the bottom bar */
+  /* CRT power button — top-right fixed, outside .cs so animation can't capture it */
   .cs-power-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
     width: 36px;
     height: 36px;
     border-radius: 50%;
