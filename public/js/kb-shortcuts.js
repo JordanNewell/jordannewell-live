@@ -600,11 +600,26 @@
       const terminal = document.querySelector("[data-terminal]");
       if (!terminal) return;
       const body = terminal.querySelector(".terminal-body");
-      if (!body) return;
+      const bar = terminal.querySelector(".terminal-bar");
+      const socials = bar && bar.querySelector(".terminal-socials");
+      if (!body || !socials) return;
+
+      // Tabs injected INTO socials (after GH) so they sit between the GH
+      // button and the live indicator. socials has flex:1, so the tabs
+      // cluster with GH on the left side, live stays centered, X on right.
+      const tabs = document.createElement("div");
+      tabs.className = "terminal-tabs";
+      tabs.innerHTML = `
+        <button class="terminal-tab is-active" data-tab="activity">activity</button>
+        <button class="terminal-tab" data-tab="music">music</button>
+      `;
+      socials.appendChild(tabs);
+      this.activityTabBtn = tabs.querySelector('[data-tab="activity"]');
+      this.tabBtn = tabs.querySelector('[data-tab="music"]');
+      this.activityTabBtn.addEventListener("click", () => this.switchTab("activity"));
+      this.tabBtn.addEventListener("click", () => this.switchTab("music"));
 
       // Music content lives INSIDE terminal-body — same element, same size.
-      // Toggling .music-mode on body swaps which children are visible.
-      // The terminal-bar (GH · live · X) stays untouched — no layout shift.
       this.panel = document.createElement("div");
       this.panel.className = "term-music-content";
       body.appendChild(this.panel);
@@ -622,11 +637,15 @@
       this.init();
       if (which === "music") {
         this.active = true;
+        if (this.tabBtn) this.tabBtn.classList.add("is-active");
+        if (this.activityTabBtn) this.activityTabBtn.classList.remove("is-active");
         this.body.classList.add("music-mode");
         this.render();
         this.startViz();
       } else {
         this.active = false;
+        if (this.activityTabBtn) this.activityTabBtn.classList.add("is-active");
+        if (this.tabBtn) this.tabBtn.classList.remove("is-active");
         this.body.classList.remove("music-mode");
         this.stopViz();
       }

@@ -206,7 +206,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=29" defer></script>
+<script src="/js/kb-shortcuts.js?v=30" defer></script>
 
 <style is:global>
   @font-face {
@@ -286,10 +286,10 @@ const LETTERS = [...LEFT, ...RIGHT];
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 40px;
       order: 2;
       width: 100%;
-      max-width: 315px;
+      max-width: 360px;
       margin: 24px 10px 0;
       padding: 0 10px;
       transform: none;
@@ -1565,10 +1565,12 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
   /* GH pinned far left, X pinned far right, live centered between.
      Socials + X use flex:1 with their original justify directions
-     (flex-start / flex-end) so the pulse stays in the middle. */
+     (flex-start / flex-end) so the pulse stays in the middle.
+     Tabs injected into socials sit right after GH with a 10px gap. */
   .terminal-bar .terminal-socials {
     flex: 1 1 auto !important;
     justify-content: flex-start !important;
+    gap: 10px;
   }
   .terminal-bar .terminal-x {
     flex: 1 1 auto !important;
