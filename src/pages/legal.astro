@@ -1,25 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 const year = new Date().getFullYear();
-const FONT_URL = "https://jordannewell.github.io/newell-typeface/";
-// Same 12 floating keys as the splash — JORDAN left gutter, NEWELL right.
-const LEFT = ["J", "O", "R", "D", "A", "N"];
-const RIGHT = ["N", "E", "W", "E", "L", "L"];
-const keys = [
-  { top: "13vh", left: "20vw", rot: -7,  variant: "green" },
-  { top: "21vh", left: "24vw", rot:  3,  variant: "white" },
-  { top: "28vh", left: "18vw", rot: -3,  variant: "green" },
-  { top: "72vh", left: "19vw", rot:  4,  variant: "white" },
-  { top: "80vh", left: "24vw", rot: -5,  variant: "green" },
-  { top: "88vh", left: "18vw", rot:  2,  variant: "white" },
-  { top: "14vh", right: "21vw", rot:  5,  variant: "white" },
-  { top: "22vh", right: "25vw", rot: -4,  variant: "green" },
-  { top: "29vh", right: "19vw", rot:  6,  variant: "white" },
-  { top: "73vh", right: "20vw", rot: -6,  variant: "green" },
-  { top: "81vh", right: "25vw", rot:  3,  variant: "white" },
-  { top: "89vh", right: "19vw", rot: -2,  variant: "green" },
-];
-const LETTERS = [...LEFT, ...RIGHT];
 ---
 
 <BaseLayout
@@ -29,25 +10,10 @@ const LETTERS = [...LEFT, ...RIGHT];
   ogImage="/images/coming-soon/og-card.png"
   bare={true}
 >
-  {/* Floating scattered keycaps — same set as splash. */}
-  {keys.map((k, i) => (
-    <a
-      class={`cs-key cs-key-${k.variant}`}
-      href={FONT_URL}
-      target="_blank"
-      rel="noopener"
-      aria-label="Newell typeface — GitHub repo"
-      title="Newell typeface — GitHub repo"
-      style={`--k-top:${k.top ?? "auto"};--k-right:${k.right ?? "auto"};--k-left:${k.left ?? "auto"};--k-rot:${k.rot}deg;`}
-    >
-      <span class="cs-key-cap">{LETTERS[i]}</span>
-    </a>
-  ))}
-
-  {/* PFP bottom-right, same hover treatment as splash. */}
-  <a href="/" class="cs-pfp" aria-label="Jordan Newell">
-    <img src="/images/jordan-portrait.png?v=4" alt="Jordan Newell" width="120" height="180" loading="lazy" decoding="async" />
-  </a>
+  {/* NEWELL wordmark at top — mirrors splash header */}
+  <div class="license-wordmark license-wordmark-top" aria-hidden="true">
+    <img src="/images/coming-soon/newell-wordmark.png?v=1" alt="NEWELL" width="839" height="153" decoding="async" />
+  </div>
 
   <main class="license-main">
     <section class="license-terminal" aria-label="License">
@@ -157,6 +123,11 @@ const LETTERS = [...LEFT, ...RIGHT];
     </section>
   </main>
 
+  {/* NEWELL wordmark at bottom — mirrors top, mirrors splash */}
+  <div class="license-wordmark license-wordmark-bottom" aria-hidden="true">
+    <img src="/images/coming-soon/newell-wordmark.png?v=1" alt="NEWELL" width="839" height="153" decoding="async" />
+  </div>
+
   <script is:inline>
     (() => {
       const body = document.querySelector('.license-body');
@@ -250,6 +221,24 @@ const LETTERS = [...LEFT, ...RIGHT];
   /* Lock page — no body scroll on desktop. Mobile still scrolls for long content. */
   @media (min-width: 769px) {
     html, body { height: 100%; overflow: hidden; }
+  }
+  /* NEWELL wordmark — top and bottom centered, mirrors splash */
+  .license-wordmark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0;
+    line-height: 0;
+    opacity: 0.85;
+  }
+  .license-wordmark img {
+    display: block;
+    height: 28px;
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(63, 255, 70, 0.18));
+  }
+  @media (min-width: 640px) {
+    .license-wordmark img { height: 34px; }
   }
 </style>
 
