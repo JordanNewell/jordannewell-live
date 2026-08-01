@@ -87,6 +87,8 @@
 
   function powerOn() {
     document.body.classList.remove("cs-powered-off");
+    document.body.classList.add("cs-powering-on");
+    setTimeout(() => document.body.classList.remove("cs-powering-on"), 800);
   }
 
   function powerToggle() {
@@ -134,13 +136,13 @@
       });
     }
 
-    const powerBtn = document.querySelector(".cs-power-btn");
-    if (powerBtn) {
-      powerBtn.addEventListener("click", function (e) {
+    const powerBtns = document.querySelectorAll(".cs-power-btn");
+    powerBtns.forEach((btn) => {
+      btn.addEventListener("click", function (e) {
         e.stopPropagation();
         powerToggle();
       });
-    }
+    });
 
     document.addEventListener("keydown", function (e) {
       const tag = (e.target.tagName || "").toLowerCase();
