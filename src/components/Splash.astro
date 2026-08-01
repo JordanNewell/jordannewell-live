@@ -103,6 +103,10 @@ const LETTERS = [...LEFT, ...RIGHT];
     <div class="cs-keyboard">
       <KeyboardBase />
     </div>
+    {/* Mobile-only power button next to keypad, under terminal */}
+    <button class="cs-power-btn cs-power-btn-mobile" aria-label="Power toggle" title="Power">
+      <span aria-hidden="true">⏻</span>
+    </button>
     <div class="cs-streamdeck" aria-label="NEWELL product family">
       <div class="cs-sd-bezel">
         <div class="cs-sd-grid">
@@ -178,7 +182,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=6" defer></script>
+<script src="/js/kb-shortcuts.js?v=7" defer></script>
 
 <style is:global>
   @font-face {
@@ -804,7 +808,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     .cs-splash-wordmark img { height: 34px; }
   }
   @media (max-width: 768px) {
-    .cs-streamdeck { margin: 8px auto 0; max-width: 280px; }
+    .cs-streamdeck { margin: 8px auto 0 16px; max-width: 280px; }
     .cs-sd-bezel { transform: none; }
     /* Mobile: bigger caps + labels for legibility on touch targets */
     .cs-sd-cap { font-size: 1.4rem; }
@@ -928,6 +932,20 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-shadow: 0 0 6px rgba(63, 255, 70, 0.6);
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
   }
+  /* Mobile power button next to keypad — hidden on desktop */
+  .cs-power-btn-mobile { display: none; }
+  @media (max-width: 768px) {
+    .cs-power-btn-mobile {
+      display: inline-flex;
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      font-size: 1rem;
+    }
+  }
   .cs-power-btn:hover {
     background: rgba(63, 255, 70, 0.18);
     box-shadow: 0 0 12px rgba(63, 255, 70, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.4);
@@ -971,6 +989,26 @@ const LETTERS = [...LEFT, ...RIGHT];
     40%  { transform: scale(1, 0.003); filter: brightness(4) saturate(2); opacity: 1; }
     70%  { transform: scale(1, 0.003); filter: brightness(2); opacity: 1; }
     100% { transform: scale(0.0008, 0.003); filter: brightness(0); opacity: 0; }
+  }
+  /* CRT power-on — line -> full screen with a brief blur fuzz as it warms up */
+  body.cs-powering-on .terminal-body,
+  body.cs-powering-on .terminal-watermark {
+    transform-origin: center center;
+    animation: crt-power-on 0.8s cubic-bezier(0.4, 0, 0.4, 1) forwards;
+  }
+  body.cs-powering-on .terminal-pulse {
+    animation: pulse-fade-in 0.8s ease-out 0.4s both;
+  }
+  @keyframes crt-power-on {
+    0%   { transform: scale(0.0008, 0.003); filter: brightness(0); opacity: 0; }
+    25%  { transform: scale(1, 0.003); filter: brightness(3) blur(1.5px); opacity: 1; }
+    55%  { transform: scale(1, 1);     filter: brightness(1.6) blur(0.6px); opacity: 1; }
+    80%  { transform: scale(1, 1);     filter: brightness(1.2) blur(0.2px); opacity: 1; }
+    100% { transform: scale(1, 1);     filter: brightness(1) blur(0); opacity: 1; }
+  }
+  @keyframes pulse-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
   }
 </style>
 
