@@ -176,6 +176,11 @@ const LETTERS = [...LEFT, ...RIGHT];
       keyboard and stream deck). Desktop typelink also inside keyboard-stage. */}
 
 <EmojiDock />
+
+{/* Centered NEWELL wordmark at the bottom of the splash — mirrors the header wordmark */}
+<div class="cs-splash-wordmark" aria-hidden="true">
+  <img src="/images/coming-soon/newell-wordmark.png?v=1" alt="NEWELL" width="839" height="153" decoding="async" />
+</div>
 </section>
 <script src="/js/status-hero.js?v=5" defer></script>
 
@@ -247,7 +252,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-keyboard:hover {
     transform: scale(1.07);
     filter: drop-shadow(0 28px 26px rgba(0, 0, 0, 0.8))
-            drop-shadow(0 0 14px rgba(63, 255, 70, 0.12));
+            drop-shadow(0 0 14px rgba(63, 255, 70, 0.06));
   }
   /* Mobile: keyboard under terminal, keypad hidden, letters under keyboard.
      Scoped block (not is:global) so this wins over the base .cs-keyboard-stage rule above. */
@@ -656,7 +661,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     perspective: 1200px;
     perspective-origin: 50% 20%;
   }
-  /* GREEN bezel outline (matches keyboard green theme) */
+  /* GREEN bezel outline (matches keyboard green theme) — flat, no rotateX */
   .cs-sd-bezel {
     background: #060606;
     border-radius: 8px;
@@ -667,18 +672,21 @@ const LETTERS = [...LEFT, ...RIGHT];
       0 3px 0 #0D0D0D,
       0 8px 16px rgba(0, 0, 0, 0.7),
       0 0 20px rgba(0, 255, 65, 0.06);
-    transform: rotateX(10deg) scale(1.0);
-    transform-origin: center 80%;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transform: none;
+    transition: box-shadow 0.3s ease;
   }
   .cs-streamdeck:hover .cs-sd-bezel {
-    transform: rotateX(14deg) scale(1.04);
     box-shadow:
-      inset 0 1px 0 rgba(0, 255, 65, 0.08),
-      0 0 0 1.5px rgba(0, 255, 65, 0.6),
+      inset 0 1px 0 rgba(0, 255, 65, 0.1),
+      0 0 0 1.5px #3FFF46,
       0 4px 0 #0D0D0D,
       0 12px 24px rgba(0, 0, 0, 0.8),
-      0 0 18px rgba(0, 255, 65, 0.08);
+      0 0 18px rgba(0, 255, 65, 0.12),
+      0 0 18px rgba(255, 255, 255, 0.12);
+  }
+      0 12px 24px rgba(0, 0, 0, 0.8),
+      0 0 18px rgba(0, 255, 65, 0.12),
+      0 0 18px rgba(255, 255, 255, 0.12);
   }
   .cs-sd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
   .cs-sd-key {
@@ -756,6 +764,29 @@ const LETTERS = [...LEFT, ...RIGHT];
     letter-spacing: 0.1em;
     text-transform: uppercase;
     text-decoration: none;
+  }
+  /* Centered NEWELL wordmark at bottom of splash — mirrors the header */
+  .cs-splash-wordmark {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0 32px;
+    line-height: 0;
+    opacity: 0.85;
+  }
+  .cs-splash-wordmark img {
+    display: block;
+    height: 28px;
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(63, 255, 70, 0.18));
+    transition: opacity 0.18s ease, filter 0.18s ease;
+  }
+  .cs-splash-wordmark:hover img {
+    opacity: 1;
+    filter: drop-shadow(0 0 12px rgba(63, 255, 70, 0.4));
+  }
+  @media (min-width: 640px) {
+    .cs-splash-wordmark img { height: 34px; }
   }
   @media (max-width: 768px) {
     .cs-streamdeck { margin: 8px auto 0; max-width: 280px; }
