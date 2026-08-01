@@ -181,7 +181,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=5" defer></script>
+<script src="/js/kb-shortcuts.js?v=6" defer></script>
 
 <style is:global>
   @font-face {
@@ -946,15 +946,16 @@ const LETTERS = [...LEFT, ...RIGHT];
     50%      { box-shadow: 0 0 28px rgba(63, 255, 70, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.4); }
   }
 
-  /* CRT power-off — ONLY the terminal screen collapses, rest of splash stays */
-  body.cs-powered-off .terminal {
+  /* CRT power-off — ONLY the inner terminal screen collapses, terminal chrome stays */
+  body.cs-powered-off .terminal-body {
     transform-origin: center center;
     animation: crt-power-off 0.75s cubic-bezier(0.5, 0, 0.5, 1) forwards;
     pointer-events: none;
   }
-  .terminal {
+  .terminal-body {
     transform-origin: center center;
     transition: transform 0.55s cubic-bezier(0.4, 0, 0.4, 1);
+    background: #000;
   }
   @keyframes crt-power-off {
     0%   { transform: scale(1, 1);     filter: brightness(1); opacity: 1; }
