@@ -83,13 +83,14 @@
     matrix: matrixGlitch,
   };
 
-  // ---- Konami code tracking (visual progress hint) ----
+  // ---- Konami code: rolling buffer (more forgiving than state machine) ----
   const KONAMI = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
-  let konamiIdx = 0;
+  const KONAMI_DISPLAY = "↑↑↓↓←→←→ba";
+  const buffer = [];
 
-  function showKonamiProgress(idx) {
+  function showKonamiProgress(matched) {
     let hint = document.querySelector(".kb-konami-hint");
-    if (idx === 0) {
+    if (matched === 0) {
       if (hint) hint.remove();
       return;
     }
@@ -98,7 +99,9 @@
       hint.className = "kb-konami-hint";
       document.body.appendChild(hint);
     }
-    hint.textContent = "↑↑↓↓←→←→ba ".slice(0, idx) + "_";
+    const done = KONAMI_DISPLAY.slice(0, matched);
+    const rest = KONAMI_DISPLAY.slice(matched);
+    hint.innerHTML = '<span class="kb-konami-done">' + done + '</span>' + rest + '_';
   }
 
   ready(function () {
@@ -116,23 +119,25 @@
       const tag = (e.target.tagName || "").toLowerCase();
       if (tag === "input" || tag === "textarea" || e.target.isContentEditable) return;
 
-      // Konami tracking
+      // Konami buffer tracking — show progress for longest matching prefix
       if (!e.metaKey && !e.ctrlKey && !e.altKey) {
         const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-        if (key === KONAMI[konamiIdx]) {
-          konamiIdx++;
-          showKonamiProgress(konamiIdx);
-          if (konamiIdx === KONAMI.length) {
-            konamiIdx = 0;
-            showKonamiProgress(0);
-            matrixGlitch();
-          }
-        } else {
-          const reset = key === KONAMI[0] ? 1 : 0;
-          if (reset !== konamiIdx) {
-            konamiIdx = reset;
-            showKonamiProgress(konamiIdx);
-          }
+        buffer.push(key);
+        if (buffer.length > KONAMI.length) buffer.shift();
+
+        // Compute longest matching prefix from buffer start
+        let matched = 0;
+        for (let i = 0; i < buffer.length; i++) {
+          if (buffer[i] === KONAMI[i]) matched = i + 1;
+          else { matched = 0; break; }
+        }
+        showKonamiProgress(matched);
+
+        // Full match?
+        if (matched === KONAMI.length) {
+          buffer.length = 0;
+          showKonamiProgress(0);
+          matrixGlitch();
         }
       }
 
