@@ -100,9 +100,20 @@
 
   function powerToggle() {
     if (isPoweredOff()) {
+      // Boot = full experience. Auto-enable audio so the wake chord +
+      // ambient hum play (user can still toggle off via speaker icon).
+      audio.init();
+      if (audio.ctx && audio.ctx.state === "suspended") {
+        const r = audio.ctx.resume();
+        if (r && typeof r.then === "function") r.catch(() => {});
+      }
+      audio.enabled = true;
+      try { localStorage.setItem("newell-audio", "on"); } catch (e) {}
+      const audioBtn = document.querySelector("[data-audio-toggle]");
+      if (audioBtn) audioBtn.setAttribute("aria-pressed", "true");
       audio.powerOn();
       // Restart ambient hum after the wake sweep finishes
-      setTimeout(() => audio.startAmbient(), audio.enabled ? 950 : 0);
+      setTimeout(() => audio.startAmbient(), 950);
       powerOn();
     } else {
       audio.stopAmbient();
@@ -432,7 +443,11 @@
     },
 
     powerOn() {
-      if (!this.enabled || !this.ctx) return;
+      // Plays whether or not ambient is enabled — the user is booting
+      // the system, the wake chord is part of the experience.
+      this.init();
+      if (!this.ctx) return;
+      if (this.ctx.state === "suspended") this.ctx.resume();
       const now = this.ctx.currentTime;
       const notes = [130.81, 164.81, 196.00]; // C3, E3, G3
       const filter = this.ctx.createBiquadFilter();

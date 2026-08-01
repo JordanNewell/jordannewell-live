@@ -210,7 +210,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=32" defer></script>
+<script src="/js/kb-shortcuts.js?v=33" defer></script>
 
 <style is:global>
   @font-face {
@@ -293,9 +293,9 @@ const LETTERS = [...LEFT, ...RIGHT];
       gap: 40px;
       order: 2;
       width: 100%;
-      max-width: 280px;
-      margin: 24px 0 0 10px;
-      padding: 0;
+      max-width: 360px;
+      margin: 24px 10px 0;
+      padding: 0 10px;
       transform: none;
       overflow: visible;
     }
@@ -1053,24 +1053,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
   /* Mobile: audio button bumped to 44×44 (proper touch target, was 34×34) */
   @media (max-width: 768px) {
-    /* Bottom bar becomes a fixed right-edge column — knob + audio
-       stacked vertically, centered on the right side of the screen.
-       Keyboard + keypad are pushed left to make room. */
-    .cs-bottom-bar {
-      position: fixed;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      flex-direction: column;
-      gap: 18px;
-      padding: 12px 8px;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(63, 255, 70, 0.15);
-      border-radius: 9999px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 50;
-    }
+    .cs-bottom-bar { gap: 18px; padding: 24px 16px 32px; }
     .cs-controls-row { gap: 18px; }
     .cs-audio-btn { width: 44px; height: 44px; }
     .cs-audio-icon { width: 18px; height: 18px; }
