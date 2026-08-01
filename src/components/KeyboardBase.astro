@@ -223,9 +223,12 @@ const WHITE = "#ffffff";
           })()}
 
           {/* Empty positions: just a darker recessed socket — no outline, no
-              letter. The keys are gone (they're floating elsewhere on the page). */}
+              letter. The keys are gone (they're floating elsewhere on the page).
+              data-letter is used by kb-effects.js for the self-typing animation. */}
           {isMissing && (
             <rect
+              class="kb-socket"
+              data-letter={upper}
               x={x + 2} y={y + 2} width={w - 4} height={h - 4} rx="2"
               fill="#000"
             />
