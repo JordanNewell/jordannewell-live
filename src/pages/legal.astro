@@ -485,8 +485,9 @@ const year = new Date().getFullYear();
     position: relative;
     z-index: 1;
     /* Internal scroll — body scrolls inside the terminal, page doesn't.
-       Bumped from 180px to 220px to leave room for SocialEmojis below. */
-    max-height: calc(100vh - 220px);
+       320px accounts for: top wordmark (~50) + header (~46) + foot (~30) +
+       bottom wordmark (~50) + page padding/margins (~144). */
+    max-height: calc(100vh - 320px);
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(63, 255, 70, 0.4) transparent;
