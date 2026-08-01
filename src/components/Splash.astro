@@ -261,6 +261,12 @@ const LETTERS = [...LEFT, ...RIGHT];
     }
     .cs-streamdeck { display: none; }
   }
+  /* Desktop: 25px gap from terminal — scoped so it beats the base margin-top:0. */
+  @media (min-width: 769px) {
+    .cs-keyboard-stage {
+      margin-top: 25px;
+    }
+  }
   /* Desk surface — a tilted plane that recedes from foreground to background.
      Drawn as a CSS gradient: light hit near the keyboard, fading to deep shadow
      toward the back. Slight green tint near the keyboard's underglow. */
