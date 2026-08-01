@@ -265,7 +265,15 @@ const LETTERS = [...LEFT, ...RIGHT];
       transform: none;
       margin-top: 30px;
     }
-    .cs-streamdeck { display: none; }
+    /* Hide keyboard visual (decorative). Show keypad (product nav) centered. */
+    .cs-keyboard { display: none; }
+    .cs-streamdeck {
+      display: block;
+      position: static;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
   }
   /* Desktop: 25px gap from terminal — scoped so it beats the base margin-top:0. */
   @media (min-width: 769px) {
@@ -799,9 +807,9 @@ const LETTERS = [...LEFT, ...RIGHT];
       text-transform: uppercase;
       text-decoration: none;
     }
-    /* Mobile: show keyboard under terminal, hide stream deck (keypad), letters under keyboard. */
-    .cs-keyboard-stage { display: block; order: 2; width: 100%; max-width: none; transform: none; margin-top: 20px; }
-    .cs-keyboard-stage .cs-streamdeck { display: none; }
+    /* Mobile: keyboard hidden (decorative), keypad shown (product nav), letters under. */
+    .cs-keyboard-stage .cs-keyboard { display: none; }
+    .cs-keyboard-stage .cs-streamdeck { display: block; position: static; margin: 0 auto; }
     .cs-keyboard-stage .cs-keyboard svg.kb { max-width: 100%; height: auto; }
     .cs-key-strip { order: 3; }
     .cs-typelink-mobile { order: 4; }
