@@ -286,11 +286,11 @@ const LETTERS = [...LEFT, ...RIGHT];
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 6px;
       order: 2;
       width: 100%;
-      max-width: 360px;
-      margin: 30px auto 0;
+      max-width: 320px;
+      margin: 24px auto 0;
       transform: none;
     }
     /* Keyboard sized via width (not transform) so layout box matches visual.
@@ -315,6 +315,9 @@ const LETTERS = [...LEFT, ...RIGHT];
       max-width: none;
       margin: 0;
     }
+    /* Stream deck keys become wider rectangles (3:2) so the deck doesn't
+       dominate vertically — matches keyboard proportions better. */
+    .cs-sd-grid .cs-sd-key { aspect-ratio: 3 / 2; }
   }
   /* Desktop: 25px gap from terminal — scoped so it beats the base margin-top:0. */
   @media (min-width: 769px) {
