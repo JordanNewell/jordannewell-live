@@ -83,18 +83,6 @@
   function powerOff() {
     if (isPoweredOff()) return;
     document.body.classList.add("cs-powered-off");
-    // Any user interaction after the collapse reverses it.
-    const wake = () => {
-      if (!isPoweredOff()) return;
-      // Defer so the click that woke us doesn't immediately fire its other action.
-      setTimeout(powerOn, 0);
-      document.removeEventListener("keydown", wake);
-      document.removeEventListener("pointerdown", wake);
-    };
-    setTimeout(() => {
-      document.addEventListener("keydown", wake);
-      document.addEventListener("pointerdown", wake);
-    }, 800);
   }
 
   function powerOn() {
