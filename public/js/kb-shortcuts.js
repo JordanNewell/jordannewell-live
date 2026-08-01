@@ -178,6 +178,8 @@
         scanline();
       } else if (e.key === "Backspace") {
         letterSpin();
+      } else if (e.key === "CapsLock") {
+        matrixGlitch();
       }
     });
   });
