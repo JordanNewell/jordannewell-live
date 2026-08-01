@@ -286,29 +286,34 @@ const LETTERS = [...LEFT, ...RIGHT];
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 18px;
+      gap: 14px;
       order: 2;
       width: 100%;
-      max-width: none;
+      max-width: 360px;
+      margin: 30px auto 0;
       transform: none;
-      margin-top: 30px;
     }
-    /* Stack the keyboard ABOVE the keypad — both visible on mobile.
-       Keyboard scales to fit narrow viewports (452px native → ~0.7x). */
+    /* Keyboard sized via width (not transform) so layout box matches visual.
+       No black-void gap. SVG fills parent — natural aspect ratio. */
     .cs-keyboard {
       display: flex;
-      transform: scale(0.7);
-      transform-origin: center top;
-      margin: 0;
-      margin-bottom: -40px; /* pull deck closer — scale shrinks the visual box */
+      width: 100%;
+      margin: 0 !important;
+      transform: none !important;
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65));
     }
-    .cs-keyboard:hover { transform: scale(0.7); } /* no hover lift on touch */
+    .cs-keyboard:hover { transform: none !important; }
+    .cs-keyboard svg.kb {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
     .cs-streamdeck {
       display: block;
       position: static;
       width: 100%;
-      max-width: 320px;
-      margin: 0 auto;
+      max-width: none;
+      margin: 0;
     }
   }
   /* Desktop: 25px gap from terminal — scoped so it beats the base margin-top:0. */
@@ -1228,13 +1233,13 @@ const LETTERS = [...LEFT, ...RIGHT];
     /* Mobile: keyboard stacked ABOVE keypad, both visible. */
     .cs-keyboard-stage .cs-keyboard {
       display: flex;
-      transform: scale(0.7);
-      transform-origin: center top;
-      margin: 0 0 -40px;
+      width: 100%;
+      margin: 0 !important;
+      transform: none !important;
     }
-    .cs-keyboard-stage .cs-keyboard:hover { transform: scale(0.7); }
-    .cs-keyboard-stage .cs-streamdeck { display: block; position: static; margin: 0 auto; }
-    .cs-keyboard-stage .cs-keyboard svg.kb { max-width: 100%; height: auto; }
+    .cs-keyboard-stage .cs-keyboard:hover { transform: none !important; }
+    .cs-keyboard-stage .cs-streamdeck { display: block; position: static; margin: 0; }
+    .cs-keyboard-stage .cs-keyboard svg.kb { width: 100%; max-width: 100%; height: auto; }
     .cs-key-strip { order: 3; }
     .cs-typelink-mobile { order: 4; }
     .cs :global([data-terminal]) { margin-top: 40px; }
