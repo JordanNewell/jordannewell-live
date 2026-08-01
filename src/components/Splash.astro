@@ -1059,36 +1059,29 @@ const LETTERS = [...LEFT, ...RIGHT];
     color: #ff4040;
     animation: cs-power-pulse 1.8s ease-in-out infinite;
   }
-  /* Mobile: fit one viewport. Terminal shrinks (still the feature, just
-     less padding + smaller body), keyboard-stage gap tightens, bottom-bar
-     moved UP ~30px to fit one screen. */
+  /* Mobile: allow 2-page scroll. Terminal stays tall (the feature),
+     JORDAN/NEWELL nameplate stays visible, comfortable padding. */
   @media (max-width: 768px) {
-    /* .cs has min-height: calc(100vh - 90px) on desktop to fill viewport.
-       On mobile, kill it so .cs shrinks to natural content size and the
-       bottom-bar (knob + audio) actually sits under the desk. */
-    .cs { min-height: 0 !important; padding-bottom: 0 !important; }
-    /* Terminal body — was 500px on desktop, shrink to 240 on mobile.
-       Still readable, still the centerpiece, just less empty space. */
+    /* Terminal body — keep tall (the feature), just slightly smaller
+       than desktop's 500px for parity with mobile proportions. */
     .terminal .terminal-body {
-      height: 240px !important;
-      padding: 10px 14px 12px !important;
-      font-size: 0.78rem !important;
-      line-height: 1.45 !important;
+      height: 400px !important;
+      padding: 10px 14px 14px !important;
+      font-size: 0.82rem !important;
+      line-height: 1.55 !important;
     }
     .terminal .terminal-bar { padding: 6px 10px !important; }
-    .terminal .terminal-foot { padding: 4px 12px 6px !important; font-size: 0.55rem !important; }
-    /* Keyboard-stage: tighter gap, less margin */
+    .terminal .terminal-foot { padding: 6px 12px 8px !important; font-size: 0.6rem !important; }
+    /* Keyboard-stage: comfortable gap */
     .cs-keyboard-stage {
-      gap: 20px !important;
-      margin-top: 8px !important;
+      gap: 28px !important;
+      margin-top: 20px !important;
     }
-    /* Bottom-bar: minimal padding so power + audio sit close under the desk */
-    .cs-bottom-bar { gap: 12px; padding: 4px 16px 12px; margin-top: 0; }
+    /* Bottom-bar: comfortable padding */
+    .cs-bottom-bar { gap: 16px; padding: 24px 16px 32px; }
     .cs-controls-row { gap: 18px; }
     .cs-audio-btn { width: 44px; height: 44px; }
     .cs-audio-icon { width: 18px; height: 18px; }
-    /* Hide the JORDAN/NEWELL nameplate on mobile (saves ~30px) */
-    .cs-knob-name { display: none; }
   }
 
   /* Vintage power knob — chunky rotary tube-TV knob. Pseudo-elements render
