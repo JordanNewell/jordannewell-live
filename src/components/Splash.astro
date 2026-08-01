@@ -65,11 +65,6 @@ const LETTERS = [...LEFT, ...RIGHT];
 
   <StatusTerminal />
 
-  {/* CRT power button — toggles the splash on/off like an old tube monitor */}
-  <button class="cs-power-btn" aria-label="Power toggle" title="Power">
-    <span aria-hidden="true">⏻</span>
-  </button>
-
   {/* Mobile-only single-row key strip — J O R D A N N E W E L L.
       Sits under the terminal. Hidden on desktop (scattered fixed keys take over). */}
   <div class="cs-key-strip" aria-label="Newell typeface keys">
@@ -172,11 +167,19 @@ const LETTERS = [...LEFT, ...RIGHT];
       keyboard and stream deck). Desktop typelink also inside keyboard-stage. */}
 
 
-{/* Centered NEWELL wordmark at the bottom of the splash — mirrors the header wordmark */}
-<div class="cs-splash-wordmark" aria-hidden="true">
-  <img src="/images/coming-soon/newell-wordmark.png?v=1" alt="NEWELL" width="839" height="153" decoding="async" />
-</div>
 </section>
+
+{/* Fixed bottom bar — NEWELL wordmark + power button. Outside .cs so the
+    CRT-collapse animation does not capture the fixed-position descendants. */}
+<footer class="cs-bottom-bar">
+  <div class="cs-splash-wordmark" aria-hidden="true">
+    <img src="/images/coming-soon/newell-wordmark.png?v=1" alt="NEWELL" width="839" height="153" decoding="async" />
+  </div>
+  <button class="cs-power-btn" aria-label="Power toggle" title="Power">
+    <span aria-hidden="true">⏻</span>
+  </button>
+</footer>
+
 <script src="/js/status-hero.js?v=5" defer></script>
 <script src="/js/kb-shortcuts.js?v=5" defer></script>
 
@@ -763,12 +766,24 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-transform: uppercase;
     text-decoration: none;
   }
-  /* Centered NEWELL wordmark at bottom of splash — mirrors the header */
-  .cs-splash-wordmark {
+  /* Fixed bottom bar — NEWELL wordmark + power button, outside .cs so they
+     survive the CRT-collapse animation. */
+  .cs-bottom-bar {
+    position: fixed;
+    bottom: 16px;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 24px 0 32px;
+    gap: 24px;
+    z-index: 99999;
+    pointer-events: none;
+  }
+  .cs-bottom-bar > * { pointer-events: auto; }
+  .cs-splash-wordmark {
+    display: inline-flex;
+    align-items: center;
     line-height: 0;
     opacity: 0.85;
     order: 99;
@@ -895,11 +910,8 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-shadow: 0 0 8px rgba(63, 255, 70, 0.8);
   }
 
-  /* CRT power button — small floating ⏻ top-right */
+  /* CRT power button — sits next to NEWELL wordmark in the bottom bar */
   .cs-power-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -923,6 +935,15 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-power-btn:focus-visible {
     outline: 2px solid #3FFF46;
     outline-offset: 2px;
+  }
+  /* When splash is powered off, brighten + pulse the button so it reads as "press to wake" */
+  body.cs-powered-off .cs-power-btn {
+    background: rgba(63, 255, 70, 0.25);
+    animation: cs-power-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes cs-power-pulse {
+    0%, 100% { box-shadow: 0 0 16px rgba(63, 255, 70, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.4); }
+    50%      { box-shadow: 0 0 28px rgba(63, 255, 70, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.4); }
   }
 
   /* CRT power-off animation — classic tube TV collapse */
