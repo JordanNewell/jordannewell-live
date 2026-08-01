@@ -595,6 +595,7 @@
       if (this.el) return;
       this.el = new Audio();
       this.el.volume = this.volume;
+      this.el.muted = false;
       this.el.addEventListener("ended", () => { this.current = null; this.render(); });
       const terminal = document.querySelector("[data-terminal]");
       if (!terminal) return;
@@ -648,6 +649,7 @@
       // Format intro plays in parallel (overlap) instead of delaying.
       this.el.src = track.file;
       this.el.volume = this.volume;
+      this.el.muted = false;
       this.el.load();
       const p = this.el.play();
       if (p && typeof p.catch === "function") {
