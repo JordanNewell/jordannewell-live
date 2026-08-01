@@ -45,6 +45,13 @@ const FUNC_LABELS: Record<string, string> = {
   "*bslash": "\\",
 };
 
+// Click shortcuts on function keys. Wired up by /js/kb-shortcuts.js on Splash.
+const ACTIONS: Record<string, string> = {
+  "*enter": "launch",      // scroll to stream deck
+  "*space": "bottom",      // scroll to NEWELL wordmark
+  "*bksp": "top",          // scroll back to terminal
+};
+
 // Letters that have flown off — scattered as floating keys elsewhere on the page.
 const MISSING = new Set(["J", "O", "R", "D", "A", "N", "E", "W", "L"]);
 
@@ -118,7 +125,7 @@ const WHITE = "#ffffff";
       keyIdx += 1;
 
       return (
-        <g class="kb-key">
+        <g class="kb-key" data-action={ACTIONS[label] || undefined}>
           {/* Recessed socket */}
           <rect
             x={x} y={y} width={w} height={h} rx="3" ry="3"
@@ -248,6 +255,13 @@ const WHITE = "#ffffff";
   .kb :global(.kb-key:hover) {
     transform: scale(1.35);
     filter: drop-shadow(0 0 3px rgba(63, 255, 70, 0.28));
+  }
+  /* Interactive function keys (ENTER/SPACE/BKSP) — subtle green tint hint */
+  .kb :global(.kb-key[data-action]) {
+    cursor: pointer;
+  }
+  .kb :global(.kb-key[data-action]:hover) {
+    filter: drop-shadow(0 0 6px rgba(63, 255, 70, 0.55));
   }
 </style>
 
