@@ -1169,6 +1169,31 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-knob-name span { display: block; }
   .cs-knob-name span + span { margin-top: 1px; }
   .cs-bottom-bar:hover .cs-knob-name { color: rgba(63, 255, 70, 0.65); }
+  /* When system is OFF, the nameplate becomes a shimmering beacon —
+     moving green+white spotlight sweeps across both lines, drawing
+     the eye to the power knob below. */
+  body.cs-powered-off .cs-knob-name {
+    background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(63, 255, 70, 0.55) 35%,
+      rgba(255, 255, 255, 0.95) 50%,
+      rgba(63, 255, 70, 0.55) 65%,
+      rgba(255, 255, 255, 0.18) 100%
+    );
+    background-size: 250% 100%;
+    background-position: 200% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: cs-name-shimmer 3.5s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(63, 255, 70, 0.45));
+  }
+  @keyframes cs-name-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -50% 0; }
+  }
   /* When screen is OFF, knob indicator goes red (standby) + label dims.
      Indicator pulses in sync with the header button's 1.8s red pulse. */
   body.cs-powered-off .cs-power-btn-vintage .cs-power-btn-vintage-icon {
