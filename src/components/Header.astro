@@ -7,6 +7,7 @@ const isActive = (href: string) =>
 <header class="site-header">
   <div class="max-w-[720px] mx-auto px-3 sm:px-0 pt-3 pb-1 sm:pt-4 sm:pb-2 flex items-center justify-center gap-3 sm:gap-6">
     <div class="brand-cluster">
+      <span class="cs-status-led" aria-label="System status" title="System status"></span>
       <a href="/" class="brand-mark" aria-label="Jordan Newell — home">
         <img
           src="/images/coming-soon/newell-wordmark.png"
@@ -26,6 +27,37 @@ const isActive = (href: string) =>
     align-items: center;
     gap: 10px;
     line-height: 0;
+  }
+  /* Status LED — small indicator that signals system power state.
+     Green when ON, red pulse when OFF (matches the vintage knob
+     and audio button standby color). Always visible. */
+  .cs-status-led {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #3FFF46;
+    box-shadow:
+      0 0 6px rgba(63, 255, 70, 0.7),
+      0 0 12px rgba(63, 255, 70, 0.35),
+      inset 0 0 2px rgba(255, 255, 255, 0.4);
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+    flex-shrink: 0;
+  }
+  body.cs-powered-off .cs-status-led {
+    background: #ff4040;
+    animation: cs-status-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes cs-status-pulse {
+    0%, 100% {
+      box-shadow:
+        0 0 5px rgba(255, 64, 64, 0.5),
+        0 0 10px rgba(255, 64, 64, 0.25);
+    }
+    50% {
+      box-shadow:
+        0 0 10px rgba(255, 64, 64, 0.95),
+        0 0 22px rgba(255, 64, 64, 0.55);
+    }
   }
   .brand-mark {
     display: inline-flex;
