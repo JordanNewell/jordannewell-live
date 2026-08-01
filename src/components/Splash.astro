@@ -1050,14 +1050,12 @@ const LETTERS = [...LEFT, ...RIGHT];
   /* Show the right icon based on pressed state */
   .cs-audio-btn[aria-pressed="false"] .cs-audio-on { display: none; }
   .cs-audio-btn[aria-pressed="true"] .cs-audio-off { display: none; }
-  /* When power is OFF, audio button joins the red standby pulse — synced
-     with the vintage knob on the same 1.8s cycle. */
+  /* When power is OFF, audio button shows a SUBTLE dim red standby tint.
+     No pulse animation — the knob is the beacon, audio button just
+     matches the color story quietly. */
   body.cs-powered-off .cs-audio-btn {
-    background:
-      radial-gradient(circle at 35% 28%, rgba(255, 64, 64, 0.18) 0%, #0a0a0a 60%, #000 100%);
-    border-color: rgba(255, 64, 64, 0.6);
-    color: #ff4040;
-    animation: cs-power-pulse 1.8s ease-in-out infinite;
+    border-color: rgba(255, 64, 64, 0.28);
+    color: rgba(255, 64, 64, 0.55);
   }
   /* Mobile: allow 2-page scroll. Terminal stays tall (the feature),
      JORDAN/NEWELL nameplate stays visible, comfortable padding. */
@@ -1530,11 +1528,11 @@ const LETTERS = [...LEFT, ...RIGHT];
     opacity: 0;
     transition: opacity 0.4s ease;
   }
-  /* NOTHING is clickable when power is off — except the power buttons
-     themselves (so you can wake the desk back up) and the music button
-     (music is independent of the desk power state). */
+  /* NOTHING is clickable when power is off — except the power buttons,
+     music button, and audio toggle (audio needs to be controllable from
+     the dead state so visitors can opt in before booting). */
   body.cs-powered-off a,
-  body.cs-powered-off button:not(.cs-power-btn):not(.cs-fx-music) {
+  body.cs-powered-off button:not(.cs-power-btn):not(.cs-fx-music):not(.cs-audio-btn) {
     pointer-events: none;
   }
   body.cs-powered-off .terminal-watermark {
