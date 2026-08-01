@@ -748,10 +748,13 @@ const LETTERS = [...LEFT, ...RIGHT];
       text-transform: uppercase;
       text-decoration: none;
     }
-    /* Mobile: hide keyboard + stream deck — just terminal + letters + typelink.
-       Push terminal down so splash doesn't sit cramped at top. */
-    .cs-keyboard-stage { display: none; }
-    .cs :global([data-terminal]) { margin-top: 64px; }
+    /* Mobile: show keyboard under terminal, hide stream deck (keypad), letters under keyboard. */
+    .cs-keyboard-stage { display: block; order: 2; width: 100%; max-width: none; transform: none; margin-top: 16px; }
+    .cs-keyboard-stage .cs-streamdeck { display: none; }
+    .cs-keyboard-stage .cs-keyboard svg.kb { max-width: 100%; height: auto; }
+    .cs-key-strip { order: 3; }
+    .cs-typelink-mobile { order: 4; }
+    .cs :global([data-terminal]) { margin-top: 40px; }
   }
 </style>
 
