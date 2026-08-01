@@ -643,18 +643,18 @@
       this.init();
       const track = this.tracks.find((t) => t.id === id);
       if (!track) return;
-      this.playToken = (this.playToken || 0) + 1;
-      const myToken = this.playToken;
+      // Play IMMEDIATELY in the user gesture — Firefox and iOS Safari
+      // both lose the gesture across setTimeout, blocking playback.
+      // Format intro plays in parallel (overlap) instead of delaying.
+      this.el.src = track.file;
+      this.el.volume = this.volume;
+      this.el.load();
+      const p = this.el.play();
+      if (p && typeof p.catch === "function") {
+        p.catch((err) => console.warn("[music] play() rejected:", err && err.name, err && err.message));
+      }
       if (track.format === "cassette") audio.cassetteIntro();
       else if (track.format === "record") audio.vinylIntro();
-      const delay = audio.enabled ? 700 : 0;
-      setTimeout(() => {
-        if (this.playToken !== myToken) return;
-        this.el.src = track.file;
-        this.el.volume = this.volume;
-        const p = this.el.play();
-        if (p && typeof p.catch === "function") p.catch(() => {});
-      }, delay);
       this.current = id;
       this.render();
     },

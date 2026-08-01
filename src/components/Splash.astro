@@ -206,7 +206,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=26" defer></script>
+<script src="/js/kb-shortcuts.js?v=28" defer></script>
 
 <style is:global>
   @font-face {
@@ -294,23 +294,24 @@ const LETTERS = [...LEFT, ...RIGHT];
       padding: 0 10px;
       transform: none;
     }
-    /* Keyboard scaled up to match keypad's bezel height (~127px).
-       Scale(1.15) grows visual; transform-origin: top keeps it anchored
-       under the terminal so the overflow extends down into the gap. */
+    /* Keyboard at natural size (100% width, SVG aspect preserved).
+       No scale — matches keypad bezel width exactly. */
     .cs-keyboard {
       display: flex;
       width: 100%;
       margin: 0 !important;
-      transform: scale(1.15) !important;
-      transform-origin: center top;
+      transform: none !important;
       filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65));
     }
-    .cs-keyboard:hover { transform: scale(1.15) !important; }
+    .cs-keyboard:hover { transform: none !important; }
     .cs-keyboard svg.kb {
       width: 100%;
       max-width: 100%;
       height: auto;
     }
+    /* Keypad keys at 16:9 — wider/shorter so bezel height matches the
+       keyboard's natural ~112px (was 3:2 which made keypad too tall). */
+    .cs-sd-grid .cs-sd-key { aspect-ratio: 16 / 9; }
     .cs-streamdeck {
       display: block;
       position: static;
