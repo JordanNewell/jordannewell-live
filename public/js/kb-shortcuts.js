@@ -10,6 +10,15 @@
   // Page is born DEAD — <body> ships with class="cs-powered-off" in
   // BaseLayout.astro so the off-state renders on first paint (no flash
   // of the alive state). User clicks the knob to wake it.
+  // After first frame, add cs-ready so transitions can play normally
+  // (CSS gates transitions on body:not(.cs-ready) to prevent the
+  // initial alive → off transition flash).
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.add("cs-ready");
+    });
+  });
+
   function ready(fn) {
     if (document.readyState !== "loading") fn();
     else document.addEventListener("DOMContentLoaded", fn);

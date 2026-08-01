@@ -210,7 +210,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=33" defer></script>
+<script src="/js/kb-shortcuts.js?v=34" defer></script>
 
 <style is:global>
   @font-face {
@@ -229,6 +229,14 @@ const LETTERS = [...LEFT, ...RIGHT];
   /* Lock scroll on desktop only — mobile needs to scroll to reach the dock. */
   @media (min-width: 769px) {
     html, body { min-height: 100%; }
+  }
+  /* Dead-on-arrival: page ships with cs-powered-off, but CSS transitions
+     on the off-state rules would animate from default → off on first
+     paint, creating a flash of the alive state. Disable transitions
+     until first frame is done (cs-ready added by JS). Animations
+     (shimmer, pulse) still play — only transitions are gated. */
+  body:not(.cs-ready) * {
+    transition: none !important;
   }
 </style>
 
@@ -1051,12 +1059,34 @@ const LETTERS = [...LEFT, ...RIGHT];
     color: #ff4040;
     animation: cs-power-pulse 1.8s ease-in-out infinite;
   }
-  /* Mobile: audio button bumped to 44×44 (proper touch target, was 34×34) */
+  /* Mobile: fit one viewport. Terminal shrinks (still the feature, just
+     less padding + smaller body), keyboard-stage gap tightens, bottom-bar
+     moved UP ~30px to fit one screen. */
   @media (max-width: 768px) {
-    .cs-bottom-bar { gap: 18px; padding: 24px 16px 32px; }
+    /* Terminal body — was 500px on desktop, shrink to 240 on mobile.
+       Still readable, still the centerpiece, just less empty space. */
+    .terminal .terminal-body {
+      height: 240px !important;
+      padding: 10px 14px 12px !important;
+      font-size: 0.78rem !important;
+      line-height: 1.45 !important;
+    }
+    .terminal .terminal-bar { padding: 6px 10px !important; }
+    .terminal .terminal-foot { padding: 4px 12px 6px !important; font-size: 0.55rem !important; }
+    /* Keyboard-stage: tighter gap, less margin */
+    .cs-keyboard-stage {
+      gap: 24px !important;
+      margin-top: 12px !important;
+    }
+    /* Strip the .cs bottom padding so the bottom-bar can move up */
+    .cs { padding-bottom: 0 !important; }
+    /* Bottom-bar: minimal padding so power + audio sit close under the desk */
+    .cs-bottom-bar { gap: 14px; padding: 4px 16px 8px; margin-top: -8px; }
     .cs-controls-row { gap: 18px; }
     .cs-audio-btn { width: 44px; height: 44px; }
     .cs-audio-icon { width: 18px; height: 18px; }
+    /* Hide the JORDAN/NEWELL nameplate on mobile (saves ~30px) */
+    .cs-knob-name { display: none; }
   }
 
   /* Vintage power knob — chunky rotary tube-TV knob. Pseudo-elements render
