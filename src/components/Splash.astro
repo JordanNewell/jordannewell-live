@@ -312,13 +312,6 @@ const LETTERS = [...LEFT, ...RIGHT];
     /* Keypad keys at 16:9 — wider/shorter so bezel height matches the
        keyboard's natural ~112px (was 3:2 which made keypad too tall). */
     .cs-sd-grid .cs-sd-key { aspect-ratio: 16 / 9; }
-    /* Force keypad bezel to the SAME aspect ratio as the keyboard SVG
-       (452:172). At equal widths, heights now match exactly. */
-    .cs-streamdeck .cs-sd-bezel {
-      aspect-ratio: 452 / 172;
-      width: 100%;
-      box-sizing: border-box;
-    }
     .cs-streamdeck {
       display: block;
       position: static;
