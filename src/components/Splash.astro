@@ -980,11 +980,14 @@ const LETTERS = [...LEFT, ...RIGHT];
     50%      { box-shadow: 0 0 28px rgba(63, 255, 70, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.4); }
   }
 
-  /* CRT power-off — inner screen + PFP watermark collapse together, chrome stays */
-  body.cs-powered-off .terminal-body,
-  body.cs-powered-off .terminal-watermark {
+  /* CRT power-off — inner screen collapses (tube-TX line→dot), PFP smokes out */
+  body.cs-powered-off .terminal-body {
     transform-origin: center center;
     animation: crt-power-off 0.75s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+    pointer-events: none;
+  }
+  body.cs-powered-off .terminal-watermark {
+    animation: pfp-smoke-out 0.75s ease-out forwards;
     pointer-events: none;
   }
   /* Live pulse indicator goes dark with the screen */
@@ -997,8 +1000,12 @@ const LETTERS = [...LEFT, ...RIGHT];
     transition: transform 0.55s cubic-bezier(0.4, 0, 0.4, 1);
   }
   .terminal-watermark {
-    transform-origin: center center;
-    transition: transform 0.55s cubic-bezier(0.4, 0, 0.4, 1);
+    transition: opacity 0.4s ease, filter 0.4s ease;
+  }
+  @keyframes pfp-smoke-out {
+    0%   { opacity: 0.13; filter: blur(0); transform: scale(1); }
+    50%  { opacity: 0.08; filter: blur(6px); transform: scale(1.08); }
+    100% { opacity: 0;    filter: blur(20px); transform: scale(1.2); }
   }
   @keyframes crt-power-off {
     0%   { transform: scale(1, 1);     filter: brightness(1); opacity: 1; }
@@ -1006,11 +1013,14 @@ const LETTERS = [...LEFT, ...RIGHT];
     70%  { transform: scale(1, 0.003); filter: brightness(2); opacity: 1; }
     100% { transform: scale(0.0008, 0.003); filter: brightness(0); opacity: 0; }
   }
-  /* CRT power-on — line -> full screen with a brief blur fuzz as it warms up */
-  body.cs-powering-on .terminal-body,
-  body.cs-powering-on .terminal-watermark {
+  /* CRT power-on — line -> full screen with a brief blur fuzz as it warms up.
+     PFP gets its own smoke-in animation so the portrait doesn't jump with the body scale. */
+  body.cs-powering-on .terminal-body {
     transform-origin: center center;
     animation: crt-power-on 0.8s cubic-bezier(0.4, 0, 0.4, 1) forwards;
+  }
+  body.cs-powering-on .terminal-watermark {
+    animation: pfp-smoke-in 1.1s ease-out forwards;
   }
   body.cs-powering-on .terminal-pulse {
     animation: pulse-fade-in 0.8s ease-out 0.4s both;
@@ -1021,6 +1031,13 @@ const LETTERS = [...LEFT, ...RIGHT];
     55%  { transform: scale(1, 1);     filter: brightness(1.6) blur(0.6px); opacity: 1; }
     80%  { transform: scale(1, 1);     filter: brightness(1.2) blur(0.2px); opacity: 1; }
     100% { transform: scale(1, 1);     filter: brightness(1) blur(0); opacity: 1; }
+  }
+  /* PFP smokes in — heavy blur fading to crisp, no scale (prevents the jump). */
+  @keyframes pfp-smoke-in {
+    0%   { opacity: 0;    filter: blur(24px) brightness(2); transform: scale(1); }
+    40%  { opacity: 0.05; filter: blur(14px) brightness(1.6); transform: scale(1.04); }
+    75%  { opacity: 0.10; filter: blur(5px) brightness(1.2); transform: scale(1.01); }
+    100% { opacity: 0.13; filter: blur(0) brightness(1); transform: scale(1); }
   }
   @keyframes pulse-fade-in {
     from { opacity: 0; }
