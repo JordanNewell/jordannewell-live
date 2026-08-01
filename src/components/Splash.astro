@@ -183,6 +183,22 @@ const LETTERS = [...LEFT, ...RIGHT];
 
 <script src="/js/status-hero.js?v=5" defer></script>
 <script src="/js/kb-shortcuts.js?v=7" defer></script>
+<script is:inline>
+  // Pin the bottom bar to <body> so no ancestor can capture position:fixed.
+  (function () {
+    function relocate() {
+      var bar = document.querySelector(".cs-bottom-bar");
+      if (bar && bar.parentNode !== document.body) {
+        document.body.appendChild(bar);
+      }
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", relocate);
+    } else {
+      relocate();
+    }
+  })();
+</script>
 
 <style is:global>
   @font-face {
