@@ -75,6 +75,37 @@
     setTimeout(() => overlay.remove(), 4000);
   }
 
+  // ---- Effect 5: CRT power off / on ----
+  function isPoweredOff() {
+    return document.body.classList.contains("cs-powered-off");
+  }
+
+  function powerOff() {
+    if (isPoweredOff()) return;
+    document.body.classList.add("cs-powered-off");
+    // Any user interaction after the collapse reverses it.
+    const wake = () => {
+      if (!isPoweredOff()) return;
+      // Defer so the click that woke us doesn't immediately fire its other action.
+      setTimeout(powerOn, 0);
+      document.removeEventListener("keydown", wake);
+      document.removeEventListener("pointerdown", wake);
+    };
+    setTimeout(() => {
+      document.addEventListener("keydown", wake);
+      document.addEventListener("pointerdown", wake);
+    }, 800);
+  }
+
+  function powerOn() {
+    document.body.classList.remove("cs-powered-off");
+  }
+
+  function powerToggle() {
+    if (isPoweredOff()) powerOn();
+    else powerOff();
+  }
+
   // ---- Action dispatch ----
   const ACTIONS = {
     launch: selfType,
@@ -112,6 +143,14 @@
         if (!target) return;
         const action = target.getAttribute("data-action");
         if (ACTIONS[action]) ACTIONS[action]();
+      });
+    }
+
+    const powerBtn = document.querySelector(".cs-power-btn");
+    if (powerBtn) {
+      powerBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        powerToggle();
       });
     }
 
