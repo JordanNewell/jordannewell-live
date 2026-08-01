@@ -65,6 +65,11 @@ const LETTERS = [...LEFT, ...RIGHT];
 
   <StatusTerminal />
 
+  {/* CRT power button — toggles the splash on/off like an old tube monitor */}
+  <button class="cs-power-btn" aria-label="Power toggle" title="Power">
+    <span aria-hidden="true">⏻</span>
+  </button>
+
   {/* Mobile-only single-row key strip — J O R D A N N E W E L L.
       Sits under the terminal. Hidden on desktop (scattered fixed keys take over). */}
   <div class="cs-key-strip" aria-label="Newell typeface keys">
@@ -173,7 +178,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </div>
 </section>
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=4" defer></script>
+<script src="/js/kb-shortcuts.js?v=5" defer></script>
 
 <style is:global>
   @font-face {
@@ -888,6 +893,61 @@ const LETTERS = [...LEFT, ...RIGHT];
   .kb-konami-hint .kb-konami-done {
     color: #3FFF46;
     text-shadow: 0 0 8px rgba(63, 255, 70, 0.8);
+  }
+
+  /* CRT power button — small floating ⏻ top-right */
+  .cs-power-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(63, 255, 70, 0.4);
+    color: #3FFF46;
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s ease;
+    text-shadow: 0 0 6px rgba(63, 255, 70, 0.6);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+  }
+  .cs-power-btn:hover {
+    background: rgba(63, 255, 70, 0.18);
+    box-shadow: 0 0 12px rgba(63, 255, 70, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.4);
+  }
+  .cs-power-btn:focus-visible {
+    outline: 2px solid #3FFF46;
+    outline-offset: 2px;
+  }
+
+  /* CRT power-off animation — classic tube TV collapse */
+  body.cs-powered-off .cs {
+    transform-origin: center center;
+    animation: crt-power-off 0.75s cubic-bezier(0.5, 0, 0.5, 1) forwards;
+    pointer-events: none;
+  }
+  body.cs-powered-off::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 99990;
+    pointer-events: none;
+  }
+  .cs {
+    transform-origin: center center;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.4, 1);
+  }
+  @keyframes crt-power-off {
+    0%   { transform: scale(1, 1);     filter: brightness(1); opacity: 1; }
+    40%  { transform: scale(1, 0.003); filter: brightness(4) saturate(2); opacity: 1; }
+    70%  { transform: scale(1, 0.003); filter: brightness(2); opacity: 1; }
+    100% { transform: scale(0.0008, 0.003); filter: brightness(0); opacity: 0; }
   }
 </style>
 
