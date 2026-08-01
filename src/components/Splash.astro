@@ -294,16 +294,18 @@ const LETTERS = [...LEFT, ...RIGHT];
       padding: 0 10px;
       transform: none;
     }
-    /* Keyboard sized via width (not transform) so layout box matches visual.
-       No black-void gap. SVG fills parent — natural aspect ratio. */
+    /* Keyboard scaled up to match keypad's bezel height (~127px).
+       Scale(1.15) grows visual; transform-origin: top keeps it anchored
+       under the terminal so the overflow extends down into the gap. */
     .cs-keyboard {
       display: flex;
       width: 100%;
       margin: 0 !important;
-      transform: none !important;
+      transform: scale(1.15) !important;
+      transform-origin: center top;
       filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65));
     }
-    .cs-keyboard:hover { transform: none !important; }
+    .cs-keyboard:hover { transform: scale(1.15) !important; }
     .cs-keyboard svg.kb {
       width: 100%;
       max-width: 100%;
