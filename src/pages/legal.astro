@@ -245,6 +245,11 @@ const year = new Date().getFullYear();
   @media (min-width: 640px) {
     .license-wordmark img { height: 34px; }
   }
+  /* Mobile: drop the top wordmark to save vertical space (bottom one stays as anchor). */
+  @media (max-width: 768px) {
+    .license-wordmark-top { display: none; }
+    .license-wordmark-bottom { padding: 16px 0 20px; }
+  }
 </style>
 
 <style>
