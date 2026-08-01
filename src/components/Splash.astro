@@ -1203,12 +1203,17 @@ const LETTERS = [...LEFT, ...RIGHT];
     .cs-splash-wordmark img { height: 34px; }
   }
   @media (max-width: 768px) {
-    .cs-streamdeck { margin: 8px auto 0 16px; max-width: 280px; }
+    .cs-streamdeck { margin: 8px auto 0; max-width: 100%; }
     .cs-sd-bezel { transform: none; }
-    .cs-fx-rack { display: none; }
-    /* Mobile: bigger caps + labels for legibility on touch targets */
-    .cs-sd-cap { font-size: 1.4rem; }
-    .cs-sd-label { font-size: 0.7rem; }
+    /* Mobile: shrink keys slightly so bezel + FX rack fit narrower viewports */
+    .cs-sd-cap { font-size: 1.1rem; }
+    .cs-sd-label { font-size: 0.6rem; }
+    .cs-fx-rack {
+      width: 28px;
+      border-left: 1px solid rgba(63, 255, 70, 0.18);
+      padding-left: 5px;
+    }
+    .cs-fx-key svg, .cs-fx-key-img { width: 12px; height: 12px; }
     .cs-sd-launch {
       display: block;
       text-align: center;
