@@ -164,11 +164,20 @@
     toggle() {
       this.init();
       if (!this.ctx) return false;
-      if (this.ctx.state === "suspended") this.ctx.resume();
+      // iOS Safari requires resume() in the user-gesture handler, and
+      // ambient must wait for the Promise to resolve or it won't sound.
+      const resumeAndStart = () => {
+        if (this.enabled) this.startAmbient();
+      };
+      if (this.ctx.state === "suspended") {
+        const p = this.ctx.resume();
+        if (p && typeof p.then === "function") p.then(resumeAndStart, resumeAndStart);
+        else resumeAndStart();
+      }
       this.enabled = !this.enabled;
       try { localStorage.setItem("newell-audio", this.enabled ? "on" : "off"); } catch (e) {}
-      if (this.enabled) this.startAmbient();
-      else this.stopAmbient();
+      if (this.enabled && this.ctx.state === "running") this.startAmbient();
+      else if (!this.enabled) this.stopAmbient();
       return this.enabled;
     },
 

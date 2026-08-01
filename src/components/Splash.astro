@@ -1036,12 +1036,12 @@ const LETTERS = [...LEFT, ...RIGHT];
     color: #ff4040;
     animation: cs-power-pulse 1.8s ease-in-out infinite;
   }
-  /* Mobile: smaller audio button to match the 60px knob */
+  /* Mobile: audio button bumped to 44×44 (proper touch target, was 34×34) */
   @media (max-width: 768px) {
     .cs-bottom-bar { gap: 18px; padding: 24px 16px 32px; }
     .cs-controls-row { gap: 18px; }
-    .cs-audio-btn { width: 34px; height: 34px; }
-    .cs-audio-icon { width: 14px; height: 14px; }
+    .cs-audio-btn { width: 44px; height: 44px; }
+    .cs-audio-icon { width: 18px; height: 18px; }
   }
 
   /* Vintage power knob — chunky rotary tube-TV knob. Pseudo-elements render
