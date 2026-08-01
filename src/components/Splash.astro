@@ -169,11 +169,6 @@ const LETTERS = [...LEFT, ...RIGHT];
 
 </section>
 
-{/* Power button — top-right fixed. Outside .cs so it survives animations. */}
-<button class="cs-power-btn" aria-label="Power toggle" title="Power">
-  <span aria-hidden="true">⏻</span>
-</button>
-
 {/* Fixed bottom bar — NEWELL wordmark only. Outside .cs so the
     CRT-collapse animation does not capture the fixed-position descendants. */}
 <footer class="cs-bottom-bar">
@@ -912,22 +907,17 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-shadow: 0 0 8px rgba(63, 255, 70, 0.8);
   }
 
-  /* CRT power button — top-right fixed, outside .cs so animation can't capture it */
+  /* CRT power button — inline next to NEWELL wordmark in the header */
   .cs-power-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 99999;
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(63, 255, 70, 0.4);
     color: #3FFF46;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     cursor: pointer;
-    z-index: 99999;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     transition: all 0.18s ease;
