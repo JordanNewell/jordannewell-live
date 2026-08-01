@@ -7,6 +7,9 @@ const isActive = (href: string) =>
 <header class="site-header">
   <div class="max-w-[720px] mx-auto px-3 sm:px-0 pt-3 pb-1 sm:pt-4 sm:pb-2 flex items-center justify-center gap-3 sm:gap-6">
     <div class="brand-cluster">
+      <button class="cs-power-btn" aria-label="Power toggle" title="Power">
+        <span aria-hidden="true">⏻</span>
+      </button>
       <a href="/" class="brand-mark" aria-label="Jordan Newell — home">
         <img
           src="/images/coming-soon/newell-wordmark.png"
@@ -16,9 +19,6 @@ const isActive = (href: string) =>
           decoding="async"
         />
       </a>
-      <button class="cs-power-btn" aria-label="Power toggle" title="Power">
-        <span aria-hidden="true">⏻</span>
-      </button>
     </div>
   </div>
 </header>
@@ -47,5 +47,9 @@ const isActive = (href: string) =>
   }
   @media (min-width: 640px) {
     .brand-mark img { height: 34px; }
+  }
+  /* Mobile: power button lives next to the keypad on mobile, not in header */
+  @media (max-width: 768px) {
+    .site-header .cs-power-btn { display: none; }
   }
 </style>
