@@ -1027,5 +1027,38 @@ const LETTERS = [...LEFT, ...RIGHT];
     from { opacity: 0; }
     to   { opacity: 1; }
   }
+
+  /* Reduced motion — kill all non-essential animations.
+     Users who opted out get a static page: no CRT collapse, no Matrix rain,
+     no scanline sweep, no letter spin, no pulsing dots/buttons.
+     Power toggle still works, just instant. */
+  @media (prefers-reduced-motion: reduce) {
+    .cs-pulse,
+    body.cs-powered-off .cs-power-btn,
+    body.cs-powered-off .terminal-body,
+    body.cs-powered-off .terminal-watermark,
+    body.cs-powering-on .terminal-body,
+    body.cs-powering-on .terminal-watermark,
+    body.cs-powering-on .terminal-pulse,
+    .cs-key.kb-spin,
+    .kb-scanline,
+    .kb-matrix-col {
+      animation: none !important;
+    }
+    /* Keep transitions instant too — no smooth fades */
+    .terminal-body,
+    .terminal-watermark,
+    .terminal-pulse,
+    .cs-key,
+    .cs-power-btn {
+      transition: none !important;
+    }
+    /* When powered off in reduced-motion, just hide the screen instantly */
+    body.cs-powered-off .terminal-body,
+    body.cs-powered-off .terminal-watermark,
+    body.cs-powered-off .terminal-pulse {
+      opacity: 0 !important;
+    }
+  }
 </style>
 
