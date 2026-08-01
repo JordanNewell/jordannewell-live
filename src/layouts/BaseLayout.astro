@@ -69,49 +69,6 @@ const resolvedFavicon = favicon.startsWith("http") ? favicon : `${SITE.url}${fav
       {!bare && <Footer />}
     </div>
     <script src="/js/main.js" defer></script>
-  {bare && (
-  <footer class="newell-site-footer">
-  <div class="nsf-inner">
-    <div class="nsf-brand">
-      <svg class="nsf-mark" viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
-        <rect x="2" y="2" width="44" height="44" rx="6" fill="#0A0A0A" stroke="#00FF41" stroke-width="1.5"/>
-        <rect x="6" y="6" width="36" height="36" rx="3" fill="#0A0A0A" stroke="#1F1F1F" stroke-width="0.5"/>
-        <path d="M 14 14 L 14 34 L 17 34 L 17 19 L 14 16 Z" fill="#FFFFFF"/>
-        <path d="M 31 34 L 31 31 L 17 14 L 14 14 L 14 17 L 28 34 Z" fill="#FFFFFF"/>
-        <path d="M 34 14 L 31 14 L 31 31 L 34 28 L 34 14 Z" fill="#FFFFFF"/>
-      </svg>
-      <div class="nsf-brand-text">
-        <a href="https://jordannewell.com" class="nsf-brand-link">NEWELL</a>
-        <span class="nsf-sep">·</span>
-        <span class="nsf-product">Build · Connect · Grow</span>
-      </div>
-    </div>
-    <div class="nsf-row nsf-links">
-      <a href="https://github.com/JordanNewell">github</a> <span class="nsf-sep">·</span>
-      <a href="https://jordannewell.com/posts/">blog</a> <span class="nsf-sep">·</span>
-      <a href="https://jordannewell.com/today/">today</a> <span class="nsf-sep">·</span>
-      <a href="https://status.jordannewell.com">status</a> <span class="nsf-sep">·</span>
-      <a href="https://github.com/JordanNewell/JordanNewell/blob/main/README.md">readme</a>
-    </div>
-    <div class="nsf-row nsf-meta">
-      <span>Personal</span> <span class="nsf-sep">·</span>
-      <span>Engineer-built</span> <span class="nsf-sep">·</span>
-      <span>Self-hosted</span> <span class="nsf-sep">·</span>
-      <span>Tampa Bay</span>
-    </div>
-    <div class="nsf-row nsf-family">
-      <span class="nsf-family-label">projects:</span>
-      <a href="https://jordannewell.github.io/harbormasterd/">harbormasterd</a> <span class="nsf-sep">·</span> <a href="https://jordannewell.github.io/claudeway-site/">claudeway</a> <span class="nsf-sep">·</span> <a href="https://github.com/JordanNewell/curtis-ai-chat">curtis-ai-chat</a> <span class="nsf-sep">·</span> <a href="https://jordannewell.github.io/curtis-compliance/">curtis-compliance</a> <span class="nsf-sep">·</span> <a href="https://jordannewell.github.io/crypto-key-classifier/">crypto-key-classifier</a> <span class="nsf-sep">·</span> <a href="https://jordannewell.github.io/git-hygiene/">git-hygiene</a> <span class="nsf-sep">·</span> <a href="https://jordannewell.github.io/newell-typeface/">newell-typeface</a> <span class="nsf-sep">·</span> <a href="https://jordannewell.github.io/pat-scanner/">pat-scanner</a> <span class="nsf-sep">·</span> <a href="https://jordannewell.github.io/temporal-git/">temporal-git</a>
-    </div>
-    <div class="nsf-row nsf-legal">© 2026 Jordan Newell · NEWELL is a trademark of Jordan Newell · All products MIT or OFL-1.1</div>
-    <div class="nsf-row nsf-social">
-      <a href="https://github.com/JordanNewell">github</a> <span class="nsf-sep">·</span>
-      <a href="https://github.com/sponsors/JordanNewell">sponsor</a> <span class="nsf-sep">·</span>
-      <a href="https://buymeacoffee.com/jordannewell">coffee →</a>
-    </div>
-  </div>
-</footer>
-  )}
 <style is:global>
 .newell-site-footer { border-top: 1px solid #1F1F1F; background: #0A0A0A; padding: 24px; font-family: "JetBrains Mono", "SF Mono", Menlo, monospace; font-size: 12px; color: #A0A0A0; }
 .nsf-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
