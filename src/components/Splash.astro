@@ -332,9 +332,6 @@ const LETTERS = [...LEFT, ...RIGHT];
       max-width: none;
       margin: 0;
     }
-    /* Stream deck keys become wider rectangles (3:2) so the deck doesn't
-       dominate vertically — matches keyboard proportions better. */
-    .cs-sd-grid .cs-sd-key { aspect-ratio: 3 / 2; }
     /* Grid grows to fill the bezel — without this, flex parent leaves
        empty space on the right of the grid + FX rack. */
     .cs-sd-bezel .cs-sd-grid { flex: 1 1 auto; }
