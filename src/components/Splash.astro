@@ -171,11 +171,13 @@ const LETTERS = [...LEFT, ...RIGHT];
 
 {/* Vintage power knob — bottom-of-page ceremonial power button.
     Desktop only (mobile uses the header button). Outside .cs so it survives
-    the CRT-collapse animation. */}
+    the CRT-collapse animation. Styled as a chunky rotary knob with pointer
+    indicator — visually distinct from the header's discreet shadcn circle. */}
 <footer class="cs-bottom-bar">
   <button class="cs-power-btn cs-power-btn-vintage" aria-label="Power toggle" title="Power">
-    <span aria-hidden="true">⏻</span>
+    <span class="cs-power-btn-vintage-icon" aria-hidden="true"></span>
   </button>
+  <span class="cs-power-btn-vintage-label" aria-hidden="true">POWER</span>
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
@@ -764,67 +766,122 @@ const LETTERS = [...LEFT, ...RIGHT];
     text-transform: uppercase;
     text-decoration: none;
   }
-  /* Bottom bar — vintage power knob. In-flow at the bottom of the page.
-     Desktop only (mobile uses header button). Outside .cs so CRT-collapse
-     doesn't capture it. */
+  /* Bottom bar — vintage power knob + label. In-flow at the bottom of the
+     page. Desktop only. Outside .cs so CRT-collapse doesn't capture it. */
   .cs-bottom-bar {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 8px;
     padding: 32px 16px 40px;
   }
 
-  /* Vintage power knob — chunky tube-TV-style bevel. Visually distinct from
-     the header's discreet 32px shadcn circle so the redundancy is intentional
-     (different visual languages: "quick toggle" vs "ceremonial power").
-     Use compound selector (.cs-power-btn.cs-power-btn-vintage) for higher
-     specificity than base .cs-power-btn so vintage rules win regardless of
-     source order after Astro/Lightning CSS merges <style is:global> blocks. */
+  /* Vintage power knob — chunky rotary tube-TV knob. Pseudo-elements render
+     the rotary indicator (top pointer line) + center dot. Visually unmistakable
+     vs header's discreet shadcn circle.
+     Compound selector (.cs-power-btn.cs-power-btn-vintage) → (0,2,0) wins over
+     base .cs-power-btn regardless of merge order. */
   .cs-power-btn.cs-power-btn-vintage {
-    width: 56px;
-    height: 56px;
+    position: relative;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     background:
-      radial-gradient(circle at 30% 25%, #1a1a1a 0%, #0a0a0a 55%, #000 100%);
-    border: 2px solid #1a1a1a;
-    color: #3FFF46;
-    font-size: 1.4rem;
-    text-shadow: 0 0 6px rgba(63, 255, 70, 0.6);
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.25s ease;
+      radial-gradient(circle at 35% 28%, #2c2c2c 0%, #0e0e0e 55%, #000 100%);
+    border: 3px solid #1a1a1a;
+    color: transparent;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s ease;
     box-shadow:
-      0 0 0 3px #050505,
-      0 0 0 4px #2a2a2a,
-      inset 0 2px 4px rgba(255, 255, 255, 0.1),
-      inset 0 -3px 6px rgba(0, 0, 0, 0.85),
-      0 4px 8px rgba(0, 0, 0, 0.7),
-      0 10px 20px rgba(0, 0, 0, 0.5);
+      /* Outer bezel rings */
+      0 0 0 4px #050505,
+      0 0 0 6px #2f2f2f,
+      /* Top inner highlight */
+      inset 0 4px 8px rgba(255, 255, 255, 0.14),
+      /* Bottom inner recess */
+      inset 0 -5px 10px rgba(0, 0, 0, 0.9),
+      /* Page drop shadow */
+      0 6px 14px rgba(0, 0, 0, 0.75),
+      0 16px 32px rgba(0, 0, 0, 0.55);
+  }
+  /* Rotary indicator line at top — like a volume knob pointer */
+  .cs-power-btn.cs-power-btn-vintage .cs-power-btn-vintage-icon {
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 14px;
+    background: #3FFF46;
+    border-radius: 2px;
+    box-shadow: 0 0 6px #3FFF46, 0 0 14px rgba(63, 255, 70, 0.6);
+    transition: opacity 0.3s ease;
+  }
+  /* Center dot via ::after on the button — knob spindle */
+  .cs-power-btn.cs-power-btn-vintage::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #5fff66 0%, #3FFF46 60%, #29a62e 100%);
+    box-shadow:
+      0 0 10px #3FFF46,
+      0 0 20px rgba(63, 255, 70, 0.5),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.4);
   }
   .cs-power-btn.cs-power-btn-vintage:hover {
-    transform: translateY(-1px);
-    border-color: rgba(63, 255, 70, 0.4);
+    transform: translateY(-2px);
+    border-color: rgba(63, 255, 70, 0.5);
     box-shadow:
-      0 0 0 3px #050505,
-      0 0 0 4px #2a2a2a,
-      inset 0 2px 4px rgba(255, 255, 255, 0.12),
-      inset 0 -3px 6px rgba(0, 0, 0, 0.85),
-      0 4px 8px rgba(0, 0, 0, 0.7),
-      0 12px 24px rgba(0, 0, 0, 0.5),
-      0 0 28px rgba(63, 255, 70, 0.35);
+      0 0 0 4px #050505,
+      0 0 0 6px #3a3a3a,
+      inset 0 4px 8px rgba(255, 255, 255, 0.16),
+      inset 0 -5px 10px rgba(0, 0, 0, 0.9),
+      0 8px 18px rgba(0, 0, 0, 0.75),
+      0 20px 38px rgba(0, 0, 0, 0.55),
+      0 0 36px rgba(63, 255, 70, 0.4);
   }
   .cs-power-btn.cs-power-btn-vintage:active {
     transform: translateY(2px);
     box-shadow:
-      0 0 0 3px #050505,
-      0 0 0 4px #1a1a1a,
-      inset 0 2px 5px rgba(0, 0, 0, 0.8),
+      0 0 0 4px #050505,
+      0 0 0 6px #1a1a1a,
+      inset 0 3px 6px rgba(0, 0, 0, 0.85),
       inset 0 -1px 2px rgba(0, 0, 0, 0.5),
-      0 2px 4px rgba(0, 0, 0, 0.5);
+      0 2px 4px rgba(0, 0, 0, 0.6);
   }
   .cs-power-btn.cs-power-btn-vintage:focus-visible {
     outline: 2px solid #3FFF46;
-    outline-offset: 4px;
+    outline-offset: 6px;
+  }
+  /* POWER label under the knob — vintage silkscreen text */
+  .cs-power-btn-vintage-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: #606060;
+    text-indent: 0.4em; /* visual balance for letter-spacing */
+    text-transform: uppercase;
+    user-select: none;
+  }
+  /* When screen is OFF, knob indicator goes red (standby) + label dims */
+  body.cs-powered-off .cs-power-btn-vintage .cs-power-btn-vintage-icon {
+    background: #ff4040;
+    box-shadow: 0 0 6px #ff4040, 0 0 14px rgba(255, 64, 64, 0.6);
+  }
+  body.cs-powered-off .cs-power-btn-vintage::after {
+    background: radial-gradient(circle at 35% 35%, #ff7070 0%, #ff4040 60%, #a62929 100%);
+    box-shadow: 0 0 10px #ff4040, 0 0 20px rgba(255, 64, 64, 0.5), inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+  }
+  body.cs-powered-off .cs-power-btn-vintage-label {
+    color: #ff4040;
+    opacity: 0.7;
   }
   /* Mobile: vintage knob hidden, header button takes over */
   @media (max-width: 768px) {
