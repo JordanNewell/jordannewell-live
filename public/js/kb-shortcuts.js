@@ -18,6 +18,8 @@
       document.body.classList.add("cs-ready");
     });
   });
+  // Set initial favicon to match the (dead on arrival) power state
+  updateFavicon();
 
   function ready(fn) {
     if (document.readyState !== "loading") fn();
@@ -96,15 +98,46 @@
     return document.body.classList.contains("cs-powered-off");
   }
 
+  // Live favicon — swaps the browser tab icon to match power state.
+  // Inline SVG (no file needed) with the same radial-gradient LED look
+  // as the status indicator: green when ON, red when OFF.
+  function updateFavicon() {
+    const off = isPoweredOff();
+    const light = off ? "#ffb8b8" : "#b8ffba";
+    const mid = off ? "#ff4040" : "#3FFF46";
+    const dark = off ? "#8a1f1f" : "#1f8a23";
+    const svg =
+      "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>" +
+      "<rect width='32' height='32' rx='7' fill='#070707'/>" +
+      "<defs><radialGradient id='g' cx='30%' cy='28%'>" +
+      "<stop offset='0%' stop-color='" + light + "'/>" +
+      "<stop offset='55%' stop-color='" + mid + "'/>" +
+      "<stop offset='100%' stop-color='" + dark + "'/>" +
+      "</radialGradient></defs>" +
+      "<circle cx='16' cy='16' r='10' fill='url(%23g)'/>" +
+      "<circle cx='12.5' cy='12.5' r='2.5' fill='white' fill-opacity='0.7'/>" +
+      "</svg>";
+    let link = document.querySelector("link[rel='icon']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.head.appendChild(link);
+    }
+    link.type = "image/svg+xml";
+    link.href = "data:image/svg+xml," + svg.replace(/#/g, "%23");
+  }
+
   function powerOff() {
     if (isPoweredOff()) return;
     document.body.classList.add("cs-powered-off");
+    updateFavicon();
   }
 
   function powerOn() {
     document.body.classList.remove("cs-powered-off");
     document.body.classList.add("cs-powering-on");
     setTimeout(() => document.body.classList.remove("cs-powering-on"), 800);
+    updateFavicon();
   }
 
   function powerToggle() {
