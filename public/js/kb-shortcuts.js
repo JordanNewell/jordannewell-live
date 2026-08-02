@@ -895,6 +895,37 @@
       });
     }
 
+    // First-visit audio toast — points at speaker icon, shows once
+    // per browser (localStorage). Dismissed by: × button, clicking the
+    // speaker itself, or 12s timeout.
+    const toastKey = "newell-audio-toast-seen";
+    const toast = document.getElementById("audio-toast");
+    if (toast) {
+      let seen = false;
+      try { seen = !!localStorage.getItem(toastKey); } catch (e) { seen = true; }
+      const dismiss = () => {
+        toast.setAttribute("hidden", "");
+        try { localStorage.setItem(toastKey, "1"); } catch (e) {}
+        clearTimeout(autoTimer);
+      };
+      const closeBtn = toast.querySelector(".cs-toast-close");
+      if (closeBtn) closeBtn.addEventListener("click", dismiss);
+      // Dismiss when user clicks the speaker icon
+      if (audioBtn) audioBtn.addEventListener("click", () => setTimeout(dismiss, 400));
+      // Show after 2.5s, auto-dismiss after 12s
+      let autoTimer = 0;
+      if (!seen) {
+        const showTimer = setTimeout(() => {
+          toast.removeAttribute("hidden");
+          autoTimer = setTimeout(dismiss, 12000);
+        }, 2500);
+        // Also bail if user powers on or scrolls (engaged already)
+        document.addEventListener("keydown", function once(e) {
+          if (e.key === "Escape") { dismiss(); document.removeEventListener("keydown", once); }
+        });
+      }
+    }
+
     document.addEventListener("keydown", function (e) {
       const tag = (e.target.tagName || "").toLowerCase();
       if (tag === "input" || tag === "textarea" || e.target.isContentEditable) return;

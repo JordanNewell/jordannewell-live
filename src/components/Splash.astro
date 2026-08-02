@@ -178,6 +178,14 @@ const LETTERS = [...LEFT, ...RIGHT];
 
 </section>
 
+{/* First-visit toast — points at the speaker icon, dismissable,
+    shows once per browser (localStorage). */}
+<div class="cs-toast" id="audio-toast" role="status" aria-live="polite" hidden>
+  <span class="cs-toast-arrow" aria-hidden="true"></span>
+  <span class="cs-toast-text">opt in for sound — mechanical keys, CRT hum, the works</span>
+  <button class="cs-toast-close" aria-label="Dismiss" type="button">×</button>
+</div>
+
 {/* Vintage power knob — bottom-of-page ceremonial power button.
     Desktop only (mobile uses the header button). Outside .cs so it survives
     the CRT-collapse animation. Styled as a chunky rotary knob with pointer
@@ -209,7 +217,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </footer>
 
 <script src="/js/status-hero.js?v=5" defer></script>
-<script src="/js/kb-shortcuts.js?v=37" defer></script>
+<script src="/js/kb-shortcuts.js?v=38" defer></script>
 
 <style is:global>
   @font-face {
@@ -963,6 +971,64 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-fx-key:focus-visible {
     outline: 2px solid #3FFF46;
     outline-offset: 2px;
+  }
+  /* First-visit audio toast — appears near the speaker icon, dismissable,
+     shown once per browser. Points down-and-right at the audio button. */
+  .cs-toast {
+    position: fixed;
+    bottom: 92px;
+    right: 24px;
+    background: rgba(8, 8, 10, 0.92);
+    border: 1px solid rgba(63, 255, 70, 0.4);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.88);
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+      0 0 14px rgba(63, 255, 70, 0.18),
+      0 8px 20px rgba(0, 0, 0, 0.6);
+    max-width: 260px;
+    animation: cs-toast-in 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+  }
+  .cs-toast[hidden] { display: none; }
+  .cs-toast-arrow {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    border-right: 2px solid #3FFF46;
+    border-bottom: 2px solid #3FFF46;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+    margin-right: 4px;
+    box-shadow: 0 0 6px rgba(63, 255, 70, 0.5);
+  }
+  .cs-toast-text { flex: 1; line-height: 1.4; }
+  .cs-toast-close {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.15s ease;
+  }
+  .cs-toast-close:hover { color: #fff; }
+  @keyframes cs-toast-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.95); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  /* Mobile: position above the bottom bar instead of corner */
+  @media (max-width: 768px) {
+    .cs-toast { bottom: 120px; right: 16px; left: 16px; max-width: none; }
   }
   /* Bottom bar — vintage power knob + audio toggle. In-flow at the bottom
      of the page. Desktop only. Outside .cs so CRT-collapse doesn't capture it. */
