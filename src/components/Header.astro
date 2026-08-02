@@ -112,10 +112,16 @@ const isActive = (href: string) =>
     display: block;
     height: 24px;
     width: auto;
-    transition: filter 0.18s ease;
+    transition: filter 0.5s ease, opacity 0.5s ease;
   }
   .brand-mark:hover img {
     filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-green) 60%, transparent));
+  }
+  /* When system is OFF, the wordmark dims to a ghost. Only the status
+     LED + power knob remain as beacons. */
+  body.cs-powered-off .brand-mark img {
+    opacity: 0.15;
+    filter: brightness(0.4) grayscale(0.5);
   }
   @media (min-width: 640px) {
     .brand-cluster { gap: 14px; }
