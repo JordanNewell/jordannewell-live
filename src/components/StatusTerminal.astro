@@ -49,6 +49,16 @@ const year = new Date().getFullYear();
     <div class="terminal-line terminal-muted" data-terminal-status>connecting to github…</div>
   </div>
 
+  {!embedded && (
+    <div class="terminal-music-status" data-music-status aria-live="polite"></div>
+  )}
+
+  {!embedded && (
+    <div class="terminal-audio-viz" data-audio-viz aria-hidden="true" aria-label="Audio level">
+      {Array.from({ length: 32 }, () => <span></span>)}
+    </div>
+  )}
+
   {embedded ? null : (
     <footer class="terminal-foot">
       © {year} <a href="/">Jordan Newell</a> <span aria-hidden="true">⚡</span> <a href="/legal">license</a>
@@ -317,5 +327,51 @@ const year = new Date().getFullYear();
   }
   :global(.terminal-section-label:first-child) {
     margin-top: 4px;
+  }
+
+  /* Audio level viz strip — lives between body and foot so it spans the
+     full terminal width above the © year line. Always visible; stays flat
+     (2px) when nothing is playing, breathes with real audio output
+     (ambient hum + music + clacks) when AudioContext is live. */
+  .terminal-audio-viz {
+    display: flex;
+    align-items: flex-end;
+    gap: 1px;
+    height: 20px;
+    padding: 0 8px;
+    background: color-mix(in srgb, var(--color-green) 4%, #000);
+    border-top: 1px solid color-mix(in srgb, var(--color-green) 18%, transparent);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  /* Music status strip — help line + volume row that used to live inside
+     the music panel. Moved out so they pin to the bottom of the terminal
+     alongside the audio-viz. Hidden unless the music tab is open. */
+  .terminal-music-status {
+    display: none;
+    padding: 6px 12px;
+    background: color-mix(in srgb, var(--color-green) 3%, #000);
+    border-top: 1px solid color-mix(in srgb, var(--color-green) 12%, transparent);
+    font-family: var(--font-mono);
+    position: relative;
+    z-index: 1;
+  }
+  .terminal-music-status.is-active {
+    display: block;
+  }
+  .terminal-audio-viz span {
+    flex: 1 1 0;
+    background: var(--color-green);
+    height: 2px;
+    min-height: 2px;
+    box-shadow: 0 0 2px color-mix(in srgb, var(--color-green) 60%, transparent);
+    will-change: height;
+  }
+  /* Idle state (no audio ctx yet) — barely-there dots */
+  .terminal-audio-viz.idle span {
+    background: color-mix(in srgb, var(--color-green) 35%, transparent);
+    box-shadow: none;
   }
 </style>

@@ -191,6 +191,8 @@
     enabled: false,
     ambient: null,
     masterGain: null,
+    analyser: null,
+    freqData: null,
     rickEl: null,
 
     init() {
@@ -199,9 +201,16 @@
         const AC = window.AudioContext || window.webkitAudioContext;
         if (!AC) return;
         this.ctx = new AC();
+        // Analyser sits between masterGain and destination so the viz strip
+        // sees every sound that goes out: ambient hum, key clacks, AND music.
+        this.analyser = this.ctx.createAnalyser();
+        this.analyser.fftSize = 64;                 // 32 bins — enough for a thin strip
+        this.analyser.smoothingTimeConstant = 0.55;
+        this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
         this.masterGain = this.ctx.createGain();
         this.masterGain.gain.value = 0.8;
-        this.masterGain.connect(this.ctx.destination);
+        this.masterGain.connect(this.analyser);
+        this.analyser.connect(this.ctx.destination);
       } catch (err) {
         // AudioContext unavailable — silently no-op
       }
@@ -507,79 +516,6 @@
       });
     },
 
-    // Cassette intro — mechanical clunk + tape hiss build (~0.7s).
-    // Plays before cassette-format tracks.
-    cassetteIntro() {
-      if (!this.enabled || !this.ctx) return;
-      const now = this.ctx.currentTime;
-      // Mechanical clunk (low-passed noise burst)
-      const clunkBuf = this.ctx.createBuffer(1, this.ctx.sampleRate * 0.09, this.ctx.sampleRate);
-      const cd = clunkBuf.getChannelData(0);
-      for (let i = 0; i < cd.length; i++) cd[i] = (Math.random() * 2 - 1) * (1 - i / cd.length);
-      const clunkSrc = this.ctx.createBufferSource();
-      clunkSrc.buffer = clunkBuf;
-      const clunkFilter = this.ctx.createBiquadFilter();
-      clunkFilter.type = "lowpass";
-      clunkFilter.frequency.value = 220;
-      const clunkGain = this.ctx.createGain();
-      clunkGain.gain.value = 0.35;
-      clunkSrc.connect(clunkFilter).connect(clunkGain).connect(this.masterGain);
-      clunkSrc.start(now);
-      clunkSrc.stop(now + 0.1);
-      // Tape hiss (high-passed noise, builds then fades)
-      const hissBuf = this.ctx.createBuffer(1, this.ctx.sampleRate * 0.65, this.ctx.sampleRate);
-      const hd = hissBuf.getChannelData(0);
-      for (let i = 0; i < hd.length; i++) hd[i] = Math.random() * 2 - 1;
-      const hissSrc = this.ctx.createBufferSource();
-      hissSrc.buffer = hissBuf;
-      const hissFilter = this.ctx.createBiquadFilter();
-      hissFilter.type = "highpass";
-      hissFilter.frequency.value = 4500;
-      const hissGain = this.ctx.createGain();
-      hissGain.gain.setValueAtTime(0, now + 0.1);
-      hissGain.gain.linearRampToValueAtTime(0.045, now + 0.32);
-      hissGain.gain.linearRampToValueAtTime(0, now + 0.7);
-      hissSrc.connect(hissFilter).connect(hissGain).connect(this.masterGain);
-      hissSrc.start(now + 0.1);
-      hissSrc.stop(now + 0.7);
-    },
-
-    // Vinyl intro — needle-drop scratch + crackle pops (~0.7s).
-    // Plays before record-format tracks.
-    vinylIntro() {
-      if (!this.enabled || !this.ctx) return;
-      const now = this.ctx.currentTime;
-      // Needle scratch (bandpass sweep)
-      const buf = this.ctx.createBuffer(1, this.ctx.sampleRate * 0.22, this.ctx.sampleRate);
-      const d = buf.getChannelData(0);
-      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-      const src = this.ctx.createBufferSource();
-      src.buffer = buf;
-      const filter = this.ctx.createBiquadFilter();
-      filter.type = "bandpass";
-      filter.frequency.setValueAtTime(700, now);
-      filter.frequency.exponentialRampToValueAtTime(3200, now + 0.18);
-      filter.Q.value = 2;
-      const gain = this.ctx.createGain();
-      gain.gain.setValueAtTime(0.14, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
-      src.connect(filter).connect(gain).connect(this.masterGain);
-      src.start(now);
-      src.stop(now + 0.22);
-      // Crackle pops
-      for (let i = 0; i < 10; i++) {
-        const t = now + 0.18 + Math.random() * 0.5;
-        const osc = this.ctx.createOscillator();
-        osc.type = "square";
-        osc.frequency.value = 60 + Math.random() * 100;
-        const g = this.ctx.createGain();
-        g.gain.setValueAtTime(0.06, t);
-        g.gain.exponentialRampToValueAtTime(0.001, t + 0.02);
-        osc.connect(g).connect(this.masterGain);
-        osc.start(t); osc.stop(t + 0.03);
-      }
-    },
-
     // Speaker wire pulled — abrupt cutoff sound when power dies mid-song.
     // Low-frequency thud (DC-offset drop) + crackling noise burst (short).
     // Plays whether or not ambient audio is enabled — the user explicitly
@@ -626,30 +562,47 @@
   // Independent of power state: music keeps playing through power-off. ----
   const music = {
     el: null,
+    source: null,
     panel: null,
     tabBtn: null,
     activityTabBtn: null,
     active: false,
     current: null,
     volume: 0.7,
-    vizInterval: null,
     tracks: [
-      { id: 1, name: "Pump It Up (Radio Edit)", file: "/audio/pump-it-up.mp3", format: "cassette" },
-      { id: 2, name: "RR Mix (Stereo)",         file: "/audio/rr-mix.mp3",     format: "record" },
+      { id: 1, name: "Pump It Up (Radio Edit)", file: "/audio/pump-it-up.mp3" },
+      { id: 2, name: "RR Mix (Stereo)",         file: "/audio/rr-mix.mp3" },
     ],
 
     init() {
       if (this.el) return;
+      audio.init();  // ensure ctx exists so we can tap el through analyser
       this.el = new Audio();
       this.el.volume = this.volume;
       this.el.muted = false;
       this.el.addEventListener("ended", () => { this.current = null; this.render(); });
+      // Route music through masterGain → analyser → destination so the
+      // terminal viz strip reacts to actual track output. One-shot per
+      // element — guard with this.source. Tracks are same-origin so no
+      // CORS issues.
+      if (audio.ctx && audio.masterGain && !this.source) {
+        try {
+          this.source = audio.ctx.createMediaElementSource(this.el);
+          this.source.connect(audio.masterGain);
+        } catch (e) {
+          // createMediaElementSource can throw on CORS or double-tap —
+          // el falls back to default <audio> playback, viz just won't see it.
+        }
+      }
       const terminal = document.querySelector("[data-terminal]");
       if (!terminal) return;
       const body = terminal.querySelector(".terminal-body");
       const bar = terminal.querySelector(".terminal-bar");
       const socials = bar && bar.querySelector(".terminal-socials");
       if (!body || !socials) return;
+      // Status strip lives outside the body (between body and audio-viz)
+      // so the help line + volume row pin to the bottom of the terminal.
+      this.statusEl = terminal.querySelector("[data-music-status]");
 
       // Tabs injected INTO socials (after GH) so they sit between the GH
       // button and the live indicator. socials has flex:1, so the tabs
@@ -687,14 +640,20 @@
         if (this.tabBtn) this.tabBtn.classList.add("is-active");
         if (this.activityTabBtn) this.activityTabBtn.classList.remove("is-active");
         this.body.classList.add("music-mode");
+        if (this.statusEl) this.statusEl.classList.add("is-active");
+        // Music routes through audio.ctx → analyser → destination, so the
+        // ctx must be RUNNING for sound to come out. Resume on the tab
+        // click (user gesture) so playback works without ambient opt-in.
+        if (audio.ctx && audio.ctx.state === "suspended") {
+          audio.ctx.resume();
+        }
         this.render();
-        this.startViz();
       } else {
         this.active = false;
         if (this.activityTabBtn) this.activityTabBtn.classList.add("is-active");
         if (this.tabBtn) this.tabBtn.classList.remove("is-active");
         this.body.classList.remove("music-mode");
-        this.stopViz();
+        if (this.statusEl) this.statusEl.classList.remove("is-active");
       }
     },
 
@@ -713,6 +672,11 @@
       // Play IMMEDIATELY in the user gesture — Firefox and iOS Safari
       // both lose the gesture across setTimeout, blocking playback.
       // Format intro plays in parallel (overlap) instead of delaying.
+      // Also resume the analyser's ctx — same gesture, covers the case
+      // where the user invokes music via keyboard shortcut ([1]/[2]).
+      if (audio.ctx && audio.ctx.state === "suspended") {
+        audio.ctx.resume();
+      }
       this.el.src = track.file;
       this.el.volume = this.volume;
       this.el.muted = false;
@@ -721,8 +685,6 @@
       if (p && typeof p.catch === "function") {
         p.catch((err) => console.warn("[music] play() rejected:", err && err.name, err && err.message));
       }
-      if (track.format === "cassette") audio.cassetteIntro();
-      else if (track.format === "record") audio.vinylIntro();
       this.current = id;
       this.render();
     },
@@ -744,51 +706,102 @@
       this.render();
     },
 
-    startViz() {
-      this.stopViz();
-      this.vizInterval = setInterval(() => {
-        if (!this.panel) return;
-        const bars = this.panel.querySelectorAll(".term-music-viz span");
-        bars.forEach((bar) => {
-          const h = this.current !== null ? 15 + Math.random() * 85 : 8 + Math.random() * 10;
-          bar.style.height = h + "%";
-        });
-      }, 90);
-    },
-
-    stopViz() {
-      if (this.vizInterval) clearInterval(this.vizInterval);
-      this.vizInterval = null;
-    },
-
     render() {
       if (!this.panel) return;
       const volBars = Array.from({ length: 10 }, (_, i) => {
         const on = i < Math.round(this.volume * 10) ? " is-on" : "";
         return `<span class="term-music-vol-bar${on}"></span>`;
       }).join("");
-      const vizBars = Array.from({ length: 24 }, () => "<span></span>").join("");
       const rows = this.tracks.map((t) => `
         <div class="term-music-track ${this.current === t.id ? "is-playing" : ""}" data-track="${t.id}">
           <span class="term-music-track-num">[${t.id}]</span>
           <span class="term-music-track-name">${this.current === t.id ? "► " : ""}${t.name}</span>
-          <span class="term-music-fmt term-music-fmt-${t.format}">${t.format.toUpperCase()}</span>
         </div>
       `).join("");
       const status = this.current !== null
         ? `♪ playing — ${this.tracks.find((t) => t.id === this.current).name}`
         : "stopped";
+      // Tracks list stays in the body panel; help + volume row render
+      // into the pinned status strip at the bottom of the terminal.
       this.panel.innerHTML = `
         <div class="term-music-head">newell --music</div>
         <div class="term-music-tracks">${rows}</div>
-        <div class="term-music-help">[1-${this.tracks.length}] play · [S] stop · [ESC] activity tab · [+/-] volume</div>
-        <div class="term-music-viz">${vizBars}</div>
-        <div class="term-music-vol-row">
-          <span>${status}</span>
-          <span class="term-music-vol-bars">${volBars}</span>
-          <span>${Math.round(this.volume * 100)}%</span>
-        </div>
       `;
+      if (this.statusEl) {
+        this.statusEl.innerHTML = `
+          <div class="term-music-help">[1-${this.tracks.length}] play · [S] stop · [ESC] activity tab · [+/-] volume</div>
+          <div class="term-music-vol-row">
+            <span>${status}</span>
+            <span class="term-music-vol-bars">${volBars}</span>
+            <span>${Math.round(this.volume * 100)}%</span>
+          </div>
+        `;
+      }
+    },
+  };
+
+  // ---- Always-on audio viz strip — pinned to bottom of the terminal,
+  // above the © year foot. Reads the analyser that the `audio` graph
+  // feeds into (ambient + clacks + music). Falls back to a flat idle
+  // state when AudioContext isn't live yet. Cheap RAF, kills itself
+  // on the cs-powered-off state so the CRT-off illusion isn't broken.
+  const viz = {
+    raf: null,
+    strip: null,
+    bars: null,
+    heights: null,
+
+    init() {
+      if (this.raf) return;
+      this.strip = document.querySelector("[data-audio-viz]");
+      if (!this.strip) return;
+      this.bars = Array.from(this.strip.children);
+      this.heights = new Array(this.bars.length).fill(2);
+      this.idle(true);
+      const loop = () => {
+        this.draw();
+        this.raf = requestAnimationFrame(loop);
+      };
+      this.raf = requestAnimationFrame(loop);
+    },
+
+    idle(on) {
+      if (!this.strip) return;
+      this.strip.classList.toggle("idle", on);
+    },
+
+    draw() {
+      if (!this.bars || !this.bars.length) return;
+      // No analyser yet (no user gesture) — flat idle strip.
+      if (!audio.analyser || !audio.freqData) {
+        this.idle(true);
+        for (let i = 0; i < this.bars.length; i++) {
+          this.bars[i].style.height = "2px";
+          this.heights[i] = 2;
+        }
+        return;
+      }
+      this.idle(false);
+      audio.analyser.getByteFrequencyData(audio.freqData);
+      const data = audio.freqData;
+      const n = this.bars.length;
+      const dataLen = data.length;
+      // Skip bin 0 (DC offset), bias toward low/mid frequencies where
+      // music energy actually lives. Log-ish curve via pow(1.5).
+      for (let i = 0; i < n; i++) {
+        const t = i / (n - 1);
+        const idx = Math.min(
+          dataLen - 1,
+          Math.max(1, Math.floor(Math.pow(t, 1.5) * (dataLen - 2)) + 1)
+        );
+        const v = data[idx] / 255;
+        const target = Math.max(2, Math.pow(v, 0.85) * 100);
+        // Classic VU-meter feel: rise instantly, fall on a 0.82 multiplier.
+        const last = this.heights[i];
+        const next = target > last ? target : last * 0.82;
+        this.heights[i] = next;
+        this.bars[i].style.height = next + "%";
+      }
     },
   };
 
@@ -834,6 +847,10 @@
   }
 
   ready(function () {
+    // Audio viz strip lives at the bottom of the terminal; runs its own
+    // cheap RAF. No-op if the strip isn't in the DOM (embedded terminal).
+    viz.init();
+
     const keyboard = document.querySelector(".cs-keyboard");
     if (keyboard) {
       keyboard.addEventListener("click", function (e) {

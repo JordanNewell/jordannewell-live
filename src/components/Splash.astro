@@ -230,7 +230,7 @@ const LETTERS = [...LEFT, ...RIGHT];
 </style>
 
 <style is:global>
-  body { background-color: #000; }
+  body { background-color: var(--color-bg); }
   .dot-grid { display: none; }
   main { padding-top: 10px !important; padding-bottom: 0 !important; max-width: none !important; }
   /* Lock scroll on desktop only — mobile needs to scroll to reach the dock. */
@@ -1586,7 +1586,9 @@ const LETTERS = [...LEFT, ...RIGHT];
      fully disappears — not just dim, gone. The screen body does its CRT
      collapse in parallel. */
   body.cs-powered-off .terminal-bar,
-  body.cs-powered-off .terminal-foot {
+  body.cs-powered-off .terminal-foot,
+  body.cs-powered-off .terminal-audio-viz,
+  body.cs-powered-off .terminal-music-status {
     opacity: 0;
     transition: opacity 0.4s ease;
   }
@@ -1757,30 +1759,7 @@ const LETTERS = [...LEFT, ...RIGHT];
   }
   .term-music-track-num { color: #3FFF46; min-width: 22px; }
   .term-music-track-name { flex: 1; }
-  .term-music-fmt {
-    font-size: 0.58rem;
-    padding: 0 4px;
-    border: 1px solid currentColor;
-    letter-spacing: 0.08em;
-  }
-  .term-music-fmt-cassette { color: #06B6D4; }
-  .term-music-fmt-record { color: #A855F7; }
   .term-music-help { color: #555; font-size: 0.62rem; letter-spacing: 0.04em; }
-  .term-music-viz {
-    display: flex;
-    align-items: flex-end;
-    gap: 2px;
-    height: 22px;
-    margin-top: 8px;
-  }
-  .term-music-viz span {
-    flex: 1;
-    background: #3FFF46;
-    height: 12%;
-    min-height: 2px;
-    box-shadow: 0 0 2px rgba(63, 255, 70, 0.6);
-    transition: height 0.08s linear;
-  }
   .term-music-vol-row {
     display: flex;
     align-items: center;
