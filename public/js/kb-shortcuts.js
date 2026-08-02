@@ -101,6 +101,8 @@
   // Live favicon — swaps the browser tab icon to match power state.
   // Inline SVG (no file needed) with the same radial-gradient LED look
   // as the status indicator: green when ON, red when OFF.
+  // Transparent background — browser/platform provides its own
+  // container bg (white circle on iOS, dark on Android, etc.).
   function updateFavicon() {
     const off = isPoweredOff();
     const light = off ? "#ffb8b8" : "#b8ffba";
@@ -108,14 +110,13 @@
     const dark = off ? "#8a1f1f" : "#1f8a23";
     const svg =
       "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>" +
-      "<rect width='32' height='32' rx='7' fill='#070707'/>" +
       "<defs><radialGradient id='g' cx='30%' cy='28%'>" +
       "<stop offset='0%' stop-color='" + light + "'/>" +
       "<stop offset='55%' stop-color='" + mid + "'/>" +
       "<stop offset='100%' stop-color='" + dark + "'/>" +
       "</radialGradient></defs>" +
-      "<circle cx='16' cy='16' r='10' fill='url(%23g)'/>" +
-      "<circle cx='12.5' cy='12.5' r='2.5' fill='white' fill-opacity='0.7'/>" +
+      "<circle cx='16' cy='16' r='12' fill='url(%23g)'/>" +
+      "<circle cx='12' cy='12' r='3' fill='white' fill-opacity='0.7'/>" +
       "</svg>";
     let link = document.querySelector("link[rel='icon']");
     if (!link) {
