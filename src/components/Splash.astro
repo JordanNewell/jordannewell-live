@@ -105,6 +105,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     </div>
     <div class="cs-streamdeck" aria-label="NEWELL product family">
       <div class="cs-sd-bezel">
+        <div class="cs-sd-grid-stack">
         <div class="cs-sd-grid cs-sd-grid-6 cs-sd-launch-grid">
           <a class="cs-sd-key cs-sd-c1" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
             <span class="cs-sd-cap">CL</span>
@@ -159,6 +160,7 @@ const LETTERS = [...LEFT, ...RIGHT];
             <span class="cs-sd-cap">+</span>
             <span class="cs-sd-label">vol+</span>
           </button>
+        </div>
         </div>
         {/* FX rack — inside the same bezel as the launch keys.
             Top 2 slots: LED indicators (pulse on any effect trigger).
@@ -828,11 +830,17 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-c9:hover .cs-sd-cap { color: #F59E0B; }
   .cs-sd-c10:hover .cs-sd-cap { color: #fafafa; }
   .cs-sd-key:hover .cs-sd-label { color: #FFFFFF; }
-  /* Music profile swap — bezel gets .music-active when the music program
-     boots. Launch grid + transport grid coexist in DOM; visibility flips.
-     Bezel shape stays identical, only key faces change. */
-  .cs-sd-transport-grid { display: none; }
-  .cs-sd-bezel.music-active .cs-sd-launch-grid { display: none; }
+  /* Music profile swap — both grids live in .cs-sd-grid-stack.
+     Launch grid is always in normal flow (sizes the stack); transport
+     grid overlays it absolutely when .music-active. Bezel never reflows —
+     only key faces change. */
+  .cs-sd-grid-stack { position: relative; }
+  .cs-sd-transport-grid {
+    position: absolute;
+    inset: 0;
+    display: none;
+  }
+  .cs-sd-bezel.music-active .cs-sd-launch-grid { visibility: hidden; }
   .cs-sd-bezel.music-active .cs-sd-transport-grid { display: grid; }
   .cs-sd-transport {
     cursor: pointer;
