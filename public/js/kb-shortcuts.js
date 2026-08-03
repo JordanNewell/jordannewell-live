@@ -647,8 +647,10 @@
 
     switchTab(which) {
       this.init();
+      const bezel = document.querySelector(".cs-sd-bezel");
       if (which === "music") {
         this.active = true;
+        if (bezel) bezel.classList.add("music-active");
         if (this.tabBtn) this.tabBtn.classList.add("is-active");
         if (this.activityTabBtn) this.activityTabBtn.classList.remove("is-active");
         this.body.classList.add("music-mode");
@@ -662,10 +664,14 @@
         this.render();
       } else {
         this.active = false;
+        if (bezel) bezel.classList.remove("music-active");
         if (this.activityTabBtn) this.activityTabBtn.classList.add("is-active");
         if (this.tabBtn) this.tabBtn.classList.remove("is-active");
         this.body.classList.remove("music-mode");
         if (this.statusEl) this.statusEl.classList.remove("is-active");
+        // Boot down the music program — stop audio + reset. Silent per
+        // spec (no shutdown sound). stop() also calls render().
+        this.stop();
       }
     },
 
@@ -710,6 +716,43 @@
       this.render();
     },
 
+    // Transport controls — wired to the cs-sd-transport buttons that
+    // swap into the bezel when music-active.
+    togglePlayPause() {
+      this.init();
+      if (this.current === null) {
+        // Nothing loaded yet → spin up the first track.
+        this.play(this.tracks[0].id);
+        return;
+      }
+      if (this.el.paused) {
+        if (audio.ctx && audio.ctx.state === "suspended") audio.ctx.resume();
+        const p = this.el.play();
+        if (p && typeof p.catch === "function") {
+          p.catch((err) => console.warn("[music] resume rejected:", err && err.name));
+        }
+      } else {
+        this.el.pause();
+      }
+      this.render();
+    },
+
+    prevTrack() {
+      const ids = this.tracks.map((t) => t.id);
+      if (!ids.length) return;
+      if (this.current === null) { this.play(ids[ids.length - 1]); return; }
+      const idx = ids.indexOf(this.current);
+      this.play(ids[(idx - 1 + ids.length) % ids.length]);
+    },
+
+    nextTrack() {
+      const ids = this.tracks.map((t) => t.id);
+      if (!ids.length) return;
+      if (this.current === null) { this.play(ids[0]); return; }
+      const idx = ids.indexOf(this.current);
+      this.play(ids[(idx + 1) % ids.length]);
+    },
+
     bumpVolume(delta) { this.setVolume(this.volume + delta); },
 
     setVolume(v) {
@@ -748,6 +791,14 @@
             <span>${Math.round(this.volume * 100)}%</span>
           </div>
         `;
+      }
+      // Sync transport play-pause cap/label with actual playback state.
+      const ppCap = document.querySelector(".cs-sd-pp-cap");
+      const ppLabel = document.querySelector(".cs-sd-pp-label");
+      if (ppCap && ppLabel) {
+        const isPlaying = this.current !== null && this.el && !this.el.paused;
+        ppCap.textContent = isPlaying ? "⏸" : "▶";
+        ppLabel.textContent = isPlaying ? "pause" : "play";
       }
     },
   };
@@ -897,6 +948,24 @@
         if (ACTIONS[fx]) {
           pulseLeds();
           ACTIONS[fx]();
+        }
+      });
+    });
+
+    // Transport buttons — only visible when music profile is active, but
+    // safe to wire at init (clicks are no-ops while hidden via display:none).
+    const transportButtons = document.querySelectorAll("[data-transport]");
+    transportButtons.forEach((btn) => {
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        switch (btn.getAttribute("data-transport")) {
+          case "prev":       music.prevTrack(); break;
+          case "play-pause": music.togglePlayPause(); break;
+          case "stop":       music.stop(); break;
+          case "next":       music.nextTrack(); break;
+          case "vol-down":   music.bumpVolume(-0.1); break;
+          case "vol-up":     music.bumpVolume(0.1); break;
         }
       });
     });

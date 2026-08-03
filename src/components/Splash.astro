@@ -105,7 +105,7 @@ const LETTERS = [...LEFT, ...RIGHT];
     </div>
     <div class="cs-streamdeck" aria-label="NEWELL product family">
       <div class="cs-sd-bezel">
-        <div class="cs-sd-grid cs-sd-grid-6">
+        <div class="cs-sd-grid cs-sd-grid-6 cs-sd-launch-grid">
           <a class="cs-sd-key cs-sd-c1" href="https://jordannewell.github.io/claudeway-site/" target="_blank" rel="noopener" title="claudeway">
             <span class="cs-sd-cap">CL</span>
             <span class="cs-sd-label">claudeway</span>
@@ -131,6 +131,35 @@ const LETTERS = [...LEFT, ...RIGHT];
             <span class="cs-sd-label">pat-scan</span>
           </a>
         </div>
+        {/* Transport profile — hidden by default, swaps in when music
+            program boots (bezel gets .music-active). Mirrors the launch
+            grid's 6-key layout so the bezel shape never changes. */}
+        <div class="cs-sd-grid cs-sd-grid-6 cs-sd-transport-grid" aria-label="Music transport">
+          <button class="cs-sd-key cs-sd-transport" data-transport="prev" title="Previous track">
+            <span class="cs-sd-cap">◀◀</span>
+            <span class="cs-sd-label">prev</span>
+          </button>
+          <button class="cs-sd-key cs-sd-transport" data-transport="play-pause" title="Play / Pause">
+            <span class="cs-sd-cap cs-sd-pp-cap">▶</span>
+            <span class="cs-sd-label cs-sd-pp-label">play</span>
+          </button>
+          <button class="cs-sd-key cs-sd-transport" data-transport="stop" title="Stop">
+            <span class="cs-sd-cap">■</span>
+            <span class="cs-sd-label">stop</span>
+          </button>
+          <button class="cs-sd-key cs-sd-transport" data-transport="next" title="Next track">
+            <span class="cs-sd-cap">▶▶</span>
+            <span class="cs-sd-label">next</span>
+          </button>
+          <button class="cs-sd-key cs-sd-transport" data-transport="vol-down" title="Volume down">
+            <span class="cs-sd-cap">−</span>
+            <span class="cs-sd-label">vol-</span>
+          </button>
+          <button class="cs-sd-key cs-sd-transport" data-transport="vol-up" title="Volume up">
+            <span class="cs-sd-cap">+</span>
+            <span class="cs-sd-label">vol+</span>
+          </button>
+        </div>
         {/* FX rack — inside the same bezel as the launch keys.
             Top 2 slots: LED indicators (pulse on any effect trigger).
             Bottom 2 slots: unique effects not on the keyboard. */}
@@ -153,8 +182,6 @@ const LETTERS = [...LEFT, ...RIGHT];
           </button>
         </div>
       </div>
-      {/* Launch label under the keypad bezel */}
-      <a class="cs-sd-launch" href="#" aria-hidden="true">Launch <span aria-hidden="true">→</span></a>
     </div>
   </div>
 
@@ -801,6 +828,22 @@ const LETTERS = [...LEFT, ...RIGHT];
   .cs-sd-c9:hover .cs-sd-cap { color: #F59E0B; }
   .cs-sd-c10:hover .cs-sd-cap { color: #fafafa; }
   .cs-sd-key:hover .cs-sd-label { color: #FFFFFF; }
+  /* Music profile swap — bezel gets .music-active when the music program
+     boots. Launch grid + transport grid coexist in DOM; visibility flips.
+     Bezel shape stays identical, only key faces change. */
+  .cs-sd-transport-grid { display: none; }
+  .cs-sd-bezel.music-active .cs-sd-launch-grid { display: none; }
+  .cs-sd-bezel.music-active .cs-sd-transport-grid { display: grid; }
+  .cs-sd-transport {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    padding: 0;
+    color: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .cs-sd-transport:hover .cs-sd-cap { color: #00FF41; }
 
   /* Desktop: 2-col × 3-row stream deck (6 launch keys) + 4 FX buttons share
      one bezel as a single launch-pad unit. 168px wide total. Sits beside the
@@ -822,18 +865,6 @@ const LETTERS = [...LEFT, ...RIGHT];
       margin-top: 25px;
       text-align: center;
     }
-  }
-  /* Launch pad label under stream deck bezel */
-  .cs-sd-launch {
-    display: block;
-    text-align: center;
-    font-family: "JetBrains Mono", monospace;
-    font-size: 0.55rem;
-    color: #606060;
-    margin-top: 6px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
   }
 
   /* FX rack — flex child of the bezel (sits inside the same green frame
@@ -1325,17 +1356,6 @@ const LETTERS = [...LEFT, ...RIGHT];
       padding-left: 5px;
     }
     .cs-fx-key svg, .cs-fx-key-img { width: 12px; height: 12px; }
-    .cs-sd-launch {
-      display: block;
-      text-align: center;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.55rem;
-      color: #606060;
-      margin-top: 6px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      text-decoration: none;
-    }
     /* Mobile: keyboard stacked ABOVE keypad, both visible. */
     .cs-keyboard-stage .cs-keyboard {
       display: flex;
@@ -1516,7 +1536,6 @@ const LETTERS = [...LEFT, ...RIGHT];
   /* Phase 1: text fuzzes to nothing */
   body.cs-powered-off .cs-sd-cap,
   body.cs-powered-off .cs-sd-label,
-  body.cs-powered-off .cs-sd-launch,
   body.cs-powered-off .cs-fx-key svg,
   body.cs-powered-off .cs-fx-key-img {
     animation: cs-text-fuzz-out 0.5s ease-out forwards;
