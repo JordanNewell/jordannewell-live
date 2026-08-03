@@ -171,15 +171,19 @@
     audio.chime();
   }
 
-  // ---- Effect 7: Launch-pad glitch (skew + hue + jitter) ----
+  // ---- Effect 7: Launch-pad glitch — cycles 4 visual variants per press ----
+  let glitchStep = 0;
+  const GLITCH_CLASSES = ["cs-glitch", "cs-glitch-rgb", "cs-glitch-shake", "cs-glitch-flash"];
   function glitch() {
     const bezel = document.querySelector(".cs-sd-bezel");
     if (!bezel) return;
-    bezel.classList.remove("cs-glitch");
+    const cls = GLITCH_CLASSES[glitchStep % GLITCH_CLASSES.length];
+    GLITCH_CLASSES.forEach((c) => bezel.classList.remove(c));
     void bezel.offsetWidth; // reflow to restart animation
-    bezel.classList.add("cs-glitch");
-    setTimeout(() => bezel.classList.remove("cs-glitch"), 500);
+    bezel.classList.add(cls);
+    setTimeout(() => bezel.classList.remove(cls), 500);
     audio.playRickRoll();
+    glitchStep++;
   }
 
   // ---- Audio system (Web Audio API, synthesized — no files) ----
@@ -570,8 +574,16 @@
     current: null,
     volume: 0.7,
     tracks: [
-      { id: 1, name: "Pump It Up (Radio Edit)", file: "/audio/pump-it-up.mp3" },
-      { id: 2, name: "RR Mix (Stereo)",         file: "/audio/rr-mix.mp3" },
+      { id: 1, name: "Pump It Up", file: "/audio/pump-it-up.mp3" },
+      { id: 2, name: "Never Gonna Give You Up", file: "/audio/rr-mix.mp3" },
+      { id: 3, name: "Baby, Baby",              file: "/audio/baby-baby.mp3" },
+      { id: 4, name: "Turn Down for What",      file: "/audio/turn-down-for-what.mp3" },
+      { id: 5, name: "Peru",                    file: "/audio/peru.mp3" },
+      { id: 6, name: "Gimme More",              file: "/audio/gimme-more.mp3" },
+      { id: 7, name: "How Will I Know",         file: "/audio/how-will-i-know.mp3" },
+      { id: 8, name: "To Ü",                    file: "/audio/to-u.mp3" },
+      { id: 9, name: "The Business",            file: "/audio/the-business.mp3" },
+      { id: 10, name: "Everybody Wants To Rule The World", file: "/audio/everybody-wants-to-rule-the-world.mp3" },
     ],
 
     init() {

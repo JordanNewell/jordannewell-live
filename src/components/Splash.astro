@@ -898,11 +898,12 @@ const LETTERS = [...LEFT, ...RIGHT];
       filter: brightness(1.5) drop-shadow(0 0 18px #3FFF46) drop-shadow(0 0 32px rgba(63, 255, 70, 0.6));
     }
   }
-  /* Glitch: bezel distorts briefly (skew + hue shift + jitter).
+  /* Glitch: bezel distorts briefly. 4 variants cycle per bolt press.
      Bezel base transform is `none` so we can freely animate it. */
-  .cs-sd-bezel.cs-glitch {
-    animation: cs-glitch 0.5s steps(5);
-  }
+  .cs-sd-bezel.cs-glitch       { animation: cs-glitch 0.5s steps(5); }
+  .cs-sd-bezel.cs-glitch-rgb   { animation: cs-glitch-rgb 0.5s steps(5); }
+  .cs-sd-bezel.cs-glitch-shake { animation: cs-glitch-shake 0.5s steps(8); }
+  .cs-sd-bezel.cs-glitch-flash { animation: cs-glitch-flash 0.5s steps(5); }
   @keyframes cs-glitch {
     0%   { transform: translate(0, 0)    skewX(0deg);  filter: none; }
     18%  { transform: translate(-3px, 1px) skewX(2deg);  filter: hue-rotate(90deg) saturate(2); }
@@ -910,6 +911,35 @@ const LETTERS = [...LEFT, ...RIGHT];
     54%  { transform: translate(-2px, 2px) skewX(1deg);  filter: hue-rotate(-90deg) brightness(1.3); }
     72%  { transform: translate(3px, -1px) skewX(-1deg); filter: saturate(2.5); }
     100% { transform: translate(0, 0)    skewX(0deg);  filter: none; }
+  }
+  /* RGB split — chromatic aberration via stacked red/cyan drop-shadows. */
+  @keyframes cs-glitch-rgb {
+    0%   { filter: none; transform: translate(0, 0); }
+    20%  { filter: drop-shadow(2px 0 #ff0040) drop-shadow(-2px 0 #00ffff); transform: translate(2px, 0); }
+    40%  { filter: drop-shadow(-3px 0 #ff0040) drop-shadow(3px 0 #00ffff); transform: translate(-2px, 1px); }
+    60%  { filter: drop-shadow(1px 1px #ff0040) drop-shadow(-1px -1px #00ffff); transform: translate(1px, -1px); }
+    80%  { filter: drop-shadow(-1px 0 #ff0040) drop-shadow(1px 0 #00ffff); transform: translate(0, 1px); }
+    100% { filter: none; transform: translate(0, 0); }
+  }
+  /* Shake — violent horizontal jitter, no color shift. */
+  @keyframes cs-glitch-shake {
+    0%   { transform: translate(0, 0); }
+    15%  { transform: translate(-5px, 1px); }
+    30%  { transform: translate(4px, -1px); }
+    45%  { transform: translate(-3px, 2px); }
+    60%  { transform: translate(5px, 0); }
+    75%  { transform: translate(-4px, -1px); }
+    90%  { transform: translate(2px, 1px); }
+    100% { transform: translate(0, 0); }
+  }
+  /* Flash — CRT sync loss via quick invert flashes. */
+  @keyframes cs-glitch-flash {
+    0%   { filter: none; transform: translate(0, 0); }
+    20%  { filter: invert(1); transform: translate(0, -1px); }
+    40%  { filter: invert(0) contrast(2); transform: translate(1px, 0); }
+    60%  { filter: invert(1) brightness(1.3); transform: translate(-1px, 1px); }
+    80%  { filter: invert(0.15) saturate(0.4); transform: translate(0, -1px); }
+    100% { filter: none; transform: translate(0, 0); }
   }
   .cs-fx-key {
     flex: 1 1 0;
