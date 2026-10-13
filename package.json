@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Standalone splash site for jordannewell.com — isolated from the blog so iterations don't entangle deploys.",
   "author": "Jordan Newell <jordan@jordannewell.com> (https://jordannewell.com)",
-  "license": "MIT",
+  "license": "BUSL-1.1",
   "engines": {
     "node": ">=22.12.0"
   },
