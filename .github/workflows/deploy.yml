@@ -28,7 +28,7 @@ jobs:
         env:
           # Custom domain — site is served from jordannewell.com root, no base path.
           SITE_URL: https://jordannewell.com
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
 
