@@ -20,7 +20,7 @@
     "@fontsource-variable/inter-tight": "^5.2.7",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@tailwindcss/vite": "^4.3.4",
-    "astro": "^7.4.5",
+    "astro": "^7.4.8",
     "tailwindcss": "^4.3.4"
   }
 }
